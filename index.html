@@ -10,6 +10,7 @@
         padding: 0;
         background-image: url(bgtexture.jpg);
         background-repeat: repeat;
+        background-color: #eee;
       }
       body h1, body h2 {
         font-family: 'Myriad Pro';
@@ -131,16 +132,16 @@
         float: left;
       }
       .feature .icon.noinstall {
-        background-position-y: -54px;
+        background-position: 0px -54px;
       }
       .feature .icon.open {
-        background-position-y: -106px;
+        background-position: 0px -106px;
       }
       .feature .icon.deps {
-        background-position-y: -152px;
+        background-position: 0px -152px;
       }
       .cog {
-        display: none;
+        visibility: hidden;
         width: 47px;
         height: 30px;
         background-image: url(cog.gif);
@@ -234,22 +235,14 @@
         submitted = true;
 
         sButton.setAttribute('value', '');
-        sCog.style.display = 'block';
+        sCog.style.visibility = 'visible';
         sInput.style.backgroundColor = 'transparent';
         sInput.setAttribute('disabled', 'disabled');
         document.activeElement.blur();
 
-        var submitted = function() {
-          sInput.value = 'Thanks, we will be in touch soon.';
-          sCog.style.display = 'none';
-          sInput.style.borderRightStyle = 'none';
-          sButton.style.borderLeftStyle = 'none';
-          sButton.style.background = 'transparent';
-        }
-
         submitEmail(email, function(msg) {
           sInput.value = msg;
-          sCog.style.display = 'none';
+          sCog.style.visibility = 'hidden';
           sInput.style.borderRightStyle = 'none';
           sButton.style.borderLeftStyle = 'none';
           sButton.style.background = 'transparent';
