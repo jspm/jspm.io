@@ -1,0 +1,278 @@
+<!doctype html>
+<html>
+  <title>jspm.io - Frictionless browser package management</title>
+  <head>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Advent+Pro:300' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+        background-image: url(bgtexture.jpg);
+        background-repeat: repeat;
+      }
+      body h1, body h2 {
+        font-family: 'Myriad Pro';
+        -webkit-font-smoothing: antialiased;
+        font-weight: 100;
+      }
+      .vcenter {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+      }
+      .vcenter .box {
+        height: 300px;
+        margin-top: -175px;
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+      }
+      .logobox {
+        background-image: url(icons.png);
+        width: 46px;
+        height: 46px;
+        margin-bottom: -65px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 180px;
+        background-repeat: no-repeat;
+      }
+      h1.logo {
+        font-family: 'Advent Pro', 'Myriad Pro', sans-serif;
+        color: #7F7F7F;
+        font-size: 60px;
+        margin: 0;
+        margin-bottom: 40px;
+        text-align: center;
+        text-shadow: 1px 1px 1px #fff;
+      }
+      h1.logo span {
+        color: #CE882C;
+      }
+      h2.tagline {
+        font-size: 22px;
+        text-shadow: 1px 1px 1px #fff;
+        color: #555;
+        text-align: center;
+      }
+      .signup-group {
+        margin-top: 40px;
+        width: 301px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+      }
+      input.signup {
+        border: 1px solid #555;
+        font-size: 12px;
+        width: 210px;
+        color: #888;
+        padding: 10px;
+        border: 1px solid #C1C1C1;
+        text-shadow: 1px 1px 1px #fff;
+        font-style: italic;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        margin: 0;
+      }
+      .signup-group input.signup-submit {
+        border: 1px solid #C1C1C1;
+        background-color: #E2E2E2;
+        font-size: 12px;
+        color: #666;
+        height: 37px;
+        width: 70px;
+        padding: 0;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        cursor: pointer;
+        background-repeat: no-repeat;
+      }
+      .signup-group input.signup-submit:hover {
+        background-color: #eee;
+      }
+      .signup-group input.signup-submit:active {
+        background-color: #ddd;
+      }
+      .features {
+        position: absolute;
+        bottom: 0px;
+        height: 100px;
+        width: 100%;
+        background-color: #A0A0A0;
+        border-top: 1px solid #939393;
+        border-bottom: 1px solid #939393;
+      }
+      .features .feature h2 {
+        margin-top: 40px;
+        color: #eee;
+        font-style: italic;
+        font-size: 20px;
+      }
+      .features .feature {
+        width: 33.3333%;
+        float: left;
+      }
+      .features .feature .icon {
+        float: left;
+        width: 47px;
+        height: 50px;
+        margin-top: 25px;
+        margin-right: 10px;
+        margin-left: 20px;
+        margin-bottom: 25px;
+        background-image: url(icons.png);
+      }
+      .features .feature h2 {
+        float: left;
+      }
+      .feature .icon.noinstall {
+        background-position-y: -54px;
+      }
+      .feature .icon.open {
+        background-position-y: -106px;
+      }
+      .feature .icon.deps {
+        background-position-y: -152px;
+      }
+      .cog {
+        display: none;
+        width: 47px;
+        height: 30px;
+        background-image: url(cog.gif);
+        background-repeat: no-repeat;
+        position: absolute;
+        bottom: -37px;
+        right: 1px;
+      }
+
+      @media screen and (max-width: 1000px),
+      screen and (max-device-width: 1000px) {
+        body {
+          -webkit-text-size-adjust: none;
+        }
+        .vcenter {
+          position: static;
+        }
+        .vcenter .box {
+          margin: 20px;
+          margin-top: 50px;
+          position: static;
+          width: auto;
+        }
+        .features {
+          height: auto;
+          position: static;
+        }
+        .features .feature {
+          background-color: #A0A0A0;
+          height: 100px;
+          float: none;
+          clear: both;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="vcenter">
+      <div class="box">
+        <div class="logobox"></div>
+        <h1 class="logo">&nbsp;&nbsp;&nbsp;<span>jspm</span>.io</h1>
+        <h2 class="tagline">Frictionless browser package management</h2>
+        <form class="signup-group">
+          <input type="text" class="signup" value="Sign up for a beta invite"></input>
+          <input type="submit" class="signup-submit" value="Sign up"></input>
+          <div class="cog"></div>
+        </div>
+      </div>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="icon noinstall"></div>
+        <h2>No install necessary</h2>
+      </div>
+      <div class="feature">
+        <div class="icon open"></div>
+        <h2>Built on open standards</h2>
+      </div>
+      <div class="feature">
+        <div class="icon deps"></div>
+        <h2>Dependency managed registry</h2>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var sInput = document.querySelector('input.signup');
+      var sForm = document.querySelector('form.signup-group');
+      var sButton = document.querySelector('input.signup-submit');
+      var sCog = document.querySelector('.cog');
+      var firstFocus = true;
+      sInput.addEventListener('focus', function() {
+        if (firstFocus)
+          sInput.setAttribute('value', '');
+        firstFocus = false;
+      });
+      var submitted = false;
+      sForm.addEventListener('submit', function(e) {
+        if (submitted) {
+          e.preventDefault();
+          return false;
+        }
+        var email = sInput.value;
+        if (!email.match(/[A-Z0-9\._%+-]+@[A-Z0-9\.-]+\.[A-Z]{2,4}/i)) {
+          sInput.style.backgroundColor = '#FFD4D4';
+          e.preventDefault();
+          return false;
+        }
+        else
+          sInput.style.backgroundColor = '#fff';
+
+        submitted = true;
+
+        sButton.setAttribute('value', '');
+        sCog.style.display = 'block';
+        sInput.style.backgroundColor = 'transparent';
+        sInput.setAttribute('disabled', 'disabled');
+        document.activeElement.blur();
+
+        var submitted = function() {
+          sInput.value = 'Thanks, we will be in touch soon.';
+          sCog.style.display = 'none';
+          sInput.style.borderRightStyle = 'none';
+          sButton.style.borderLeftStyle = 'none';
+          sButton.style.background = 'transparent';
+        }
+
+        submitEmail(email, function(msg) {
+          sInput.value = msg;
+          sCog.style.display = 'none';
+          sInput.style.borderRightStyle = 'none';
+          sButton.style.borderLeftStyle = 'none';
+          sButton.style.background = 'transparent';
+          sButton.style.cursor = 'default';
+        });
+
+        e.preventDefault();
+        return false;
+      });
+
+      var submitEmail = function(email, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://jspm.io/signup');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if (xhr.status == 200 && xhr.responseText == 'ok')
+              callback('Thanks, we will be in touch soon.');
+            else
+              callback('ERROR! Ok this is embarrasing...');
+          }
+        };
+        xhr.send(email);
+      }
+    </script>
+  </body>
+</html>
