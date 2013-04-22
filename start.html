@@ -164,6 +164,8 @@ Include the jspm tag in the head of the page:
   <script src="http://dev.jspm.io/require.js"></script>
 ```
 
+_There is a copy of jspm in this page, so you can try it here from the JavaScript console in the browser._
+
 Then require any module:
 
 ```javascript
@@ -276,12 +278,12 @@ With the `package.json` referencing the configuration and baseUrl, we can then i
 We can also install a specific version of bootstrap:
 
 ```
-  jspm install bootstrap-2.3.1
+  jspm install bootstrap#2.3.1
 ```
 
 This will install the latest version of bootstrap into the baseUrl, install jquery, and add the RequireJS configuration to shim bootstrap and jquery, including automatically injecting the bootstrap css with RequireCSS.
 
-Thus the difference between using jspm locally and on the CDN is simply the difference between using the local and global require.js file.
+The require function behaves identically between the local and remote versions, thus the difference between using jspm locally and on the CDN is simply the difference between using the local and global require.js script in the head.
 
 <a id="Publishing Modules"></a>
 ### Publishing Modules
