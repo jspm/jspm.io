@@ -141,7 +141,9 @@
     </div>
 
     <markdown style="display: none;">
-_jspm is a public RequireJS registry. Module owners can publish versioned, dependency-managed packages, and users can embed the global require into their page to load any module. jspm also has a command-line tool for downloading packages and their dependencies managing injection of their RequireJS configuration._
+_jspm is a public RequireJS registry. Module owners can publish versioned, dependency-managed packages, and users can embed the global require into their page to load any module._
+
+_jspm also provides a command-line tool for downloading packages and their dependencies managing injection of their RequireJS configuration._
 
 - [Basic Use](#Basic Use)
 - [Examples](#Examples)
@@ -230,7 +232,7 @@ These local application paths are cache-busted allowing for an easy and quick de
 
 [DataTable](http://jsbin.com/uyefeb/1/edit)
 
-Note that these all use [RequireCSS](https://github.com/guybedford/require-css) for CSS injection, either through a shim or in the module itself. This allows injection to occurr seamlessly and compatible with builds.
+Note that these all use [RequireCSS](https://github.com/guybedford/require-css) for CSS injection, either through a shim or in the module itself. This allows injection to occur seamlessly and compatible with builds.
 
 <a id="Command-Line Usage"></a>
 ### Command-Line Usage
@@ -354,7 +356,7 @@ There are a number of configuration options for publishing, which allow setting 
 
 These include setting the [Entry Points](#Main Entry Point), [Dependencies](#Dependencies) and [RequireJS Shim Configuration](#Shim Configuration).
 
-This configuration is set in both the `jspm` property of the `package.json` or as the fourth paramter of the publish command which
+This configuration is set in both the `jspm` property of the `package.json` or as the fourth parameter of the publish command which
 acts as an override.
 
 <a id="Entry Points"></a>
@@ -408,7 +410,7 @@ The second main allows requires of the form:
 <a id="Dependencies"></a>
 #### Dependencies
 
-If `amazingjs` is dependent on `jquery`. We need to express this dependency to jspm.
+If `amazingjs` is dependent on `jquery`, we need to express this dependency to jspm.
 
 The way to handle this is to build code that assumes the existence of other global modules, writing code like:
 
@@ -547,15 +549,13 @@ jspm.publish(
 
 If you got this far, that is great. It means the system isn't completely dull, and there might be some interest. Woo!
 
-I initially created jspm out of a need to easily share [ZestJS](http://zestjs.org) components. I built ZestJS out of many separate modules using modular best-practises, but then found myself with an install problem. jspm was the solution to making it really easy to share Zest Components, as you can see in the [mobile component example](http://jsbin.com/osilec/1/edit).
+I initially created jspm out of a need to easily share [ZestJS](http://zestjs.org) components. I built ZestJS out of many separate modules using modular best-practices, but then found myself with an install problem. jspm was the solution to making it really easy to share Zest Components, as you can see in the [mobile component example](http://jsbin.com/osilec/1/edit).
 
-My goal with jspm is to build up a registry (as fun as it is just using this whole thing myself), and this is not something I can do alone.
+Feedback would be really appreciated on all aspects from suggestions for building it further to improvement suggestions for the workflow.
 
-Feedback would be really appreciated on all aspects from whether you like it or not, to suggestions for building it further, to improvement suggestions for the workflow.
+The system in its current form is only the minimim viable prototype. My goal is to add a lot more tooling around module updates, community version compatibility testing, automatic builds and optimization.
 
-The system in its current form is only the minimim viable prototype. My goal is to add a lot more tooling around automatic builds and optimization.
-
-Feel free to start a discussion on the [Goole Group](http://groups.google.com/group/jspm), or email me directly at guybedford@gmail.com.
+Feel free to start a discussion on the [Google Group](http://groups.google.com/group/jspm), or email me directly at guybedford@gmail.com.
 
     </markdown>
     <script>
