@@ -121,7 +121,7 @@
             var curPackage = packages[i];
             if (!curPackage.value.updated)
               continue;
-            data.push([curPackage.value.name, curPackage.value.versions.reverse().join(', '), curPackage.value.endpoints.pop(), (new Date(curPackage.value.updated)).toLocaleDateString()])
+            data.push([curPackage.name, curPackage.versions.reverse().join(', '), curPackage.endpoints.pop(), (new Date(curPackage.updated)).toLocaleDateString()])
           }
 
           require(['datatable'], function(datatable) {
