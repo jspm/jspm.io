@@ -119,7 +119,7 @@
           var data = [];
           for (var i = 0; i < packages.length; i++) {
             var curPackage = packages[i];
-            if (!curPackage.value.updated)
+            if (!curPackage.updated)
               continue;
             data.push([curPackage.name, curPackage.versions.reverse().join(', '), curPackage.endpoints.pop(), (new Date(curPackage.updated)).toLocaleDateString()])
           }
