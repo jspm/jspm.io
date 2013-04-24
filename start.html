@@ -438,6 +438,23 @@ Note that versions are entirely locked down. This is done to ensure that version
 build, versions can be remapped to ensure single versions are only used. This process would involve manual testing to work
 out the best version initially, but the idea is to automate this in future versions.
 
+_Any public dependencies must be stated in the dependencies array. Without this, versions can't be locked down and users downloading
+the package won't have its dependencies downloaded._
+
+<a id="Testing Publishing"></a>
+#### Testing Publishing
+
+All files are cached on a CDN with incredibly long expires headers. So once an HTTP request has been made to the new version of a 
+package, it can't be cleared without bumping the version number.
+
+To test out a published module without adding it to the CDN cache, use the require script:
+
+```html
+  <script src="http://dev-nocache.jspm.io/require.js"></script>
+```
+
+This allows testing of the module without going through the CDN, making it possible publish over the same version multiple times.
+
 <a id="Shim Configuration"></a>
 #### Shim Configuration
 
