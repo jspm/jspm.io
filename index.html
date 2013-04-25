@@ -12,7 +12,7 @@
         background-repeat: repeat;
         background-color: #eee;
       }
-      body h1, body h2 {
+      body h1, body h2, a.start {
         font-family: 'Myriad Pro';
         -webkit-font-smoothing: antialiased;
         font-weight: 100;
@@ -150,6 +150,27 @@
         bottom: -37px;
         right: 1px;
       }
+      a.start {
+        margin-top: 45px;
+        margin-bottom: 50px;
+        text-decoration: none;
+        text-align: center;
+        display: block;
+        background-color: #E2E2E2;
+        border: 1px solid #C1C1C1;
+        width: 150px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 12px 40px;
+        border-radius: 10px;
+        color: #555;
+        text-shadow: 1px 1px 1px #fff;
+        font-size: 14px;
+        line-height: 17px;
+      }
+      a.start:hover {
+        background-color: #eee;
+      }
 
       @media screen and (max-width: 1000px),
       screen and (max-device-width: 1000px) {
@@ -193,8 +214,9 @@
         <div class="logobox"></div>
         <h1 class="logo">&nbsp;&nbsp;&nbsp;<span>jspm</span>.io</h1>
         <h2 class="tagline">Frictionless browser package management</h2>
+        <a href="/start" class="start">Get Started</a>
         <form class="signup-group">
-          <input type="text" class="signup" value="Sign up for a beta invite"></input>
+          <input type="text" class="signup" value="Register as a module publisher"></input>
           <input type="submit" class="signup-submit" value="Sign up"></input>
           <div class="cog"></div>
         </div>
