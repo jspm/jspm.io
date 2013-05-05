@@ -141,9 +141,9 @@
     </div>
 
     <markdown style="display: none;">
-_jspm is a public RequireJS registry. Module owners can publish versioned, dependency-managed packages, and users can embed the global require into their page to load any module._
+_jspm is a public RequireJS registry and CDN. Use the global require with a single script tag in the page to load versioned, dependency-managed packages._
 
-_jspm also provides a command-line tool for downloading packages and their dependencies managing injection of their RequireJS configuration._
+_jspm also provides a command-line tool to download packages locally managing dependencies and RequireJS configuration injection._
 
 - [Basic Use](#Basic Use)
 - [Examples](#Examples)
@@ -180,23 +180,17 @@ Then require any module:
   });
 ```
 
-Without a version number, it will load the latest version.
+This will load the latest published version.
 
-To specify a version (must be a valid semver):
+Sub-modules within the folder can also be requested with:
 
 ```javascript
-  require(['jquery-1.9.1'], function($) {
-    
+  require(['jquery/some/sub/module'], function(magicalSubmodule) {
+
   });
 ```
 
-Modules within the folder can also be requested with:
-
-```javascript
-  require(['jquery-1.9.1/some/sub/module'], function(magicalSubmodule) {
-
-  });
-```
+Sub modules must be listed as [global entry points](#Global Entry Points) when publishing to be loaded this way.
 
 Modules with dependencies are loaded easily:
 
@@ -206,7 +200,15 @@ Modules with dependencies are loaded easily:
   });
 ```
 
-Bootstrap is dependent on `jquery-1.9.1` and automatically has its CSS injected through a [RequireCSS](https://github.com/guybedford/require-css) dependency shim.
+Bootstrap is dependent on `jQuery` version `1.9.1` and automatically has its CSS injected through a [RequireCSS](https://github.com/guybedford/require-css) dependency shim.
+
+Specific versions can be loaded with a semver suffix:
+
+```javascript
+  require(['jquery-1.9.1'], function($) {
+    
+  });
+```
 
 The idea is that jspm becomes a development tool - easily share complex applications with dependencies as simply as copy and pasting HTML, or sending a link to some HTML on jsbin.
 
@@ -222,13 +224,14 @@ To load local files, jspm creates the paths `app` and `~`. Both of these will po
   });
 ```
 
-
 You can override these paths with custom RequireJS paths configuration.
 
 These local application paths are cache-busted allowing for an easy and quick development refresh cycle.
 
 <a id="Examples"></a>
 ### Examples
+
+Note that the first load will take a few seconds to download all the resources into the browser cache. Subsequent loads will typically be instant.
 
 [Bootstrap](http://jsbin.com/azinuq/5/edit)
 
@@ -247,9 +250,9 @@ To install the jspm command-line tool:
   npm install jspm -g
 ```
 
-#### Using jspm in an Existing Project
+#### Project Confguration
 
-We can use jspm either in an existing project, or by creating a new project template.
+The `package.json` needs to provide the `baseUrl` and `configPath` properties to allow jspm to download packages and inject configuration.
 
 If in an existing RequireJS project, simply move to the folder of the project (where the `package.json` can be found for configuration), and then enter:
 
@@ -257,11 +260,9 @@ If in an existing RequireJS project, simply move to the folder of the project (w
   jspm init
 ```
 
-This will ask for the location of the RequireJS configuration file and the location of the RequireJS baseUrl directory where it will install modules. 
+This will provide a prompt to set these properties in the `package.json`.
 
-It supports different formats for configuration here, even large js files with a small `requirejs.config()` section in the middle. It will leave the file otherwise unchanged and will only append configuration, so provide whatever file you would normally edit the configuration in and it should work!
-
-It saves these properties into the package.json file `jspm` property. 
+The configuration path is a JSON file, or js file with a `requirejs.config()` section. It will leave the file otherwise unchanged and will only append configuration, so provide whatever file you would normally edit the configuration in and it should work!
 
 #### Creating a New Project
 
@@ -298,11 +299,25 @@ When using the jspm CDN, it automatically defines a `jspm` global on the `window
 
 _For convenience, this page has the `jspm` global defined in the JavaScript console for experimentation._
 
+* [Publishing Workflow](#Publishing Workflow)
 * [Register an Account](#Register an Account)
 * [Logging In](#Logging In)
 * [Publish a Module](#Publish a Module)
 * [Package Configuration](#Package Configuration)
 * [Publishing Examples](#Publishing Examples)
+
+<a id="Publishing Workflow"></a>
+#### Publishing Workflow
+
+_When testing a published module, make sure to use jspm from:_
+
+```html
+  <script src="http://dev-nocache.jspm.io/require.js"></script>
+```
+
+All modules on jspm are served from version-specific URLs which are cached on the CDN with far future expires headers.
+
+Test newly published modules bypassing the CDN cache with the above to allow publishing over the same version multiple times.
 
 <a id="Register an Account"></a>
 #### Register an Account
@@ -329,7 +344,7 @@ The prompts will ask for your details. The status will be updated in the console
 <a id="Publish a Module"></a>
 #### Publish a Module
 
-Modules are published from either a file URL, git URL, or github repo. It simply uses Bower in the background to do the download, so will support the `component.json` properties in the module that assist downloading as well.
+Modules are published from either a file URL, git URL, or github repo. It simply uses Bower in the background to do the download, so will support the `bower.json` properties in the module that assist downloading as well.
 
 So to publish my GitHub module, `amazingjs`, I would do:
 
@@ -345,20 +360,12 @@ Now we can immediately do:
   require(['amazingjs']);
 ```
 
-or:
-
-```javascript
-  require(['amazingjs/submodule']);
-```
-
 and it will be there.
 
 <a id="Package Configuration"></a>
 #### Package Configuration
 
-There are a number of configuration options for publishing, which allow setting the RequireJS configuration for the module.
-
-These include setting the [Entry Points](#Main Entry Point), [Dependencies](#Dependencies) and [RequireJS Shim Configuration](#Shim Configuration).
+There is a lot of flexibility for configuration including setting the [Entry Points](#Main Entry Point), [Dependencies](#Dependencies) and [RequireJS Shim Configuration](#Shim Configuration).
 
 This configuration is set in both the `jspm` property of the `package.json` or as the fourth parameter of the publish command which
 acts as an override.
@@ -387,15 +394,16 @@ jspm.publish('amazingjs', 'guybedford/amazingjs#1.1.1', '1.1.1', {
 });
 ```
 
-The main value is a Relative ModuleID in RequireJS. This way it can support plugins and relative paths.
+The main value is a Relative ModuleID in RequireJS. This way it can support RequireJS plugins and relative paths.
 
 When publishing the module to jspm, it will read the `package.json` and use this information to provide the RequireJS configuration.
 
-##### Global Entry Points
+<a id="Global Entry Points"></a>
+#### Global Entry Points
 
 It is also possible to provide an array of `main` properties. This array forms the public requires provided by `amazingjs`. All other modules are assumed for private consumption only.
 
-Example:
+Example package.json:
 ```javascript
 {
   "jspm": {
@@ -411,12 +419,17 @@ The second main allows requires of the form:
   require(['amazingjs/amazing-plugin-extra']);
 ```
 
+CSS can also be provided as an entry point in this way, by specifying the main, `"css!./some/css"`. This way modules can provide themes as entry points.
+
 <a id="Dependencies"></a>
 #### Dependencies
 
+_Any public dependencies must be stated in the dependencies array. Without this, versions can't be locked down and users downloading
+the package won't have its dependencies downloaded._
+
 If `amazingjs` is dependent on `jquery`, we need to express this dependency to jspm.
 
-The way to handle this is to build code that assumes the existence of other global modules, writing code like:
+We simply use the global within the `amazingjs` library:
 
 amazing.js:
 ```javascript
@@ -439,25 +452,8 @@ Then we inform jspm of the dependency in the package.json:
 When publishing, jspm will then use the RequireJS `map` configuration to set `jquery` to `jquery-1.9.1` only inside `amazingjs`.
 
 Note that versions are entirely locked down. This is done to ensure that version combinations are always tested. When running a
-build, versions can be remapped to ensure single versions are only used. This process would involve manual testing to work
+build, versions can be re-mapped to ensure single versions are only used. This process would involve manual testing to work
 out the best version initially, but the idea is to automate this in future versions.
-
-_Any public dependencies must be stated in the dependencies array. Without this, versions can't be locked down and users downloading
-the package won't have its dependencies downloaded._
-
-<a id="Testing Publishing"></a>
-#### Testing Publishing
-
-All files are cached on a CDN with incredibly long expires headers. So once an HTTP request has been made to the new version of a 
-package, it can't be cleared without bumping the version number.
-
-To test out a published module without adding it to the CDN cache, use the require script:
-
-```html
-  <script src="http://dev-nocache.jspm.io/require.js"></script>
-```
-
-This allows testing of the module without going through the CDN, making it possible to publish over the same version multiple times.
 
 <a id="Shim Configuration"></a>
 #### Shim Configuration
@@ -469,7 +465,7 @@ package.json:
 {
   "jspm": {
     "shim": {
-      "amazing-submodule": {
+      "amazing/submodule": {
         exports: 'amzng',
         deps: ['jquery'],
         init: function() { window.amzg = 'amazng' }
@@ -493,9 +489,6 @@ When just shimming the `main` entry point, the shim configuration can be provide
 
 <a id="Publishing Examples"></a>
 #### Publishing Examples
-
-Note that the publish URL should always be a unique canonical endpoint. This is because jspm will always use this URL for local downloads,
-as it doesn't download from its own hosted version.
 
 **jQuery:**
 ```
@@ -564,6 +557,17 @@ jspm.publish(
   }
 );
 ```
+
+<a id="Roadmap"></a>
+### Roadmap
+
+The next feature will be a production CDN at:
+
+```html
+  <script src="http://cdn.jspm.io/require.js"></script>
+```
+
+This will provide built and minified modules with global excludes as a basic production service.
 
 <a id="Feedback"></a>
 ### Feedback
