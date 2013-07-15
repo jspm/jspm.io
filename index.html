@@ -58,6 +58,15 @@
         color: #555;
         text-align: center;
       }
+      h3.desc {
+        font-size: 16px;
+        font-weight: 100;
+        text-shadow: 1px 1px 1px #fff;
+        color: #555;
+        text-align: center;
+        line-height: 20px;
+        font-style: italic;
+      }
       .signup-group {
         margin-top: 40px;
         width: 301px;
@@ -214,7 +223,12 @@
         <div class="logobox"></div>
         <h1 class="logo">&nbsp;&nbsp;&nbsp;<span>jspm</span>.io</h1>
         <h2 class="tagline">Frictionless browser package management</h2>
-        <a href="/start" class="start">Get Started</a>
+        <h3 class="desc">New version to be launched soon featuring browser loading of ES6, CJS & AMD module formats, supporting general registries including github, npm.</h2>
+        <form class="signup-group">
+          <input type="text" class="signup" value="Register to be notified on launch"></input>
+          <input type="submit" class="signup-submit" value="Sign up"></input>
+          <div class="cog"></div>
+        </div>
       </div>
     </div>
     <div class="features">
@@ -228,8 +242,69 @@
       </div>
       <div class="feature">
         <div class="icon deps"></div>
-        <h2>Dependency managed registry</h2>
+        <h2>Dependency & version managed</h2>
       </div>
     </div>
+    <script type="text/javascript">
+      var sInput = document.querySelector('input.signup');
+      var sForm = document.querySelector('form.signup-group');
+      var sButton = document.querySelector('input.signup-submit');
+      var sCog = document.querySelector('.cog');
+      var firstFocus = true;
+      sInput.addEventListener('focus', function() {
+        if (firstFocus)
+          sInput.setAttribute('value', '');
+        firstFocus = false;
+      });
+      var submitted = false;
+      sForm.addEventListener('submit', function(e) {
+        if (submitted) {
+          e.preventDefault();
+          return false;
+        }
+        var email = sInput.value;
+        if (!email.match(/[A-Z0-9\._%+-]+@[A-Z0-9\.-]+\.[A-Z]{2,4}/i)) {
+          sInput.style.backgroundColor = '#FFD4D4';
+          e.preventDefault();
+          return false;
+        }
+        else
+          sInput.style.backgroundColor = '#fff';
+
+        submitted = true;
+
+        sButton.setAttribute('value', '');
+        sCog.style.visibility = 'visible';
+        sInput.style.backgroundColor = 'transparent';
+        sInput.setAttribute('disabled', 'disabled');
+        document.activeElement.blur();
+
+        submitEmail(email, function(msg) {
+          sInput.value = msg;
+          sCog.style.visibility = 'hidden';
+          sInput.style.borderRightStyle = 'none';
+          sButton.style.borderLeftStyle = 'none';
+          sButton.style.background = 'transparent';
+          sButton.style.cursor = 'default';
+        });
+
+        e.preventDefault();
+        return false;
+      });
+
+      var submitEmail = function(email, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://jspm.io/signup');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if (xhr.status == 200 && xhr.responseText == 'ok')
+              callback('Thanks, we will be in touch soon.');
+            else
+              callback('ERROR! Ok this is embarrasing...');
+          }
+        };
+        xhr.send(email);
+      }
+    </script>
   </body>
 </html>
