@@ -2,7 +2,8 @@
   <html>
     <title>jspm.io - Get Started</title>
     <link rel="shortcut icon" href="favicon.ico">
-    <script src="http://dev.jspm.io/require.js"></script>
+    <script src="../es6-module-loader/lib/es6-module-loader.js"></script>
+    <script src="../jspm-loader/loader.js"></script>
     <style type="text/css">
       @font-face {
         font-family: 'Advent Pro';
@@ -114,6 +115,47 @@
         margin-left: auto;
         margin-right: auto;
       }
+      .signup-group {
+        margin-bottom: 40px;
+        width: 301px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+      }
+      input.signup {
+        border: 1px solid #555;
+        font-size: 12px;
+        width: 210px;
+        color: #888;
+        padding: 10px;
+        border: 1px solid #C1C1C1;
+        text-shadow: 1px 1px 1px #fff;
+        font-style: italic;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        margin: 0;
+      }
+      .signup-group input.signup-submit {
+        border: 1px solid #C1C1C1;
+        background-color: #E2E2E2;
+        font-size: 12px;
+        color: #666;
+        height: 37px;
+        width: 70px;
+        padding: 0;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        cursor: pointer;
+        background-repeat: no-repeat;
+      }
+      .signup-group input.signup-submit:hover {
+        background-color: #eee;
+      }
+      .signup-group input.signup-submit:active {
+        background-color: #ddd;
+      }
 
       @media screen and (max-width: 640px),
       screen and (max-device-width: 640px) {
@@ -128,7 +170,7 @@
     <script>
       window.GoogleAnalyticsObject = 'ga';
       window.ga = { q: [['create', 'UA-40327700-1', 'jspm.io'], ['send', 'pageview']], l: Date.now() };
-      require(['http://www.google-analytics.com/analytics.js']);
+        jspm.load(['http://www.google-analytics.com/analytics.js']);
     </script>
   <body>
     <div class="logobox"></div>
@@ -141,451 +183,219 @@
     </div>
 
     <markdown style="display: none;">
-_jspm is a public RequireJS registry and CDN. Use the global require with a single script tag in the page to load versioned, dependency-managed packages._
+_jspm provides the benefits of AMD, NPM and ES6 modules, all brought together into a single module loader for the browser._
 
-_jspm also provides a command-line tool to download packages locally managing dependencies and RequireJS configuration injection._
+Some example use cases for jspm include:
 
-- [Basic Use](#Basic Use)
-- [Examples](#Examples)
-- [Command-Line Usage](#Command-Line Usage)
-- [Publishing Modules](#Publishing Modules)
-- [Feedback](#Feedback)
+* Loading an NPM module in the browser without any build or install.
+* Writing ES6 modules today and using them in any browser.
+* Loading AMD modules directly from Github.
+* Loading global scripts carefully protecting the window object.
 
-For the list of available packages, see [http://jspm.io/packages](/packages).
+The two major components of jspm are:
 
-If you find any bugs or want to request a feature, [use the issue tracker here](https://github.com/jspm/issues).
+* An [ES6 module loader](https://github.com/jspm/jspm-loader) that can load all module formats and global scripts, built on top of the [ES6 module polyfill](https://github.com/ModuleLoader/es6-module-loader).
+* CDN endpoints for Github and NPM, served over SPDY with fine-level caching and push streams allowing for fast multi-file delivery.
+
+#### Examples
+
+Import the latest revision of a module from NPM
+
+```javascript
+  jspm.import('npm:underscore@1.5', function(underscore) {
+    var _ = underscore.default;
+  });
+```
+
+Load a file from the latest stable version tag of a library on Github
+
+```javascript
+  &lt;link rel="stylesheet"
+    href="https://github.jspm.io/hakimel/reveal.js/css/reveal.css">&lt;/link>
+```
+
+Import the latest stable version of a module from NPM ([see this example on jsbin](http://jsbin.com/oqatol/1/edit))
+
+```javascript
+  jspm.import('npm:spinning', function(m) {
+
+    var Spinning = m.default;
+    var spinner = Spinning().text('loading...').light().size(200);
+    setTimeout(function () {
+      spinner.remove();
+    }, 3000);
+
+  });
+```
+
+Load an AMD module from the latest stable version of a library on Github
+
+```javascript
+  jspm.import('github:mout/mout/src/array/map', function(m) {
+    var map = m.default;
+  });
+```
+
+<a id="Getting Started"></a>
+#### Getting Started
+
+Include the jspm loader in the head of the page:
+
+```html
+  &lt;script src="https://jspm.io/loader.js">&lt;/script>
+```
+
+Alternatively [download the loader and include it locally](https://github.com/jspm/jspm-loader).
+
+To require a local module, set the baseURL and load from it:
+
+```javascript
+  jspm.config({
+    baseURL: 'http://www.mysite.com/lib'
+  });
+  jspm.import('local/file', function(module) {
+  });
+```
+
+To require from Github or NPM, use the location name in the require:
+
+```javascript
+  jspm.import([
+    'github:username/repo@3.4/main.js', 
+    'npm:some-module@1.2'
+  ], function(m1, m2) {
+
+  });
+```
+
+Alternatively, just start writing scripts in your favourite module format:
+
+main.js
+```javascript
+  var githubModule = require('github:username/repo@3.4/main.js');
+  var npmModule = require('npm:some-module@1.2');
+
+  module.exports = { hello: 'world' };
+```
+
+```javascript
+  jspm.import('main', function(m) {
+    console.log(m.default.hello); // world
+  });
+```
+
+The module format is detected automatically and handled appropriately. AMD, CommonJS, ES6 and global scripts are all supported.
+
+The loader supports RequireJS-style configuration options (map &amp; shim configuration) as well as a plugin system. [Read more at the github page](https://github.com/jspm/jspm-loader).
+
+<a id="CDN Endpoints"></a>
+#### CDN Endpoints
+
+The CDN endpoints are entirely URL-based. The basic format is:
+
+```
+  https://npm.jspm.io/[module name]@[version]/[file path]
+  https://github.jspm.io/[username]/[repo]@[version]/[file path]
+```
+
+Typically a minor version is specified only (eg `@2.2`), which will load the latest revision. This is the recommended way of loading a resource as it allows patches but not breaking changes in the dependency tree.
+
+If no version is specified, the latest stable version is loaded. Otherwise a complete version or tagname can also be provided.
+
+_The CDN endpoints don't need to be used with the jspm loader, they can also be used with script or link tags in the page._
+
+The benefits of having SPDY push dependencies mean that imported resources in styles and scripts don't require a separate round trip. Script dependencies are traced automatically and provided with this support.
+
+<a id="Feedback &amp; Roadmap"></a>
+#### Feedback &amp; Roadmap
+
+_Note that it is still early days and this work is still experimental._
+
+If you are interested in being notified on future jspm announcements, sign up to stay informed here:
+
+&lt;form class="signup-group">
+  &lt;input type="text" class="signup" value="Notify me of future announcements">&lt;/input>
+  &lt;input type="submit" class="signup-submit" value="Sign up">&lt;/input>
+  &lt;div class="cog">&lt;/div>
+&lt;/form>
+
+If you find any bugs or want to request a feature, [use the issue tracker here](https://github.com/jspm/issues/issues).
 
 [Join the Google Group](http://groups.google.com/group/jspm-io) to engage in discussion, provide feedback or ask for support.
 
-<a href="http://vimeo.com/65042246">Here is a recent video</a> from <a href="http://vimeo.com/jsla">JS.LA</a>, featuring jspm.io:
-
-<iframe src="http://player.vimeo.com/video/65042246" width="600" height="337" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-
-<a id="Basic Use"></a>
-### Basic Use
-
-Include the jspm tag in the head of the page:
-
-```html
-  <script src="http://dev.jspm.io/require.js"></script>
-```
-
-_There is a copy of jspm in this page, so you can try it here from the JavaScript console in the browser._
-
-Then require any module:
-
-```javascript
-  require(['jquery'], function($) {
-
-  });
-```
-
-This will load the latest published version.
-
-Sub-modules within the folder can also be requested with:
-
-```javascript
-  require(['jquery/some/sub/module'], function(magicalSubmodule) {
-
-  });
-```
-
-Sub modules must be listed as [global entry points](#Global Entry Points) when publishing to be loaded this way.
-
-Modules with dependencies are loaded easily:
-
-```javascript
-  require(['bootstrap'], function($) {
-    
-  });
-```
-
-Bootstrap is dependent on `jQuery` version `1.9.1` and automatically has its CSS injected through a [RequireCSS](https://github.com/guybedford/require-css) dependency shim.
-
-Specific versions can be loaded with a semver suffix:
-
-```javascript
-  require(['jquery-1.9.1'], function($) {
-    
-  });
-```
-
-The idea is that jspm becomes a development tool - easily share complex applications with dependencies as simply as copy and pasting HTML, or sending a link to some HTML on jsbin.
-
-For production, we download the dependencies locally with the command-line tool and run a standard build. Because jspm manages the configuration injection for us, the build should ideally work without any further configuration.
-
-#### Loading Local Files
-
-To load local files, jspm creates the paths `app` and `~`. Both of these will point to the local page URL, allowing the requires:
-
-```javascript
-  require(['bootstrap', '~/my-local-app-script'], function(bootstrap, myScript) {
-    
-  });
-```
-
-You can override these paths with custom RequireJS paths configuration.
-
-These local application paths are cache-busted allowing for an easy and quick development refresh cycle.
-
-<a id="Examples"></a>
-### Examples
-
-Note that the first load will take a few seconds to download all the resources into the browser cache. Subsequent loads will typically be instant.
-
-[Bootstrap](http://jsbin.com/azinuq/8/edit)
-
-[ZestJS Mobile Component Example](http://jsbin.com/osilec/1/edit)
-
-[DataTable](http://jsbin.com/uyefeb/1/edit)
-
-Note that these all use [RequireCSS](https://github.com/guybedford/require-css) for CSS injection, either through a shim or in the module itself. This allows injection to occur seamlessly and compatible with builds.
-
-<a id="Command-Line Usage"></a>
-### Command-Line Usage
-
-To install the jspm command-line tool:
-
-```
-  npm install jspm -g
-```
-
-#### Project Confguration
-
-The `package.json` needs to provide the `baseUrl` and `configPath` properties to allow jspm to download packages and inject configuration.
-
-If in an existing RequireJS project, simply move to the folder of the project (where the `package.json` can be found for configuration), and then enter:
-
-```
-  jspm init
-```
-
-This will provide a prompt to set these properties in the `package.json`.
-
-The configuration path is a JSON file, or js file with a `requirejs.config()` section. It will leave the file otherwise unchanged and will only append configuration, so provide whatever file you would normally edit the configuration in and it should work!
-
-#### Creating a New Project
-
-To create a new project, with a standard RequireJS folder structure, use:
-
-```
-  jspm create appname
-```
-
-This will create the application folder, download RequireJS and setup the project structure with a sample `index.html` for loading.
-
-#### Installing Dependencies
-
-With the `package.json` referencing the configuration and baseUrl, we can then install new dependencies with:
-
-```
-  jspm install bootstrap
-```
-
-We can also install a specific version of bootstrap:
-
-```
-  jspm install bootstrap#2.3.1
-```
-
-This will install the latest version of bootstrap into the baseUrl, install jquery, and add the RequireJS configuration to shim bootstrap and jquery, including automatically injecting the bootstrap css with RequireCSS.
-
-The require function behaves identically between the local and remote versions, thus the difference between using jspm locally and on the CDN is simply the difference between using the local and global require.js script in the head.
-
-<a id="Publishing Modules"></a>
-### Publishing Modules
-
-When using the jspm CDN, it automatically defines a `jspm` global on the `window` object. Using the JavaScript console, this provides a command-line interface in the browser.
-
-_For convenience, this page has the `jspm` global defined in the JavaScript console for experimentation._
-
-* [Publishing Workflow](#Publishing Workflow)
-* [Register an Account](#Register an Account)
-* [Logging In](#Logging In)
-* [Publish a Module](#Publish a Module)
-* [Package Configuration](#Package Configuration)
-* [Publishing Examples](#Publishing Examples)
-
-<a id="Publishing Workflow"></a>
-#### Publishing Workflow
-
-_When testing a published module, make sure to use jspm from:_
-
-```html
-  <script src="http://dev-nocache.jspm.io/require.js"></script>
-```
-
-All modules on jspm are served from version-specific URLs which are cached on the CDN with far future expires headers.
-
-Test newly published modules bypassing the CDN cache with the above to allow publishing over the same version multiple times.
-
-<a id="Register an Account"></a>
-#### Register an Account
-
-To register an account, open up the JavaScript console, and type:
-
-```javascript
-  jspm.register();
-```
-
-The prompts will guide you through the process. 
-
-<a id="Logging In"></a>
-#### Logging In
-
-To login, you would typically do:
-
-```javascript
-  jspm.login();
-```
-
-The prompts will ask for your details. The status will be updated in the console logs.
-
-<a id="Publish a Module"></a>
-#### Publish a Module
-
-Modules are published from either a file URL, git URL, or github repo. It simply uses Bower in the background to do the download, so will support the `bower.json` properties in the module that assist downloading as well.
-
-So to publish my GitHub module, `amazingjs`, I would do:
-
-```javascript
-  jspm.publish('amazingjs', 'guybedford/amazingjs#0.0.1', '0.0.1');
-```
-
-This reserves the namespace `amazingjs` to my username so only I have rights to publish there. It loads the `0.0.1` version from the github tag (this is optional), and it then registers this as version `0.0.1`.
-
-Now we can immediately do:
-
-```javascript
-  require(['amazingjs']);
-```
-
-and it will be there.
-
-<a id="Package Configuration"></a>
-#### Package Configuration
-
-There is a lot of flexibility for configuration including setting the [Entry Points](#Main Entry Point), [Dependencies](#Dependencies) and [RequireJS Shim Configuration](#Shim Configuration).
-
-This configuration is set in both the `jspm` property of the `package.json` or as the fourth parameter of the publish command which
-acts as an override.
-
-<a id="Entry Points"></a>
-#### Entry Points
-
-When writing `require(['amazingjs'])`, jspm assumes this refers to the file `amazingjs/amazingjs.js`.
-
-If you have a differently named main entry point, specify this in the `package.json` file of the module being published:
-
-package.json:
-```javascript
-{
-  "jspm": {
-    "main": "./main"
-  }
-}
-```
-
-or specify this with the publish command:
-
-```
-jspm.publish('amazingjs', 'guybedford/amazingjs#1.1.1', '1.1.1', {
-  main: './main'
-});
-```
-
-The main value is a Relative ModuleID in RequireJS. This way it can support RequireJS plugins and relative paths.
-
-When publishing the module to jspm, it will read the `package.json` and use this information to provide the RequireJS configuration.
-
-<a id="Global Entry Points"></a>
-#### Global Entry Points
-
-It is also possible to provide an array of `main` properties. This array forms the public requires provided by `amazingjs`. All other modules are assumed for private consumption only.
-
-Example package.json:
-```javascript
-{
-  "jspm": {
-    "main": ["./main", "./amazing-plugin-extra"]
-  }
-}
-```
-
-The first main is linked to the base-level require, `require(['amazingjs'])`.
-
-The second main allows requires of the form:
-```javascript
-  require(['amazingjs/amazing-plugin-extra']);
-```
-
-CSS can also be provided as an entry point in this way, by specifying the main, `"css!./some/css"`. This way modules can provide themes as entry points.
-
-<a id="Dependencies"></a>
-#### Dependencies
-
-_Any public dependencies must be stated in the dependencies array. Without this, versions can't be locked down and users downloading
-the package won't have its dependencies downloaded._
-
-If `amazingjs` is dependent on `jquery`, we need to express this dependency to jspm.
-
-We simply use the global within the `amazingjs` library:
-
-amazing.js:
-```javascript
-  define(['jquery', './amazing-submodule'], function($, asm) {
-    
-  });
-```
-
-Then we inform jspm of the dependency in the package.json:
-```javascript
-{
-  "jspm": {
-    "dependencies": {
-      "jquery": "1.9.1"
-    }
-  }
-}
-```
-
-When publishing, jspm will then use the RequireJS `map` configuration to set `jquery` to `jquery-1.9.1` only inside `amazingjs`.
-
-Note that versions are entirely locked down. This is done to ensure that version combinations are always tested. When running a
-build, versions can be re-mapped to ensure single versions are only used. This process would involve manual testing to work
-out the best version initially, but the idea is to automate this in future versions.
-
-<a id="Shim Configuration"></a>
-#### Shim Configuration
-
-Shim configuration is provided exactly as in the RequireJS documentation. For example, if the `amazing-submodule` needed shim configuration we could provide:
-
-package.json:
-```javascript
-{
-  "jspm": {
-    "shim": {
-      "amazing/submodule": {
-        exports: 'amzng',
-        deps: ['jquery'],
-        init: function() { window.amzg = 'amazng' }
-      }
-    }
-  }
-}
-```
-
-When just shimming the `main` entry point, the shim configuration can be provided directly:
-
-```javascript
-{
-  "jspm": {
-    "shim": {
-      exports: 'amzng'
-    }
-  }
-}
-```
-
-<a id="Publishing Examples"></a>
-#### Publishing Examples
-
-**jQuery:**
-```
-jspm.publish(
-  'jquery', 
-  'http://code.jquery.com/jquery-2.0.0.js', 
-  '2.0.0', 
-  {
-    shim: {
-      exports: '$'
-    }
-  }
-);
-```
-
-**Ember:**
-```
-jspm.publish(
-  'ember', 
-  'https://raw.github.com/emberjs/ember.js/release-builds/ember-1.0.0-rc.2.js', 
-  '1.0.0', 
-  {
-    dependencies: {
-      handlebars: '1.0.0'
-    },
-    shim: {
-      deps: ['handlebars'],
-      exports: 'Ember'
-    }
-  }
-);
-```
-
-**Underscore:**
-```
-jspm.publish(
-  'underscore', 
-  'https://raw.github.com/documentcloud/underscore/1.4.4/underscore.js', 
-  '1.4.4', 
-  {
-    shim: {
-      exports: '_'
-    }
-  }
-);
-```
-
-**Bootstrap:**
-
-_Note this includes the CSS injection as a dependency in the shim config with [RequireCSS](https://github.com/guybedford/require-css)._
-```
-jspm.publish(
-  'bootstrap', 
-  'http://twitter.github.io/bootstrap/assets/bootstrap.zip', 
-  '2.3.1', 
-  {
-    main: './js/bootstrap',
-    dependencies: {
-      css: '0.0.2',
-      jquery: '1.9.1'
-    },
-    shim: {
-      deps: ['jquery', 'css!../css/bootstrap'],
-      exports: '$'
-    }
-  }
-);
-```
-
-<a id="Roadmap"></a>
-### Roadmap
-
-The next feature will be a production CDN at:
-
-```html
-  <script src="http://cdn.jspm.io/require.js"></script>
-```
-
-This will provide built and minified modules with global excludes as a basic production service.
-
-<a id="Feedback"></a>
-### Feedback
-
-jspm was initially created out of a need to easily share [ZestJS](http://zestjs.org) components. ZestJS was built out of many separate modules using modular best-practices, but this created an install problem. jspm was the solution to making it really easy to share Zest Components, as you can see in the [mobile component example](http://jsbin.com/osilec/1/edit).
-
-Feedback would be really appreciated on all aspects from suggestions for building it further to improvement suggestions for the workflow.
-
-The system in its current form is only the minimim viable prototype. The goal is to add a lot more tooling around module updates, community version compatibility testing, automatic builds and optimization.
-
-Feel free to start a discussion on the [Google Group](http://groups.google.com/group/jspm-io), or email me directly at guybedford@gmail.com.
+For any other feedback, contact me at guybedford@gmail.com.
 
     </markdown>
     <script>
-      require(['showdown'], function(showdown) {
-        var converter = new showdown.converter();
-        document.querySelector('.content').innerHTML = converter.makeHtml(document.querySelector('markdown').innerHTML);
+      jspm.import(['github:coreyti/showdown/src/showdown'], function(showdown) {
+        var converter = new showdown.default.converter();
+        document.querySelector('.content').innerHTML = converter.makeHtml(document.querySelector('markdown').textContent);
         Array.prototype.forEach.call(document.querySelectorAll('a'), function(a) { if ((a.getAttribute('href') || '#').substr(0, 1) != '#') a.setAttribute('target', '_blank'); });
+
+        var sInput = document.querySelector('input.signup');
+        var sForm = document.querySelector('form.signup-group');
+        var sButton = document.querySelector('input.signup-submit');
+        var sCog = document.querySelector('.cog');
+        var firstFocus = true;
+        sInput.addEventListener('focus', function() {
+          if (firstFocus)
+            sInput.setAttribute('value', '');
+          firstFocus = false;
+        });
+        var submitted = false;
+        sForm.addEventListener('submit', function(e) {
+          if (submitted) {
+            e.preventDefault();
+            return false;
+          }
+          var email = sInput.value;
+          if (!email.match(/[A-Z0-9\._%+-]+@[A-Z0-9\.-]+\.[A-Z]{2,4}/i)) {
+            sInput.style.backgroundColor = '#FFD4D4';
+            e.preventDefault();
+            return false;
+          }
+          else
+            sInput.style.backgroundColor = '#fff';
+
+          submitted = true;
+
+          sButton.setAttribute('value', '');
+          sCog.style.top = '6px';
+          sCog.style.right = '-253px';
+          sCog.style.position = 'relative';
+          sCog.style.marginLeft = '0';
+          sCog.style.marginRight = '0';
+          sCog.style.visibility = 'visible';
+          sInput.style.backgroundColor = 'transparent';
+          sInput.setAttribute('disabled', 'disabled');
+          document.activeElement.blur();
+
+          submitEmail(email, function(msg) {
+            sInput.value = msg;
+            sCog.style.visibility = 'hidden';
+            sInput.style.borderRightStyle = 'none';
+            sButton.style.borderLeftStyle = 'none';
+            sButton.style.background = 'transparent';
+            sButton.style.cursor = 'default';
+          });
+
+          e.preventDefault();
+          return false;
+        });
+
+        var submitEmail = function(email, callback) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://jspm.io/signup');
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+              if (xhr.status == 200 && xhr.responseText == 'ok')
+                callback('Thanks, we will be in touch soon.');
+              else
+                callback('ERROR! Ok this is embarrasing...');
+            }
+          };
+          xhr.send(email);
+        }
       });
     </script>
   </body>
