@@ -1,44 +1,39 @@
 <!doctype html>
-<html>
-  <title>jspm.io - Frictionless browser package management</title>
-  <head>
+  <html>
+    <title>jspm.io - Get Started</title>
     <link rel="shortcut icon" href="favicon.ico">
-    <link href='http://fonts.googleapis.com/css?family=Advent+Pro:300' rel='stylesheet' type='text/css'>
+    <script src="https://jspm.io/loader.js"></script>
     <style type="text/css">
+      @font-face {
+        font-family: 'Advent Pro';
+        src: url('fonts/advent-Lt1.eot');
+        src: local('☺'), url('fonts/advent-Lt1.woff') format('woff'), url('fonts/advent-Lt1.ttf') format('truetype'), url('fonts/advent-Lt1.svg') format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
       body {
-        margin: 0;
+        margin: 20px;
+        margin-top: 100px;
         padding: 0;
         background-image: url(bgtexture.jpg);
         background-repeat: repeat;
         background-color: #eee;
       }
-      body h1, body h2, a.start {
+      h1, h2, h3, h4, h5, h6, p, li {
         font-family: 'Myriad Pro';
         -webkit-font-smoothing: antialiased;
         font-weight: 100;
-      }
-      .vcenter {
-        position: absolute;
-        top: 50%;
-        width: 100%;
-      }
-      .vcenter .box {
-        height: 300px;
-        margin-top: -175px;
-        width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
       }
       .logobox {
         background-image: url(icons.png);
         width: 46px;
         height: 46px;
-        margin-bottom: -65px;
+        margin-bottom: -55px;
         margin-left: auto;
         margin-right: auto;
         padding-left: 180px;
         background-repeat: no-repeat;
+        margin-top: 50px;
       }
       h1.logo {
         font-family: 'Advent Pro', 'Myriad Pro', sans-serif;
@@ -52,109 +47,121 @@
       h1.logo span {
         color: #CE882C;
       }
-      h2.tagline {
+      h2 {
         font-size: 22px;
         text-shadow: 1px 1px 1px #fff;
         color: #555;
         text-align: center;
       }
-      .features {
-        position: absolute;
-        bottom: 0px;
-        height: 100px;
-        width: 100%;
-        background-color: #A0A0A0;
-        border-top: 1px solid #939393;
-        border-bottom: 1px solid #939393;
+      h3 {
+        font-size: 28px;
+        color: #444;
+        text-shadow: 1px 1px 1px #fff;
       }
-      .features .feature h2 {
-        margin-top: 40px;
-        color: #eee;
-        font-style: italic;
-        font-size: 20px;
+      h4 {
+        font-size: 22px;
+        color: #444;
+        text-shadow: 1px 1px 1px #fff;
       }
-      .features .feature {
-        width: 33.3333%;
-        float: left;
+      .content {
+        margin-top: 50px;
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: justify;
+        margin-bottom: 200px;
       }
-      .features .feature .icon {
-        float: left;
-        width: 47px;
-        height: 50px;
-        margin-top: 25px;
-        margin-right: 10px;
-        margin-left: 20px;
-        margin-bottom: 25px;
-        background-image: url(icons.png);
+      .content p, .content li {
+        line-height: 26px;
+        color: #333;
+        text-shadow: 1px 1px 1px #fff;
       }
-      .features .feature h2 {
-        float: left;
+      .content pre {
+        background-color: #f5f5f5;
+        padding: 10px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        font-size: 12px;
+        line-height: 16px;
+        border: 1px solid #C5C5C5;
+        border-radius: 7px;
+        color: #444;
       }
-      .feature .icon.noinstall {
-        background-position: 0px -54px;
+      .content a {
+        color: #C0781A;
       }
-      .feature .icon.open {
-        background-position: 0px -106px;
+      .content a[id] {
+        display: block;
+        height: 20px;
       }
-      .feature .icon.deps {
-        background-position: 0px -152px;
+      .loading {
+        margin-top: 80px;
+        text-align: center;
+        width: 28px;
+        height: 25px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #E2E2E2;
+        border: 1px solid #aaa;
+        padding: 10px;
+        border-radius: 8px;
       }
       .cog {
-        visibility: hidden;
-        width: 47px;
+        width: 24px;
         height: 30px;
         background-image: url(cog.gif);
         background-repeat: no-repeat;
-        position: absolute;
-        bottom: -37px;
-        right: 1px;
-      }
-      a.start {
-        margin-top: 45px;
-        margin-bottom: 50px;
-        text-decoration: none;
-        text-align: center;
-        display: block;
-        background-color: #E2E2E2;
-        border: 1px solid #C1C1C1;
-        width: 150px;
         margin-left: auto;
         margin-right: auto;
-        padding: 12px 40px;
-        border-radius: 10px;
-        color: #555;
-        text-shadow: 1px 1px 1px #fff;
-        font-size: 14px;
-        line-height: 17px;
-        cursor: pointer;
       }
-      a.start:hover {
+      .signup-group {
+        margin-bottom: 40px;
+        width: 301px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+      }
+      input.signup {
+        border: 1px solid #555;
+        font-size: 12px;
+        width: 210px;
+        color: #888;
+        padding: 10px;
+        border: 1px solid #C1C1C1;
+        text-shadow: 1px 1px 1px #fff;
+        font-style: italic;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        margin: 0;
+      }
+      .signup-group input.signup-submit {
+        border: 1px solid #C1C1C1;
+        background-color: #E2E2E2;
+        font-size: 12px;
+        color: #666;
+        height: 37px;
+        width: 70px;
+        padding: 0;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        cursor: pointer;
+        background-repeat: no-repeat;
+      }
+      .signup-group input.signup-submit:hover {
         background-color: #eee;
       }
+      .signup-group input.signup-submit:active {
+        background-color: #ddd;
+      }
 
-      @media screen and (max-width: 1000px),
-      screen and (max-device-width: 1000px) {
+      @media screen and (max-width: 640px),
+      screen and (max-device-width: 640px) {
         body {
           -webkit-text-size-adjust: none;
         }
-        .vcenter {
-          position: static;
-        }
-        .vcenter .box {
-          margin: 20px;
-          margin-top: 50px;
-          position: static;
-          width: auto;
-        }
-        .features {
-          height: auto;
-          position: static;
-        }
-        .features .feature {
-          background-color: #A0A0A0;
-          height: 100px;
-          float: none;
-          clear: both;
+        .content {
           width: 100%;
         }
       }
@@ -164,32 +171,260 @@
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
       ga('create', 'UA-40327700-1', 'jspm.io');
       ga('send', 'pageview');
+
     </script>
-  </head>
   <body>
-    <div class="vcenter">
-      <div class="box">
-        <div class="logobox"></div>
-        <h1 class="logo">&nbsp;&nbsp;&nbsp;<span>jspm</span>.io</h1>
-        <h2 class="tagline">Frictionless browser package management</h2>
-        <a class="start" href="start.html">Get Started</a>
+    <div class="logobox"></div>
+    <h1 class="logo">&nbsp;&nbsp;&nbsp;&nbsp;<span>jspm</span>.io</h1>
+    <h2 class="tagline">Frictionless browser package management</h2>
+    <div class="content">
+      <div class="loading">
+        <div class="cog"></div>
       </div>
     </div>
-    <div class="features">
-      <div class="feature">
-        <div class="icon noinstall"></div>
-        <h2>No install necessary</h2>
-      </div>
-      <div class="feature">
-        <div class="icon open"></div>
-        <h2>Built on open standards</h2>
-      </div>
-      <div class="feature">
-        <div class="icon deps"></div>
-        <h2>Dependency &amp; version managed</h2>
-      </div>
-    </div>
+
+    <markdown style="display: none;">
+_jspm is a browser module loader that will load any module format (ES6 / AMD / CJS) locally or even directly from NPM and Github utilising SPDY push._
+
+#### JSPM Loader
+
+* Write ES6 modules today and use them in any browser.
+* Load AMD and CommonJS modules together in the same application.
+* Load global scripts with a sandboxed global object.
+* Built on top of the [ES6 Module Loader polyfill](https://github.com/ModuleLoader/es6-module-loader), making it standards-compliant and future-friendly.
+
+#### JSPM CDN
+
+* Load an NPM module in the browser without any build or install.
+* Load dependency-managed modules directly from Github.
+* Worried about perfomance? SPDY push is used to automatically bundle dependencies together, minimising round trips.
+
+### Examples
+
+**Write and load an ES6 module**
+
+es6-module.js:
+```javascript
+  import { someProperty } from './some-dependency';
+  export var hello = 'es6';
+```
+
+main.js:
+```javascript
+  jspm.import('es6-module', function(m) {
+    console.log(m.hello);
+  });
+```
+
+Any local modules, including AMD and CommonJS can be loaded in this way. RequireJS-style configuration offers loader flexibility.
+
+**Import the latest revision of a module directly from NPM**
+
+```javascript
+  jspm.import('npm:underscore@1.5', function(underscore) {
+    var _ = underscore.default;
+  });
+```
+
+The module is loaded through the CDN along with its version-managed dependencies.
+
+**Load a file from the latest stable version tag of a library on Github**
+
+```javascript
+  &lt;link rel="stylesheet"
+    href="https://github.jspm.io/hakimel/reveal.js/css/reveal.css">&lt;/link>
+```
+
+The CDN can be used on its own to load any script, stylesheets or HTML import resources directly from NPM or Github.
+
+SPDY push still manages dependencies minimising round trips, making this an efficient CDN option.
+
+**Import the latest stable version of a module from NPM ([see this example on jsbin](http://jsbin.com/oqatol/1/edit))**
+
+```javascript
+  jspm.import('npm:spinning', function(m) {
+
+    var Spinning = m.default;
+    var spinner = Spinning().text('loading...').light().size(200);
+    setTimeout(function () {
+      spinner.remove();
+    }, 3000);
+
+  });
+```
+
+**Load an AMD module from the latest stable version of a library on Github**
+
+```javascript
+  jspm.import('github:mout/mout/src/array/map', function(m) {
+    var map = m.default;
+  });
+```
+
+<a id="Getting Started"></a>
+#### Getting Started
+
+Include the jspm loader in the head of the page:
+
+```html
+  &lt;script src="https://jspm.io/loader.js">&lt;/script>
+```
+
+Alternatively [download the loader and include it locally](https://github.com/jspm/jspm-loader).
+
+To require a local module, set the baseURL and load from it (by default the baseURL is set to the current page location):
+
+```javascript
+  jspm.config({
+    baseURL: 'http://www.mysite.com/lib'
+  });
+  jspm.import('local/file', function(module) {
+  });
+```
+
+To require from Github or NPM, use the location name in the require:
+
+```javascript
+  jspm.import([
+    'github:username/repo@3.4/main.js', 
+    'npm:some-module@1.2'
+  ], function(m1, m2) {
+
+  });
+```
+
+Alternatively, just start writing scripts in your favourite module format:
+
+main.js:
+```javascript
+  var githubModule = require('github:username/repo@3.4/main.js');
+  var npmModule = require('npm:some-module@1.2');
+
+  module.exports = { hello: 'world' };
+```
+
+```javascript
+  jspm.import('main', function(m) {
+    console.log(m.default.hello); // world
+  });
+```
+
+The module format is detected automatically and handled appropriately. AMD, CommonJS, ES6 and global scripts are all supported.
+
+The loader supports RequireJS-style configuration options (map &amp; shim configuration) as well as a plugin system. [Read more at the github page](https://github.com/jspm/jspm-loader).
+
+<a id="CDN Endpoints"></a>
+#### CDN Endpoints
+
+The CDN endpoints are entirely URL-based. The basic format is:
+
+```
+  https://npm.jspm.io/[module name]@[version]/[file path]
+  https://github.jspm.io/[username]/[repo]@[version]/[file path]
+```
+
+Typically a minor version is specified only (eg `@2.2`), which will load the latest revision. This is the recommended way of loading a resource as it allows patches but not breaking changes in the dependency tree.
+
+If no version is specified, the latest stable version is loaded. Otherwise a complete version or tagname can also be provided.
+
+_The CDN endpoints don't need to be used with the jspm loader, they can also be used with scripts, stylesheets or HTML imports in the page._
+
+The benefits of having SPDY push dependencies mean that imported resources in styles, scripts and HTML imports don't require a separate round trip. Script dependencies are traced automatically and provided with this support.
+
+<a id="Feedback &amp; Roadmap"></a>
+#### Feedback &amp; Roadmap
+
+_Note that it is still early days and this work is still experimental._
+
+If you are interested in being notified on future jspm announcements, sign up to stay informed here:
+
+&lt;form class="signup-group">
+  &lt;input type="text" class="signup" value="Notify me of future announcements">&lt;/input>
+  &lt;input type="submit" class="signup-submit" value="Sign up">&lt;/input>
+  &lt;div class="cog">&lt;/div>
+&lt;/form>
+
+If you find any bugs or want to request a feature, [use the issue tracker here](https://github.com/jspm/issues/issues).
+
+[Join the Google Group](http://groups.google.com/group/jspm-io) to engage in discussion, provide feedback or ask for support.
+
+For any other feedback, contact me at guybedford@gmail.com.
+
+    </markdown>
+    <a href="https://github.com/jspm/jspm-loader"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <script>
+      jspm.import(['github:coreyti/showdown/src/showdown'], function(showdown) {
+        var converter = new showdown.default.converter();
+        document.querySelector('.content').innerHTML = converter.makeHtml(document.querySelector('markdown').textContent);
+        Array.prototype.forEach.call(document.querySelectorAll('a'), function(a) { if ((a.getAttribute('href') || '#').substr(0, 1) != '#') a.setAttribute('target', '_blank'); });
+
+        var sInput = document.querySelector('input.signup');
+        var sForm = document.querySelector('form.signup-group');
+        var sButton = document.querySelector('input.signup-submit');
+        var sCog = document.querySelector('.cog');
+        var firstFocus = true;
+        sInput.addEventListener('focus', function() {
+          if (firstFocus)
+            sInput.setAttribute('value', '');
+          firstFocus = false;
+        });
+        var submitted = false;
+        sForm.addEventListener('submit', function(e) {
+          if (submitted) {
+            e.preventDefault();
+            return false;
+          }
+          var email = sInput.value;
+          if (!email.match(/[A-Z0-9\._%+-]+@[A-Z0-9\.-]+\.[A-Z]{2,4}/i)) {
+            sInput.style.backgroundColor = '#FFD4D4';
+            e.preventDefault();
+            return false;
+          }
+          else
+            sInput.style.backgroundColor = '#fff';
+
+          submitted = true;
+
+          sButton.setAttribute('value', '');
+          sCog.style.top = '6px';
+          sCog.style.right = '-253px';
+          sCog.style.position = 'relative';
+          sCog.style.marginLeft = '0';
+          sCog.style.marginRight = '0';
+          sCog.style.visibility = 'visible';
+          sInput.style.backgroundColor = 'transparent';
+          sInput.setAttribute('disabled', 'disabled');
+          document.activeElement.blur();
+
+          submitEmail(email, function(msg) {
+            sInput.value = msg;
+            sCog.style.visibility = 'hidden';
+            sInput.style.borderRightStyle = 'none';
+            sButton.style.borderLeftStyle = 'none';
+            sButton.style.background = 'transparent';
+            sButton.style.cursor = 'default';
+          });
+
+          e.preventDefault();
+          return false;
+        });
+
+        var submitEmail = function(email, callback) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://jspm.io/signup');
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+              if (xhr.status == 200 && xhr.responseText == 'ok')
+                callback('Thanks, we will be in touch soon.');
+              else
+                callback('ERROR! Ok this is embarrasing...');
+            }
+          };
+          xhr.send(email);
+        }
+      });
+    </script>
   </body>
-</html>
