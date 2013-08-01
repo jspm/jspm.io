@@ -1,6 +1,7 @@
 <!doctype html>
   <html>
-    <title>jspm.io - Get Started</title>
+    <title>jspm.io - Frictionless Browser Package Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico">
     <script src="https://jspm.io/loader.js"></script>
     <style type="text/css">
@@ -86,6 +87,7 @@
         border: 1px solid #C5C5C5;
         border-radius: 7px;
         color: #444;
+        white-space: pre-wrap;
       }
       .content a {
         color: #C0781A;
@@ -158,9 +160,6 @@
 
       @media screen and (max-width: 640px),
       screen and (max-device-width: 640px) {
-        body {
-          -webkit-text-size-adjust: none;
-        }
         .content {
           width: 100%;
         }
@@ -225,7 +224,7 @@ Any local modules, including AMD and CommonJS can be loaded in this way. Require
 
 ```javascript
   jspm.import('npm:underscore@1.5', function(underscore) {
-    var _ = underscore.default;
+    var _ = underscore;
   });
 ```
 
@@ -242,25 +241,11 @@ The CDN can be used on its own to load any script, stylesheets or HTML import re
 
 SPDY push still manages dependencies minimising round trips, making this an efficient CDN option.
 
-**Import the latest stable version of a module from NPM ([see this example on jsbin](http://jsbin.com/oqatol/1/edit))**
-
-```javascript
-  jspm.import('npm:spinning', function(m) {
-
-    var Spinning = m.default;
-    var spinner = Spinning().text('loading...').light().size(200);
-    setTimeout(function () {
-      spinner.remove();
-    }, 3000);
-
-  });
-```
-
 **Load an AMD module from the latest stable version of a library on Github**
 
 ```javascript
-  jspm.import('github:mout/mout/src/array/map', function(m) {
-    var map = m.default;
+  jspm.import('github:mout/mout/src/array/map', function(map) {
+    
   });
 ```
 
@@ -308,7 +293,7 @@ main.js:
 
 ```javascript
   jspm.import('main', function(m) {
-    console.log(m.default.hello); // world
+    console.log(m.hello); // world
   });
 ```
 
@@ -339,6 +324,8 @@ The benefits of having SPDY push dependencies mean that imported resources in st
 
 _Note that it is still early days and this work is still experimental._
 
+[Join the Google Group](http://groups.google.com/group/jspm-io) to stay informed, engage in discussion, provide feedback or ask for support.
+
 If you are interested in being notified on future jspm announcements, sign up to stay informed here:
 
 &lt;form class="signup-group">
@@ -347,17 +334,11 @@ If you are interested in being notified on future jspm announcements, sign up to
   &lt;div class="cog">&lt;/div>
 &lt;/form>
 
-If you find any bugs or want to request a feature, [use the issue tracker here](https://github.com/jspm/issues/issues).
-
-[Join the Google Group](http://groups.google.com/group/jspm-io) to engage in discussion, provide feedback or ask for support.
-
-For any other feedback, contact me at guybedford@gmail.com.
-
     </markdown>
     <a href="https://github.com/jspm/jspm-loader"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
     <script>
       jspm.import(['github:coreyti/showdown/src/showdown'], function(showdown) {
-        var converter = new showdown.default.converter();
+        var converter = new showdown.converter();
         document.querySelector('.content').innerHTML = converter.makeHtml(document.querySelector('markdown').textContent);
         Array.prototype.forEach.call(document.querySelectorAll('a'), function(a) { if ((a.getAttribute('href') || '#').substr(0, 1) != '#') a.setAttribute('target', '_blank'); });
 
