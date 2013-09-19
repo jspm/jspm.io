@@ -258,14 +258,15 @@ Include the jspm loader in the head of the page:
   &lt;script src="https://jspm.io/loader.js">&lt;/script>
 ```
 
-Alternatively [download the loader and include it locally](https://github.com/jspm/jspm-loader).
+To work locally, download [`loader.js`](https://jspm.io/loader.js), [`es6-module-loader.js`](https://jspm.io/es6-module-loader.js) and [`esprima-es6.min.js`](https://jspm.io/esprima-es6.min.js) into the same folder and change the script source above to the local `loader.js`.
 
 To require a local module, set the baseURL and load from it (by default the baseURL is set to the current page location):
 
 ```javascript
   jspm.config({
-    baseURL: 'http://www.mysite.com/lib'
+    baseURL: '/lib'
   });
+  // loads '/lib/local/file.js'
   jspm.import('local/file', function(module) {
   });
 ```
