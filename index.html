@@ -20,10 +20,38 @@
         background-repeat: repeat;
         background-color: #eee;
       }
-      h1, h2, h3, h4, h5, h6, p, li {
+      h1, h2, h3, h4, h5, h6, p, li, a {
         font-family: 'Myriad Pro';
         -webkit-font-smoothing: antialiased;
         font-weight: 100;
+      }
+      .cdn-icon, .cli-icon, .loader-icon {
+        background-image: url(icons.png);
+        width: 46px;
+        height: 46px;
+        margin-bottom: -64px;
+      }
+      .loader-icon {
+        background-position-y: -107px;
+      }
+      .loader-icon + h4 {
+        margin-left: 55px;
+      }
+      .cdn-icon + h4 {
+        margin-left: 55px;
+      }
+      .cli-icon +h4 {
+        margin-left: 55px;
+      }
+
+      .cli-icon {
+        background-position-y: -58px;
+        background-position-x: -18px;
+        background-repeat: no-repeat;
+        margin-left: 16px;
+      }
+      .cdn-icon {
+        background-position-y: -153px;
       }
       .logobox {
         background-image: url(icons.png);
@@ -61,7 +89,7 @@
       }
       h4 {
         font-size: 22px;
-        color: #444;
+        color: #666;
         text-shadow: 1px 1px 1px #fff;
       }
       .content {
@@ -158,10 +186,37 @@
         background-color: #ddd;
       }
 
+      .contents {
+        position: fixed;
+        top: 100px;
+        left: 0px;
+      }
+      .contents a {
+        height: 40px;
+        line-height: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 16px;
+        border-bottom: 1px dashed #999;
+        display: block;
+        color: #777;
+        text-decoration:none;
+        text-shadow: 1px 1px 1px #fff;
+      }
+      .contents a:active {
+        background-color: #ddd;
+      }
+      .contents a:hover {
+        background-color: #ddd;
+      }
+
       @media screen and (max-width: 640px),
       screen and (max-device-width: 640px) {
         .content {
           width: 100%;
+        }
+        .contents {
+          display: none;
         }
       }
     </style>
@@ -176,6 +231,7 @@
 
     </script>
   <body>
+    <a id="introduction"></a>
     <div class="logobox"></div>
     <h1 class="logo">&nbsp;&nbsp;&nbsp;&nbsp;<span>jspm</span>.io</h1>
     <h2 class="tagline">Frictionless browser package management</h2>
@@ -185,23 +241,49 @@
       </div>
     </div>
 
-    <markdown style="display: none;">
-_jspm is a browser module loader that will load any module format (ES6 / AMD / CJS) locally or even directly from NPM and Github utilising SPDY push._
+    <div class="contents">
+      <a href="#introduction">Introduction</a>
+      <a href="#examples">Examples</a>
+      <a href="#feedbackroadmap">Feedback &amp; Roadmap</a>
+    </div>
 
+    <markdown style="display: none;">
+
+&lt;div class="loader-icon">&lt;/div>
 #### JSPM Loader
 
 * Write ES6 modules today and use them in any browser.
 * Load AMD and CommonJS modules together in the same application.
-* Load global scripts with a sandboxed global object.
+* Load global scripts with a dependency-managed global object.
 * Built on top of the [ES6 Module Loader polyfill](https://github.com/ModuleLoader/es6-module-loader), making it standards-compliant and future-friendly.
+* RequireJS-style configuration and plugin system.
 
-#### JSPM CDN
+[Read the loader documentation on Github](https://github.com/jspm/jspm-loader)
+
+&lt;div class="cdn-icon">&lt;/div>
+#### JSPM Registry &amp; CDN
 
 * Load an NPM module in the browser without any build or install.
 * Load dependency-managed modules directly from Github.
-* Worried about perfomance? SPDY push is used to automatically bundle dependencies together, minimising round trips.
+* Dependencies traced and served with SPDY push, minimising download time.
+
+[View the registry page on Github](https://github.com/jspm/registry)
+
+&lt;div class="cli-icon">&lt;/div>
+#### JSPM CLI
+
+* Download modules and dependencies from the JSPM registry, NPM or Github, with the JSPM loader map configuration created automatically.
+* Build ES6 into ES5, transpile ES6 modules into AMD and uglify with source maps support.
+
+[Read the CLI documentation on Github](https://github.com/jspm/jspm)
 
 ### Examples
+
+**Include the JSPM loader in a page**
+
+```html
+  &lt;script src="https://jspm.io/loader.js">&lt;/script>
+```
 
 **Write and load an ES6 module**
 
@@ -211,35 +293,30 @@ es6-module.js:
   export var hello = 'es6';
 ```
 
-main.js:
-```javascript
-  jspm.import('es6-module', function(m) {
-    console.log(m.hello);
-  });
+test.html:
+```html
+  &lt;script>
+    jspm.import('./es6-module', function(m) {
+      console.log(m.hello);
+    });
+  &lt;/script>
 ```
 
-Any local modules, including AMD and CommonJS can be loaded in this way. RequireJS-style configuration offers loader flexibility.
+Esprima is used to parse ES6, loaded only when necessary. AMD and CJS can be loaded in the same way as the above without needing Esprima.
 
 **Import the latest revision of a module directly from NPM**
 
-```javascript
-  jspm.import('npm:underscore@1.5', function(underscore) {
-    var _ = underscore;
-  });
+```html
+  &lt;script>
+    jspm.import('npm:underscore@1.5', function(_) {
+      _.each([1, 2, 3], console.log);
+    });
+  &lt;/script>
 ```
 
-The module is loaded through the CDN along with its version-managed dependencies.
+Loads from the NPM path, `https://npm.jspm.io/underscore@1.5.js`.
 
-**Load a file from the latest stable version tag of a library on Github**
-
-```javascript
-  &lt;link rel="stylesheet"
-    href="https://github.jspm.io/hakimel/reveal.js/css/reveal.css">&lt;/link>
-```
-
-The CDN can be used on its own to load any script, stylesheets or HTML import resources directly from NPM or Github.
-
-SPDY push still manages dependencies minimising round trips, making this an efficient CDN option.
+The module is loaded through the CDN along with any version-managed dependencies.
 
 **Load an AMD module from the latest stable version of a library on Github**
 
@@ -249,78 +326,45 @@ SPDY push still manages dependencies minimising round trips, making this an effi
   });
 ```
 
-<a id="Getting Started"></a>
-#### Getting Started
+When no version is specified, the latest version is given by the CDN.
 
-Include the jspm loader in the head of the page:
+**Install a module locally with the CLI**
 
+```
+  jspm install npm:underscore@1.5
+  jspm setmode local
+```
+
+Installs the version-managed module at `jspm_packages/npm/underscore@1.5.2/`, and auto-generates the configuration file, `config.js`.
+
+**Load all modules locally**
+
+test.html
 ```html
-  &lt;script src="https://jspm.io/loader.js">&lt;/script>
+  &lt;script src="jspm_packages/loader.js">&lt;/script>
+  &lt;script src="config.js">&lt;/script>
+  &lt;script>
+    jspm.import('npm:underscore@1.5', function(_) {
+      _.each([1, 2, 3], console.log);
+    });
+  &lt;/script>
 ```
 
-To work locally, download [`loader.js`](https://jspm.io/loader.js), [`es6-module-loader.js`](https://jspm.io/es6-module-loader.js) and [`esprima-es6.min.js`](https://jspm.io/esprima-es6.min.js) into the same folder and change the script source above to the local `loader.js`.
+All scripts are now loaded from the local system, not the CDN, but requires work exactly the same.
 
-To require a local module, set the baseURL and load from it (by default the baseURL is set to the current page location):
-
-```javascript
-  jspm.config({
-    baseURL: '/lib'
-  });
-  // loads '/lib/local/file.js'
-  jspm.import('local/file', function(module) {
-  });
-```
-
-To require from Github or NPM, use the location name in the require:
-
-```javascript
-  jspm.import([
-    'github:username/repo@3.4/main.js', 
-    'npm:some-module@1.2'
-  ], function(m1, m2) {
-
-  });
-```
-
-Alternatively, just start writing scripts in your favourite module format:
-
-main.js:
-```javascript
-  var githubModule = require('github:username/repo@3.4/main.js');
-  var npmModule = require('npm:some-module@1.2');
-
-  module.exports = { hello: 'world' };
-```
-
-```javascript
-  jspm.import('main', function(m) {
-    console.log(m.hello); // world
-  });
-```
-
-The module format is detected automatically and handled appropriately. AMD, CommonJS, ES6 and global scripts are all supported.
-
-The loader supports RequireJS-style configuration options (map &amp; shim configuration) as well as a plugin system. [Read more at the github page](https://github.com/jspm/jspm-loader).
-
-<a id="CDN Endpoints"></a>
-#### CDN Endpoints
-
-The CDN endpoints are entirely URL-based. The basic format is:
+**Build for production**
 
 ```
-  https://npm.jspm.io/[module name]@[version]/[file path]
-  https://github.jspm.io/[username]/[repo]@[version]/[file path]
+  jspm build
+  jspm setmode build
 ```
 
-Typically a minor version is specified only (eg `@2.2`), which will load the latest revision. This is the recommended way of loading a resource as it allows patches but not breaking changes in the dependency tree.
+Transpiles ES6 into AMD, converts ES6 syntax into ES5 with Traceur and uglifies code automatically.
 
-If no version is specified, the latest stable version is loaded. Otherwise a complete version or tagname can also be provided.
+The same test page is now enabled for production.
 
-_The CDN endpoints don't need to be used with the jspm loader, they can also be used with scripts, stylesheets or HTML imports in the page._
+Read more about the build workflow at the [CLI page](https://github.com/jspm/jspm).
 
-The benefits of having SPDY push dependencies mean that imported resources in styles, scripts and HTML imports don't require a separate round trip. Script dependencies are traced automatically and provided with this support.
-
-<a id="Feedback &amp; Roadmap"></a>
 #### Feedback &amp; Roadmap
 
 _Note that it is still early days and this work is still experimental._
