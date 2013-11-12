@@ -3,6 +3,7 @@
     <title>jspm.io - Frictionless Browser Package Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico">
+    <script src="https://jspm.io/es6-module-loader.js"></script>
     <script src="https://jspm.io/loader.js"></script>
     <style type="text/css">
       @font-face {
@@ -250,40 +251,75 @@
     <markdown style="display: none;">
 
 &lt;div class="loader-icon">&lt;/div>
-#### JSPM Loader
+#### jspm Loader
 
+* RequireJS-style module loader with similar configuration and plugin system.
+* Built on top of the [ES6 Module Loader polyfill](https://github.com/ModuleLoader/es6-module-loader), making it standards-compliant and future-friendly.
 * Write ES6 modules today and use them in any browser.
 * Load AMD and CommonJS modules together in the same application.
 * Load global scripts with a dependency-managed global object.
-* Built on top of the [ES6 Module Loader polyfill](https://github.com/ModuleLoader/es6-module-loader), making it standards-compliant and future-friendly.
-* RequireJS-style configuration and plugin system.
 
 [Read the loader documentation on Github](https://github.com/jspm/jspm-loader)
 
 &lt;div class="cdn-icon">&lt;/div>
-#### JSPM Registry &amp; CDN
+#### CDN Endpoints &amp; Registry
 
-* Load an NPM module in the browser without any build or install.
+* Custom endpoints allow loading modular code without any build or install.
+* By default, the loader comes with the `github` and `npm` endpoints, provided as a free service. Anyone can create an endpoint or endpoint mirror.
+* Load an npm module in the browser without any build or install.
 * Load dependency-managed modules directly from Github.
 * Dependencies traced and served with SPDY push, minimising download time.
+* The registry endpoint allows shortcut names such as `jquery`.
+
+_The CDN endpoint code will be open-sourced, allowing anyone to create an endpoint mirror or service._
 
 [View the registry page on Github](https://github.com/jspm/registry)
 
 &lt;div class="cli-icon">&lt;/div>
-#### JSPM CLI
+#### jspm CLI
 
-* Download modules and dependencies from the JSPM registry, NPM or Github, with the JSPM loader map configuration created automatically.
+* Download modules and dependencies from the jspm registry, npm or Github, with the jspm loader map configuration created automatically.
+* Endpoints provide their own download implementations making the CLI truly modular.
+* Because the CLI understands the loader, modular code works without the need for complex manual configuration.
 * Build ES6 into ES5, transpile ES6 modules into AMD and uglify with source maps support.
 
 [Read the CLI documentation on Github](https://github.com/jspm/jspm-cli)
 
 ### Examples
 
-**Include the JSPM loader in a page**
+**Include the jspm loader in a page**
 
 ```html
   &lt;script src="https://jspm.io/loader.js">&lt;/script>
 ```
+
+**Import the latest revision of a module directly from npm**
+
+```html
+  &lt;script>
+    jspm.import('npm:underscore@1.5', function(_) {
+      _.each([1, 2, 3], console.log);
+    });
+  &lt;/script>
+```
+
+Loads from the npm endpoint URL, `https://npm.jspm.io/underscore@1.5.js`.
+
+The module is loaded through the CDN server along with any version-managed dependencies.
+
+The CDN server uses SPDY to push module dependencies, and automatically minifies the source. This way, any npm module can be loaded efficiently directly in the browser without any install necessary.
+
+**Load an AMD module from the latest stable version of a library on Github**
+
+```javascript
+  jspm.import('github:mout/mout/src/array/map', function(map) {
+    
+  });
+```
+
+When no version is specified, the latest version is given by the CDN.
+
+The module format is detected automatically. For global scripts, shim configuration can be provided directly in the package.json allowing for true modular configuration.
 
 **Write and load an ES6 module**
 
@@ -304,30 +340,6 @@ test.html:
 
 Esprima is used to parse ES6, loaded only when necessary. AMD and CJS can be loaded in the same way as the above without needing Esprima.
 
-**Import the latest revision of a module directly from NPM**
-
-```html
-  &lt;script>
-    jspm.import('npm:underscore@1.5', function(_) {
-      _.each([1, 2, 3], console.log);
-    });
-  &lt;/script>
-```
-
-Loads from the NPM path, `https://npm.jspm.io/underscore@1.5.js`.
-
-The module is loaded through the CDN along with any version-managed dependencies.
-
-**Load an AMD module from the latest stable version of a library on Github**
-
-```javascript
-  jspm.import('github:mout/mout/src/array/map', function(map) {
-    
-  });
-```
-
-When no version is specified, the latest version is given by the CDN.
-
 **Install a module locally with the CLI**
 
 ```
@@ -336,8 +348,6 @@ When no version is specified, the latest version is given by the CDN.
 ```
 
 Installs the version-managed module at `jspm_packages/npm/underscore@1.5.2/`, and auto-generates the configuration file, `config.js`.
-
-**Load all modules locally**
 
 test.html
 ```html
@@ -356,7 +366,7 @@ All scripts are now loaded from the local system, not the CDN, but requires work
 
 ```
   jspm build
-  jspm setmode build
+  jspm setmode production
 ```
 
 Transpiles ES6 into AMD, converts ES6 syntax into ES5 with Traceur and uglifies code automatically.
