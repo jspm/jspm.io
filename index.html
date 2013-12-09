@@ -309,36 +309,65 @@ The module is loaded through the CDN server along with any version-managed depen
 
 The CDN server uses SPDY to push module dependencies, and automatically minifies the source. This way, any npm module can be loaded efficiently directly in the browser without any install necessary.
 
-**Load an AMD module from the latest stable version of a library on Github**
+**Load a single module from a package**
 
 ```javascript
-  jspm.import('github:mout/mout/src/array/map', function(map) {
-    
+  jspm.import('npm:lodash-node/modern/collections', function(collections) {
+    collections.max([1,2,3,4]); // 4
   });
 ```
 
 When no version is specified, the latest version is given by the CDN.
 
-The module format is detected automatically. For global scripts, shim configuration can be provided directly in the package.json allowing for true modular configuration.
+**Load an AMD module from GitHub**
+
+```javascript
+  jspm.import('github:moment/moment', function() {
+  });
+```
+
+The module format is detected automatically. Additional configuration can be specified in the package.json setting a custom module format, shim config for global scripts, and the main entry point. In this way, true modular configuration is enabled.
 
 **Write and load an ES6 module**
 
 es6-module.js:
 ```javascript
   import { someProperty } from './some-dependency';
-  export var hello = 'es6';
+  export class hello {
+    constructor() {
+      return 'es6';
+    }
+  }
 ```
 
 test.html:
 ```html
   &lt;script>
     jspm.import('./es6-module', function(m) {
-      console.log(m.hello);
+      console.log(new m.hello());
     });
   &lt;/script>
 ```
 
-Esprima is used to parse ES6, loaded only when necessary. AMD and CJS can be loaded in the same way as the above without needing Esprima.
+Traceur is used to parse ES6 in the browser. When moving to production a build can be made with Traceur:
+
+package.json:
+```javascript
+{
+  "buildConfig": {
+    "traceur": true,
+    "uglify": true
+  }
+}
+```
+
+```
+  jspm build
+```
+
+After running the build with the given package.json, ES6 is transpiled into ES5 and AMD. Alternatively upload an ES6 package with the correct package.json to GitHub and the build will be done by the CDN for you.
+
+AMD and CommonJS can be loaded in the same way as the above without needing Esprima.
 
 **Install a module locally with the CLI**
 
@@ -362,24 +391,17 @@ test.html
 
 All scripts are now loaded from the local system, not the CDN, but requires work exactly the same.
 
-**Build for production**
-
-```
-  jspm build
-  jspm setmode production
-```
-
-Transpiles ES6 into AMD, converts ES6 syntax into ES5 with Traceur and uglifies code automatically.
-
-The same test page is now enabled for production.
-
-Read more about the build workflow at the [CLI page](https://github.com/jspm/jspm).
-
-#### Feedback &amp; Roadmap
-
-_Note that it is still early days and this work is still experimental._
+#### Next Steps
 
 [Join the Google Group](http://groups.google.com/group/jspm-io) to stay informed, engage in discussion, provide feedback or ask for support.
+
+[Post an issue](https://github.com/jspm/issues) to request help with getting a package to work with jspm.
+
+* [jspm Loader and Documentation](https://github.com/jspm/jspm-loader)
+* [jspm Registry and Documentation](https://github.com/jspm/registry)
+* [jspm CLI and Documentation](https://github.com/jspm/jspm-cli)
+
+_Note that it is still early days and this work is still experimental._
 
 If you are interested in being notified on future jspm announcements, sign up to stay informed here:
 
