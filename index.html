@@ -6,6 +6,25 @@
     <script src="https://jspm.io/es6-module-loader.js"></script>
     <script src="https://jspm.io/loader.js"></script>
     <style type="text/css">
+
+      code {
+        padding: 5px;
+      }
+      code.javascript, code.html {
+        padding: 0px;
+      }
+      code .comment, code .comment .keyword {
+        color: #494;
+        font-weight: 100;
+      }
+      code .string, code .string .comment {
+        color: #BE1717;
+      }
+      code .keyword {
+        font-weight: bold;
+        color: #767;
+      }
+
       @font-face {
         font-family: 'Advent Pro';
         src: url('fonts/advent-Lt1.eot');
@@ -64,6 +83,9 @@
         padding-left: 180px;
         background-repeat: no-repeat;
         margin-top: 50px;
+      }
+      strong {
+        color: #666;
       }
       h1.logo {
         font-family: 'Advent Pro', 'Myriad Pro', sans-serif;
@@ -242,166 +264,158 @@
       </div>
     </div>
 
+    <!-- 
     <div class="contents">
       <a href="#introduction">Introduction</a>
       <a href="#examples">Examples</a>
       <a href="#feedbackroadmap">Feedback &amp; Roadmap</a>
     </div>
+  -->
 
     <markdown style="display: none;">
 
-&lt;div class="loader-icon">&lt;/div>
-#### jspm Loader
+jspm loads any module format (ES6, AMD, CommonJS and globals) directly from endpoints such as `npm` and `github` over CDN for easy in-browser package management.
 
-* RequireJS-style module loader with similar configuration and plugin system.
+The [SystemJS module loader](https://github.com/systemjs/systemjs), built on top of the dynamic [ES6 module loader specification](https://github.com/ModuleLoader/es6-module-loader), is used to load version-managed JavaScript modules from CDN. All module format dependencies are traced and sent with SPDY push along with suitable cache headers for optimal loading.
+
+At any point, use the jspm CLI tool to download packages locally and/or lock down versions. Switching between the CDN and locally downloaded packages is a single configuration change.
+
+&lt;br>
+
+#### Getting Started
+
+**Include the SystemJS loader from jspm in the page:**
+
+```html
+  &lt;script src="https://jspm.io/system@0.4.js">&lt;/script>
+```
+
+**Require a package module directly from the browser:**
+
+```javascript
+  // a specific module from the latest version of an npm package:
+  System.import('npm:lodash-node/modern/collections').then(function(collections) {
+    collections.max([1,2,3,4]); // 4
+  });
+
+  // a semver-compatible version of jquery:
+  System.import('github:components/jquery@^2.0.3').then(function($) {
+  });
+```
+
+_These loading examples can be run from the browser development console in this page._
+
+**Install the jspm CLI:**
+
+```
+  npm install jspm -g
+```
+
+**Download flat version-managed packages with the jspm CLI:**
+
+```
+  jspm install npm:lodash-node jquery@^2.0.3
+```
+
+Include the local loader and generated `config.js` file:
+
+```html
+  &lt;script src="jspm_packages/system@0.4.0.js">&lt;/script>
+  &lt;script src="config.js">&lt;/script>
+```
+
+The same code written in development using the CDN now runs locally with versions optimally-resolved and locked down.
+
+&lt;br>
+&lt;div class="loader-icon">&lt;/div>
+#### SystemJS
+
+jspm package management is designed around the [SystemJS ES6 specification-based loader](https://github.com/systemjs/systemjs).
+
+* RequireJS-style module loader with similar configuration and [plugin system](https://github.com/systemjs/systemjs#plugins).
 * Built on top of the [ES6 Module Loader polyfill](https://github.com/ModuleLoader/es6-module-loader), making it standards-compliant and future-friendly.
-* Write ES6 modules today and use them in any browser.
+* Write [ES6 modules today](https://github.com/systemjs/systemjs#loading-es6-modules) and use them in any browser, [building into AMD for production](https://github.com/systemjs/systemjs#compiling-es6-to-es5-and-amd).
 * Load AMD and CommonJS modules together in the same application.
 * Load global scripts with a dependency-managed global object.
 
-[Read the loader documentation on Github](https://github.com/jspm/jspm-loader)
+[Read more at the SystemJS project page on GitHub](https://github.com/systemjs/systemjs)
 
+&lt;br>
 &lt;div class="cdn-icon">&lt;/div>
 #### CDN Endpoints &amp; Registry
 
-* Custom endpoints allow loading modular code without any build or install.
-* By default, the loader comes with the `github` and `npm` endpoints, provided as a free service. Anyone can create an endpoint or endpoint mirror.
-* Load an npm module in the browser without any build or install.
-* Load dependency-managed modules directly from Github.
-* Dependencies traced and served with SPDY push, minimising download time.
-* The registry endpoint allows shortcut names such as `jquery`.
+**Endpoints**
 
-_The CDN endpoint code will be open-sourced, allowing anyone to create an endpoint mirror or service._
+Endpoints provide collections of packages that can be downloaded through the CLI or served over CDN.
 
-[View the registry page on Github](https://github.com/jspm/registry)
+The following endpoints are currently supported:
+ 
+* **GitHub:** _github:name/repo@version_ -> _https://github.jspm.io/name/repo@version.js_
+* **npm:** _npm:repo@version_ -> _https://npm.jspm.io/repo@version.js_
 
+When requesting the package directly, the main entry point is used (from the package.json). Individual modules or asset files can also be requested from inside the package (`npm:repo/sub/module`).
+
+Most packages on npm will work naturally with full version management.
+
+GitHub packages may need some [package.json configuration](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm), which can be added through a [custom override](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm#wiki-package-overrides).
+
+_The endpoint code will be open sourced to allow anyone to host an endpoint._
+
+**Registry**
+
+The [jspm registry](https://github.com/jspm/registry) provides a convenience mapping from shortcut names such as `jquery` into full endpoint names `github:components/jquery`.
+
+**Version Management**
+
+The major requirement for version-management in the browser is **flat dependency management**, which is a completely different problem to the hierarchical dependency management used in npm.
+
+The key to making this possible is to use semver-compatibility to share dependencies as much as possible.
+
+1. As packages are loaded, semver-compatible dependency sharing in the dependency tree will happen greedily. Any forks can be inspected by looking at `System.versions`. 
+2. For production, use jspm CLI to do version resolution and injection. Forks will be individually prompted for handling.
+
+_Always write dependencies within files without any version included (`require('jquery')` / `System.import('jquery')`). This way the latest stable version is used, and versions can also be automatically locked through injection of configuration by the jspm CLI._
+
+The following version styles are supported:
+
+* _Latest stable version_: `npm:underscore`
+* _Latest major version_: `npm:underscore@1`
+* _Latest minor version_: `npm:underscore@1.5`
+* _Exact semver version_: `npm:underscore@1.5.2`
+
+The browser cache expiry for an exact version is much longer than the cache expiry for a latest version (1 hour).
+
+Tags and semver-compatible verisons can also be used:
+
+* _Load a branch or tag_: `github:components/jquery@master`
+* _Semver-compatible version_: `github:components/jquery@^2.0.3`
+
+Links:
+
+* [Configuration Packages for jspm](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm)
+* [Configure Existing Packages for jspm](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm#wiki-package-overrides)
+* [jspm Registry](https://github.com/jspm/registry)
+
+&lt;br>
 &lt;div class="cli-icon">&lt;/div>
 #### jspm CLI
 
-* Download modules and dependencies from the jspm registry, npm or Github, with the jspm loader map configuration created automatically.
-* Endpoints provide their own download implementations making the CLI truly modular.
+* [Downloads modules and dependencies](https://github.com/jspm/jspm-cli#getting-started) from the jspm registry, npm or Github, with the SystemJS configuration file fully managed.
+* Alternatively it can [inject exact version configuration](https://github.com/jspm/jspm-cli#jspm-inject---using-the-jspm-cdn-in-production) for using the jspm CDN in production.
 * Because the CLI understands the loader, modular code works without the need for complex manual configuration.
-* Build ES6 into ES5, transpile ES6 modules into AMD and uglify with source maps support.
+* Build [ES6 into ES5 transpiling ES6 modules into AMD](https://github.com/jspm/jspm-cli#building-application-code) and minify with source maps support.
 
 [Read the CLI documentation on Github](https://github.com/jspm/jspm-cli)
 
-### Examples
-
-**Include the jspm loader in a page**
-
-```html
-  &lt;script src="https://jspm.io/loader.js">&lt;/script>
-```
-
-**Import the latest revision of a module directly from npm**
-
-```html
-  &lt;script>
-    jspm.import('npm:underscore@1.5', function(_) {
-      _.each([1, 2, 3], console.log);
-    });
-  &lt;/script>
-```
-
-Loads from the npm endpoint URL, `https://npm.jspm.io/underscore@1.5.js`.
-
-The module is loaded through the CDN server along with any version-managed dependencies.
-
-The CDN server uses SPDY to push module dependencies, and automatically minifies the source. This way, any npm module can be loaded efficiently directly in the browser without any install necessary.
-
-**Load a single module from a package**
-
-```javascript
-  jspm.import('npm:lodash-node/modern/collections', function(collections) {
-    collections.max([1,2,3,4]); // 4
-  });
-```
-
-When no version is specified, the latest version is given by the CDN.
-
-**Load an AMD module from GitHub**
-
-```javascript
-  jspm.import('github:moment/moment', function() {
-  });
-```
-
-The module format is detected automatically. Additional configuration can be specified in the package.json setting a custom module format, shim config for global scripts, and the main entry point. In this way, true modular configuration is enabled.
-
-**Write and load an ES6 module**
-
-es6-module.js:
-```javascript
-  import { someProperty } from './some-dependency';
-  export class hello {
-    constructor() {
-      return 'es6';
-    }
-  }
-```
-
-test.html:
-```html
-  &lt;script>
-    jspm.import('./es6-module', function(m) {
-      console.log(new m.hello());
-    });
-  &lt;/script>
-```
-
-Traceur is used to parse ES6 in the browser. When moving to production a build can be made with Traceur:
-
-package.json:
-```javascript
-{
-  "buildConfig": {
-    "traceur": true,
-    "uglify": true
-  }
-}
-```
-
-```
-  jspm build
-```
-
-After running the build with the given package.json, ES6 is transpiled into ES5 and AMD. Alternatively upload an ES6 package with the correct package.json to GitHub and the build will be done by the CDN for you.
-
-AMD and CommonJS can be loaded in the same way as the above without needing Esprima.
-
-**Install a module locally with the CLI**
-
-```
-  jspm install npm:underscore@1.5
-  jspm setmode local
-```
-
-Installs the version-managed module at `jspm_packages/npm/underscore@1.5.2/`, and auto-generates the configuration file, `config.js`.
-
-test.html
-```html
-  &lt;script src="jspm_packages/loader.js">&lt;/script>
-  &lt;script src="config.js">&lt;/script>
-  &lt;script>
-    jspm.import('npm:underscore@1.5', function(_) {
-      _.each([1, 2, 3], console.log);
-    });
-  &lt;/script>
-```
-
-All scripts are now loaded from the local system, not the CDN, but requires work exactly the same.
-
+&lt;br>
 #### Next Steps
 
 [Join the Google Group](http://groups.google.com/group/jspm-io) to stay informed, engage in discussion, provide feedback or ask for support.
 
-[Post an issue](https://github.com/jspm/issues) to request help with getting a package to work with jspm.
-
-* [jspm Loader and Documentation](https://github.com/jspm/jspm-loader)
 * [jspm Registry and Documentation](https://github.com/jspm/registry)
 * [jspm CLI and Documentation](https://github.com/jspm/jspm-cli)
 
-_Note that it is still early days and this work is still experimental._
+_Note that SystemJS is built on the latest ES6 draft modules specification and may still be subject to change._
 
 If you are interested in being notified on future jspm announcements, sign up to stay informed here:
 
@@ -412,12 +426,19 @@ If you are interested in being notified on future jspm announcements, sign up to
 &lt;/form>
 
     </markdown>
-    <a href="https://github.com/jspm/jspm-loader"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <a href="https://github.com/jspm/jspm-cli"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
     <script>
       jspm.import(['github:coreyti/showdown/src/showdown'], function(showdown) {
         var converter = new showdown.converter();
         document.querySelector('.content').innerHTML = converter.makeHtml(document.querySelector('markdown').textContent);
         Array.prototype.forEach.call(document.querySelectorAll('a'), function(a) { if ((a.getAttribute('href') || '#').substr(0, 1) != '#') a.setAttribute('target', '_blank'); });
+        Array.prototype.forEach.call(document.querySelectorAll('code.javascript'), function(code) {
+          code.innerHTML = code.innerHTML
+            .replace(/\/\/(.*)/gm, '<span class="comment">//$1</span>')
+            .replace(/('[^']*')/gm, '<span class="string">$1</span>')
+            .replace(/([^#\d])(\d+)/gm, '$1<span class="number">$2</span>')
+            .replace(/([^\.])(for|function|new|throw|return|var|if|else|true|false|this|import|export class|export|from)\b/gm, '$1<span class="keyword">$2</span>');
+        });
 
         var sInput = document.querySelector('input.signup');
         var sForm = document.querySelector('form.signup-group');
