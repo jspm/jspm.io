@@ -348,18 +348,30 @@ jspm package management is designed around the [SystemJS ES6 specification-based
 
 Endpoints provide collections of packages that can be downloaded through the CLI or served over CDN.
 
+When requesting a package directly by name, the main entry point is used from the package.json. For example - `System.import('github:twbs/bootstrap')`. Individual modules or asset files can also be requested from inside the package (`npm:repo/sub/module`).
+
 The following endpoints are currently supported:
  
-* **GitHub:** _github:name/repo@version_ -> _https://github.jspm.io/name/repo@version.js_
-* **npm:** _npm:repo@version_ -> _https://npm.jspm.io/repo@version.js_
+* **npm:**
+  * _npm:repo@version_ -> _https://npm.jspm.io/repo@version.js_
+  * Most packages on npm will work naturally with full version management, with no further configuration necessary.
+  * The NodeJS builtins are provided by the same libraries used in Browserify.
 
-When requesting the package directly, the main entry point is used (from the package.json). Individual modules or asset files can also be requested from inside the package (`npm:repo/sub/module`).
+* **GitHub:**
+  * _github:name/repo@version_ -> _https://github.jspm.io/name/repo@version.js_
+  * Packages on GitHub get their versions from semver tag names (with or without a `v` prefix).
+  * When a GitHub release for a given tag is provided, the release archive will be used instead of the repo.
+  * GitHub packages will benefit from jspm configuration being provided through the package.json or an override.
 
-Most packages on npm will work naturally with full version management.
+**Package Configuration**
 
-GitHub packages may need some [package.json configuration](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm), which can be added through a [custom override](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm#wiki-package-overrides).
+[jspm extends the package.json spec](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm) with some new properties to understand how to treat packages.
 
-_The endpoint code will be open sourced to allow anyone to host an endpoint._
+Configuration options include the main entry point, module format, files and ignore rules, minfication, transpilation from ES6 to ES5, map config and dependencies (when combined with a registry property).
+
+To provide configuration for existing libraries on GitHub or NPM without access to the underlying repo, the jspm registry provides a [package.json override service](https://github.com/jspm/registry#packagejson-overrides).
+
+_The endpoint server code will be open sourced to allow anyone to host an endpoint._
 
 **Registry**
 
@@ -374,7 +386,9 @@ The key to making this possible is to use semver-compatibility to share dependen
 1. As packages are loaded, semver-compatible dependency sharing in the dependency tree will happen greedily. Any forks can be inspected by looking at `System.versions`. 
 2. For production, use jspm CLI to do version resolution and injection. Forks will be individually prompted for handling.
 
-_Always write dependencies within files without any version included (`require('jquery')` / `System.import('jquery')`). This way the latest stable version is used, and versions can also be automatically locked through injection of configuration by the jspm CLI._
+Specifying a version is optional - when no version is present, the latest stable semver version is used, and if none is found, the master branch is used.
+
+_Always write dependencies within files without any version included (`require('jquery')` / `System.import('jquery')`). This way the latest stable version is used in development, and versions can also be automatically locked through injection of configuration by the jspm CLI._
 
 The following version styles are supported:
 
@@ -389,12 +403,6 @@ Tags and semver-compatible verisons can also be used:
 
 * _Load a branch or tag_: `github:components/jquery@master`
 * _Semver-compatible version_: `github:components/jquery@^2.0.3`
-
-Links:
-
-* [Configuration Packages for jspm](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm)
-* [Configure Existing Packages for jspm](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm#wiki-package-overrides)
-* [jspm Registry](https://github.com/jspm/registry)
 
 &lt;br>
 &lt;div class="cli-icon">&lt;/div>
@@ -411,9 +419,6 @@ Links:
 #### Next Steps
 
 [Join the Google Group](http://groups.google.com/group/jspm-io) to stay informed, engage in discussion, provide feedback or ask for support.
-
-* [jspm Registry and Documentation](https://github.com/jspm/registry)
-* [jspm CLI and Documentation](https://github.com/jspm/jspm-cli)
 
 _Note that SystemJS is built on the latest ES6 draft modules specification and may still be subject to change._
 
