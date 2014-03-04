@@ -508,6 +508,10 @@ If you are interested in being notified on future jspm announcements, sign up to
           };
           xhr.send(email);
         }
+      }, function(err) {
+        setTimeout(function() {
+          throw err;
+        }, 1)
       });
     </script>
   </body>
