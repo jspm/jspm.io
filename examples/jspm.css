@@ -1,0 +1,230 @@
+code {
+  padding: 5px;
+}
+code.javascript, code.html {
+  padding: 0px;
+}
+code .comment, code .comment .keyword {
+  color: #494;
+  font-weight: 100;
+}
+code .string, code .string .comment {
+  color: #BE1717;
+}
+code .keyword {
+  font-weight: bold;
+  color: #767;
+}
+@font-face {
+  font-family: 'Advent Pro';
+  src: url('fonts/advent-Lt1.eot');
+  src: local('â˜º'), url('fonts/advent-Lt1.woff') format('woff'), url('fonts/advent-Lt1.ttf') format('truetype'), url('fonts/advent-Lt1.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+body {
+  margin: 20px;
+  margin-top: 100px;
+  padding: 0;
+  background-image: url(../../bgtexture.jpg);
+  background-repeat: repeat;
+  background-color: #eee;
+}
+h1, h2, h3, h4, h5, h6, p, li, a {
+  font-family: 'Myriad Pro';
+  -webkit-font-smoothing: antialiased;
+  font-weight: 100;
+}
+.cdn-icon, .cli-icon, .loader-icon {
+  background-image: url(../../icons.png);
+  width: 46px;
+  height: 46px;
+  margin-bottom: -64px;
+}
+.loader-icon {
+  background-position: 0 -107px;
+}
+.loader-icon + h4 {
+  margin-left: 55px;
+}
+.cdn-icon + h4 {
+  margin-left: 55px;
+}
+.cli-icon +h4 {
+  margin-left: 55px;
+}
+.cli-icon {
+  background-position: -18px -58px;
+  background-repeat: no-repeat;
+  margin-left: 16px;
+}
+.cdn-icon {
+  background-position: 0 -153px;
+}
+.logobox {
+  background-image: url(../../icons.png);
+  width: 46px;
+  height: 46px;
+  margin-bottom: -55px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 180px;
+  background-repeat: no-repeat;
+  margin-top: 50px;
+}
+strong {
+  color: #666;
+}
+h1.logo {
+  font-family: 'Advent Pro', 'Myriad Pro', sans-serif;
+  color: #7F7F7F;
+  font-size: 60px;
+  margin: 0;
+  margin-bottom: 40px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #fff;
+}
+h1.logo span {
+  color: #CE882C;
+}
+h2 {
+  font-size: 22px;
+  text-shadow: 1px 1px 1px #fff;
+  color: #555;
+  text-align: center;
+}
+h3 {
+  font-size: 28px;
+  color: #444;
+  text-shadow: 1px 1px 1px #fff;
+}
+h4 {
+  font-size: 22px;
+  color: #666;
+  text-shadow: 1px 1px 1px #fff;
+}
+.content {
+  margin-top: 50px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  margin-bottom: 200px;
+}
+.content p, .content li {
+  line-height: 26px;
+  color: #333;
+  text-shadow: 1px 1px 1px #fff;
+}
+.content pre {
+  background-color: #f5f5f5;
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 12px;
+  line-height: 16px;
+  border: 1px solid #C5C5C5;
+  border-radius: 7px;
+  color: #444;
+  white-space: pre-wrap;
+}
+.content a {
+  color: #C0781A;
+}
+.content a[id] {
+  display: block;
+  height: 20px;
+}
+.loading {
+  margin-top: 80px;
+  text-align: center;
+  width: 28px;
+  height: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #E2E2E2;
+  border: 1px solid #aaa;
+  padding: 10px;
+  border-radius: 8px;
+}
+.cog {
+  width: 24px;
+  height: 30px;
+  background-image: url(cog.gif);
+  background-repeat: no-repeat;
+  margin-left: auto;
+  margin-right: auto;
+}
+.signup-group {
+  margin-bottom: 40px;
+  width: 301px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+input.signup {
+  border: 1px solid #555;
+  font-size: 12px;
+  width: 210px;
+  color: #888;
+  padding: 10px;
+  border: 1px solid #C1C1C1;
+  text-shadow: 1px 1px 1px #fff;
+  font-style: italic;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  margin: 0;
+}
+.signup-group input.signup-submit {
+  border: 1px solid #C1C1C1;
+  background-color: #E2E2E2;
+  font-size: 12px;
+  color: #666;
+  height: 37px;
+  width: 70px;
+  padding: 0;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+.signup-group input.signup-submit:hover {
+  background-color: #eee;
+}
+.signup-group input.signup-submit:active {
+  background-color: #ddd;
+}
+.contents {
+  position: fixed;
+  top: 100px;
+  left: 0px;
+}
+.contents a {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 16px;
+  border-bottom: 1px dashed #999;
+  display: block;
+  color: #777;
+  text-decoration:none;
+  text-shadow: 1px 1px 1px #fff;
+}
+.contents a:active {
+  background-color: #ddd;
+}
+.contents a:hover {
+  background-color: #ddd;
+}
+@media screen and (max-width: 640px),
+screen and (max-device-width: 640px) {
+  .content {
+    width: 100%;
+  }
+  .contents {
+    display: none;
+  }
+}
