@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Twitter Boostrap</title>
+
+    <script src="https://jspm.io/system@0.5.js"></script>
+    <script>
+
+      System.import('github:twbs/bootstrap/css/bootstrap.css!').then(function(m) {
+
+      }).catch(function(m){
+          setTimeout(function(e) {
+            throw e;
+          });
+        });
+      System.import('github:twbs/bootstrap').then(function(m) {
+
+      }).catch(function(m){
+          setTimeout(function(e) {
+            throw e;
+          });
+        });
+
+
+    </script>
+    <link rel="stylesheet" type="text/css" href="../examples/jspm.css">
+
+  </head>
+
+  <body>
+  <div class="logobox"></div>
+  <h1 class="logo">&nbsp;&nbsp;&nbsp;&nbsp;<span>jspm</span>.io</h1>
+  <h2 class="tagline">Frictionless browser package management</h2>
+
+    <div class="content">
+      <h2 class="tagline">Twitter Bootstrap CSS & JS</h2>
+      <div class="text-center">
+
+        <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+               There will be something interesting here!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <pre><code class="javascript"><div class="comment">// Here is the comment</div>System.import(<span class="string">'github:twbs/bootstrap/css/bootstrap.css!'</span>).then(<span class="keyword">function</span>($){
+});</code>
+      <code class="javascript"><div class="comment">// Here is the comment</div>System.import(<span class="string">'github:twbs/bootstrap'</span>).then(<span class="keyword">function</span>($){
+});</code></pre>
+
+    </div>
+
+  </body>
+
+</html>
