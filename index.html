@@ -377,19 +377,17 @@ _Note that SystemJS is built on the latest ES6 draft modules specification and m
 
 **Endpoints**
 
-Endpoints provide collections of packages that can be downloaded through the CLI or served over CDN.
+Packages are always provided from endpoints with a syntax `endpoint:package`.
 
 When requesting a package directly by name, the main entry point is used from the package.json. For example - `System.import('github:twbs/bootstrap')`. Individual modules or asset files can also be requested from inside the package (`npm:repo/sub/module`).
 
 The following endpoints are currently supported:
  
 * **npm:**
-  * _npm:repo@version_ -> _https://npm.jspm.io/repo@version.js_
   * Most packages on npm will work naturally with full version management, with no further configuration necessary.
   * The NodeJS builtins are provided by the same libraries used in Browserify.
 
 * **GitHub:**
-  * _github:name/repo@version_ -> _https://github.jspm.io/name/repo@version.js_
   * Packages on GitHub get their versions from semver tag names (with or without a `v` prefix).
   * When a GitHub release for a given tag is provided, the release archive will be used instead of the repo.
   * GitHub packages will benefit from jspm configuration being provided through the package.json or an override.
@@ -402,38 +400,26 @@ Configuration options include the main entry point, module format, files and ign
 
 To provide configuration for existing libraries on GitHub or NPM without access to the underlying repo, the jspm registry provides a [package.json override service](https://github.com/jspm/registry#packagejson-overrides).
 
-_The endpoint server code will be open sourced to allow anyone to host an endpoint._
-
 **Registry**
 
 The [jspm registry](https://github.com/jspm/registry) provides a convenience mapping from shortcut names such as `jquery` into full endpoint names `github:components/jquery`.
 
 **Version Management**
 
+Versions can be added to the request, for example - `System.import('npm:jquery@^2.1.0/some/file')` or `System.import('github:twbs/bootstrap@3')`.
+
 The major requirement for version-management in the browser is **flat dependency management**, which is a completely different problem to the hierarchical dependency management used in npm.
+
+A flat folder structure is used with version suffices on package folders. This way, packages can be individually cached.
 
 The key to making this possible is to use semver-compatibility to share dependencies as much as possible.
 
 1. As packages are loaded, semver-compatible dependency sharing in the dependency tree will happen greedily. Any forks can be inspected by looking at `System.versions`. 
-2. For production, use jspm CLI to do version resolution and injection. Forks will be individually prompted for handling.
+2. For production, use jspm CLI to do version resolution and injection. Forks are minimized by calculating the allowed version range for a given dependency to satisfy all other dependencies.
 
-Specifying a version is optional - when no version is present, the latest stable semver version is used, and if none is found, the master branch is used.
+By default the latest stable semver version is used, and if none is found, the master branch is used.
 
 _Always write dependencies within files without any version included (`require('jquery')` / `System.import('jquery')`). This way the latest stable version is used in development, and versions can also be automatically locked through injection of configuration by the jspm CLI._
-
-The following version styles are supported:
-
-* _Latest stable version_: `npm:underscore`
-* _Latest major version_: `npm:underscore@1`
-* _Latest minor version_: `npm:underscore@1.5`
-* _Exact semver version_: `npm:underscore@1.5.2`
-
-The browser cache expiry for an exact version is much longer than the cache expiry for a latest version (1 hour).
-
-Tags and semver-compatible verisons can also be used:
-
-* _Load a branch or tag_: `github:components/jquery@master`
-* _Semver-compatible version_: `github:components/jquery@^2.0.3`
 
 &lt;br>
 #### Sites Using jspm
