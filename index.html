@@ -272,57 +272,98 @@
 
     <markdown style="display: none;">
 
-jspm loads any module format (ES6, AMD, CommonJS and globals) directly from endpoints such as `npm` and `github` over CDN for easy in-browser package management.
+jspm is a package manager for the [SystemJS universal module loader](https://github.com/systemjs/systemjs), built on top of the dynamic [ES6 module loader](https://github.com/ModuleLoader/es6-module-loader)
 
-The [SystemJS module loader](https://github.com/systemjs/systemjs), built on top of the dynamic [ES6 module loader specification](https://github.com/ModuleLoader/es6-module-loader), is used to load version-managed JavaScript modules from CDN. All module format dependencies are traced and sent with SPDY push along with suitable cache headers for optimal loading.
+Load any module format (ES6, AMD, CommonJS and globals) directly from endpoints such as `npm` and `github` with flat versioned dependency management.
 
-At any point, use the jspm CLI tool to download packages locally and/or lock down versions. Switching between the CDN and locally downloaded packages is a single configuration change.
+For production, use the jspm CLI tool to download packages locally, lock down versions and build into a bundle.
+
+In development, load modules directly from CDN for frictionless experimentation, switching into production on the same code with a single configuration change.
 
 &lt;br>
 
-#### Getting Started
+#### Workflow Example
 
-**Include the SystemJS loader from jspm in the page:**
+**1. Include the SystemJS loader from jspm in the page:**
 
+jspm-test.html
 ```html
   &lt;script src="https://jspm.io/system@0.6.js">&lt;/script>
+  &lt;script>
+    // import 'app.js' from the current URL
+    System.import('~/app')
+    .catch(function(e) {
+      setTimeout(function() {
+        throw e;
+      });
+    });
+  &lt;/script>
 ```
 
-**Require a package module directly from the browser:**
+**2. Require modules directly from GitHub, npm or the jspm registry:**
 
+Writing CommonJS for example:
+
+app.js
 ```javascript
-  // a specific module from the latest version of an npm package:
-  System.import('npm:lodash-node/modern/collections').then(function(collections) {
-    collections.max([1,2,3,4]); // 4
-  });
+  var collections = require('npm:lodash-node/modern/collections');
+  var $ = require('github:components/jquery');
 
-  // a semver-compatible version of jquery:
-  System.import('github:components/jquery@^2.0.3').then(function($) {
-  });
+  $(document.body).html(collections.max([1,2,3,4]));
 ```
 
-_These loading examples can be run from the browser development console in this page._
+Open `jspm-test.html`, and all the modules are loaded over the CDN, AMD alongside with CommonJS, GitHub working alongside npm.
 
-**Install the jspm CLI:**
-
-```
-  npm install jspm -g
-```
-
-**Download flat version-managed packages with the jspm CLI:**
+**3. Install the packages locally locking down versions:**
 
 ```
-  jspm install npm:lodash-node jquery@^2.0.3
+  jspm install github:components/jquery npm:lodash-node
 ```
 
-Include the local loader and generated `config.js` file:
+![jspm install](install.gif)
 
+jspm-test.html
 ```html
   &lt;script src="jspm_packages/system@0.6.js">&lt;/script>
   &lt;script src="config.js">&lt;/script>
+  &lt;script>
+    // import 'app.js' from the current URL
+    System.import('~/app')
+    .catch(function(e) {
+      setTimeout(function() {
+        throw e;
+      });
+    });
+  &lt;/script>
 ```
 
-The same code written in development using the CDN now runs locally with versions optimally-resolved and locked down.
+The exact same application now works locally with versions locked down.
+
+**4. Wrap up into a single bundle for production:**
+
+```
+  jspm bundle app
+```
+
+![jspm install](build.gif)
+
+jspm-test.html
+```html
+  &lt;script src="jspm_packages/system-csp@0.6.js">&lt;/script>
+  &lt;script src="config.js">&lt;/script>
+  &lt;script src="build.js">&lt;/script>
+  &lt;script>
+    // import 'app.js' from the current URL
+    System.import('~/app')
+    .catch(function(e) {
+      setTimeout(function() {
+        throw e;
+      });
+    });
+  &lt;/script>
+```
+
+With the CSP loader variation we can get full CSP loading in production.
 
 &lt;br>
 &lt;div class="loader-icon">&lt;/div>
