@@ -291,12 +291,7 @@ jspm-test.html
   &lt;script src="https://jspm.io/system@0.6.js">&lt;/script>
   &lt;script>
     // import 'app.js' from the current URL
-    System.import('~/app')
-    .catch(function(e) {
-      setTimeout(function() {
-        throw e;
-      });
-    });
+    System.import('~/app');
   &lt;/script>
 ```
 
@@ -327,19 +322,13 @@ jspm-test.html
   &lt;script src="jspm_packages/system@0.6.js">&lt;/script>
   &lt;script src="config.js">&lt;/script>
   &lt;script>
-    // import 'app.js' from the current URL
-    System.import('~/app')
-    .catch(function(e) {
-      setTimeout(function() {
-        throw e;
-      });
-    });
+    System.import('~/app');
   &lt;/script>
 ```
 
 The exact same application now works locally with versions locked down.
 
-**4. Wrap up into a single bundle for production:**
+**4. Build into a bundle for production:**
 
 ```
   jspm bundle app
@@ -349,41 +338,42 @@ The exact same application now works locally with versions locked down.
 
 jspm-test.html
 ```html
-  &lt;script src="jspm_packages/system-csp@0.6.js">&lt;/script>
+  &lt;script src="jspm_packages/system@0.6.js">&lt;/script>
   &lt;script src="config.js">&lt;/script>
   &lt;script src="build.js">&lt;/script>
   &lt;script>
-    // import 'app.js' from the current URL
-    System.import('~/app')
-    .catch(function(e) {
-      setTimeout(function() {
-        throw e;
-      });
-    });
+    System.import('~/app');
   &lt;/script>
 ```
 
-With the CSP loader variation we can get full CSP loading in production.
+Mixed dependency trees of ES6, AMD, CommonJS and globals get bundled into a single file for production.
 
 &lt;br>
 &lt;div class="loader-icon">&lt;/div>
 #### SystemJS
 
-jspm package management is designed around the [SystemJS ES6 specification-based loader](https://github.com/systemjs/systemjs).
+jspm package management is designed around the [SystemJS ES6 loader](https://github.com/systemjs/systemjs).
 
 * RequireJS-style module loader with similar configuration and [plugin system](https://github.com/systemjs/systemjs#plugins).
 * Built on top of the [ES6 Module Loader polyfill](https://github.com/ModuleLoader/es6-module-loader), making it standards-compliant and future-friendly.
-* Write [ES6 modules today](https://github.com/systemjs/systemjs#loading-es6-modules) and use them in any browser, [building into AMD for production](https://github.com/systemjs/systemjs#compiling-es6-to-es5-and-amd).
-* Load AMD and CommonJS modules together in the same application.
-* Load global scripts with a dependency-managed global object.
 
 [Read more at the SystemJS project page on GitHub](https://github.com/systemjs/systemjs)
 
 _Note that SystemJS is built on the latest ES6 draft modules specification and may still be subject to change._
 
 &lt;br>
+&lt;div class="cli-icon">&lt;/div>
+#### jspm CLI
+
+* Uses flat version management to download into version-suffixed folders (eg `jspm_packages/npm/lodash-node@x.y.z`).
+* Shares versions between dependencies, upgrading or downgrading dependency resolutions within their supported ranges to minimize forks.
+* Because the CLI understands the loader, modular code works without the need for complex manual configuration.
+
+[Read the CLI documentation on Github](https://github.com/jspm/jspm-cli)
+
+&lt;br>
 &lt;div class="cdn-icon">&lt;/div>
-#### CDN Endpoints &amp; Registry
+#### Endpoints &amp; Registry
 
 **Endpoints**
 
@@ -446,17 +436,6 @@ Tags and semver-compatible verisons can also be used:
 * _Semver-compatible version_: `github:components/jquery@^2.0.3`
 
 &lt;br>
-&lt;div class="cli-icon">&lt;/div>
-#### jspm CLI
-
-* [Downloads modules and dependencies](https://github.com/jspm/jspm-cli#getting-started) from the jspm registry, npm or Github, with the SystemJS configuration file fully managed.
-* Alternatively it can [inject exact version configuration](https://github.com/jspm/jspm-cli#jspm-inject---using-the-jspm-cdn-in-production) for using the jspm CDN in production.
-* Because the CLI understands the loader, modular code works without the need for complex manual configuration.
-* Build [ES6 into ES5 transpiling ES6 modules into AMD](https://github.com/jspm/jspm-cli#building-application-code) and minify with source maps support.
-
-[Read the CLI documentation on Github](https://github.com/jspm/jspm-cli)
-
-&lt;br>
 #### Sites Using jspm
 
 * [Hya.io](http://app.hya.io)
@@ -469,8 +448,6 @@ Tags and semver-compatible verisons can also be used:
 #### Next Steps
 
 [Join the Google Group](http://groups.google.com/group/jspm-io) to stay informed, engage in discussion, provide feedback or ask for support.
-
-If you'd like to contribute to jspm, have a look at the [current development roadmap](https://github.com/jspm/project/wiki/jspm-Roadmap) to see where you can get involved.
 
 If you are interested in being notified on future jspm announcements, sign up to stay informed here:
 
