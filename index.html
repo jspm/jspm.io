@@ -299,7 +299,7 @@ jspm-test.html
   &lt;script src="https://jspm.io/system@0.9.js">&lt;/script>
   &lt;script>
     // import 'app.js' from the current URL
-    System.import('~/app');
+    System.import('~/app').catch(console.error.bind(console));
   &lt;/script>
 ```
 
@@ -327,10 +327,10 @@ Open `jspm-test.html`, and all the modules are loaded over the CDN, AMD alongsid
 
 jspm-test.html
 ```html
-  &lt;script src="jspm_packages/system@0.9.js">&lt;/script>
+  &lt;script src="jspm_packages/system.js">&lt;/script>
   &lt;script src="config.js">&lt;/script>
   &lt;script>
-    System.import('~/app');
+    System.import('~/app').catch(console.error.bind(console));
   &lt;/script>
 ```
 
@@ -346,11 +346,11 @@ The exact same application now works locally with versions locked down.
 
 jspm-test.html
 ```html
-  &lt;script src="jspm_packages/system@0.9.js">&lt;/script>
+  &lt;script src="jspm_packages/system.js">&lt;/script>
   &lt;script src="config.js">&lt;/script>
   &lt;script src="build.js">&lt;/script>
   &lt;script>
-    System.import('~/app');
+    System.import('~/app').catch(console.error.bind(console));
   &lt;/script>
 ```
 
