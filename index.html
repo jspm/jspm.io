@@ -40,9 +40,16 @@
         background-color: #eee;
       }
       h1, h2, h3, h4, h5, h6, p, li, a {
-        font-family: 'Myriad Pro';
+        font-family: 'Myriad Pro', 'Myriad Set Pro', Myriad, 'Helvetica Neue', Helvetica, sans-serif;
         -webkit-font-smoothing: antialiased;
-        font-weight: 100;
+        font-weight: 400;
+      }
+      h1, h2, h3, h4 {
+        -webkit-font-smoothing: subpixel-antialiased;
+        font-weight: 200;
+      }
+      code {
+        -webkit-font-smoothing: subpixel-antialiased;
       }
       .cdn-icon, .cli-icon, .loader-icon {
         background-image: url(icons.png);
