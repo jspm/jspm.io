@@ -269,7 +269,7 @@
       </div>
     </div>
 
-    <!-- 
+    <!--
     <div class="contents">
       <a href="#introduction">Introduction</a>
       <a href="#examples">Examples</a>
@@ -319,7 +319,9 @@ app.js
   var collections = require('npm:lodash-node/modern/collections');
   var $ = require('github:components/jquery');
 
-  $(document.body).html(collections.max([1,2,3,4]));
+  $(function() {
+    $(document.body).html(collections.max([1,2,3,4]));
+  });
 ```
 
 Open `jspm-test.html`, and all the modules are loaded over the CDN, AMD alongside with CommonJS, GitHub working alongside npm.
@@ -337,7 +339,7 @@ jspm-test.html
   &lt;script src="jspm_packages/system.js">&lt;/script>
   &lt;script src="config.js">&lt;/script>
   &lt;script>
-    System.import('~/app').catch(console.error.bind(console));
+    System.import('app').catch(console.error.bind(console));
   &lt;/script>
 ```
 
@@ -357,7 +359,7 @@ jspm-test.html
   &lt;script src="config.js">&lt;/script>
   &lt;script src="build.js">&lt;/script>
   &lt;script>
-    System.import('~/app').catch(console.error.bind(console));
+    System.import('app').catch(console.error.bind(console));
   &lt;/script>
 ```
 
@@ -398,7 +400,7 @@ Packages are always provided from endpoints with a syntax `endpoint:package`.
 When requesting a package directly by name, the main entry point is used from the package.json. For example - `System.import('github:twbs/bootstrap')`. Individual modules or asset files can also be requested from inside the package (`npm:repo/sub/module`).
 
 The following endpoints are currently supported:
- 
+
 * **npm:**
   * Most packages on npm will work naturally with full version management, with no further configuration necessary.
   * The NodeJS builtins are provided by the same libraries used in Browserify.
@@ -430,7 +432,7 @@ A flat folder structure is used with version suffices on package folders. This w
 
 The key to making this possible is to use semver-compatibility to share dependencies as much as possible.
 
-1. As packages are loaded, semver-compatible dependency sharing in the dependency tree will happen greedily. Any forks can be inspected by looking at `System.versions`. 
+1. As packages are loaded, semver-compatible dependency sharing in the dependency tree will happen greedily. Any forks can be inspected by looking at `System.versions`.
 2. For production, use jspm CLI to do version resolution and injection. Forks are minimized by calculating the allowed version range for a given dependency to satisfy all other dependencies.
 
 By default the latest stable semver version is used, and if none is found, the master branch is used.
