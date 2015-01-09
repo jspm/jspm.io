@@ -45,11 +45,11 @@
         font-weight: 400;
       }
       h1, h2, h3, h4 {
-        -webkit-font-smoothing: subpixel-antialiased;
+        -webkit-font-smoothing: antialiased;
         font-weight: 200;
       }
       code {
-        -webkit-font-smoothing: subpixel-antialiased;
+        -webkit-font-smoothing: antialiased;
       }
       .cdn-icon, .cli-icon, .loader-icon {
         background-image: url(icons.png);
@@ -104,6 +104,11 @@
       h1.logo span {
         color: #CE882C;
       }
+      h1 {
+        color: #C0781A;
+        text-shadow: 1px 1px 1px #fff;
+        text-align: center;
+      }
       h2 {
         font-size: 22px;
         text-shadow: 1px 1px 1px #fff;
@@ -146,6 +151,10 @@
         white-space: pre-wrap;
       }
       .content a {
+        color: #333;
+        text-shadow: 1px 1px 1px #fff;
+      }
+      .content a:hover {
         color: #C0781A;
       }
       .content a[id] {
@@ -238,6 +247,28 @@
         background-color: #ddd;
       }
 
+      a.button {
+        width: 178px;
+        height: 40px;
+        text-align: center;
+        float: left;
+        margin-left: 10px;
+        margin-right: 10px;
+        line-height: 42px;
+
+        color: #666;
+        text-decoration: none;
+        text-shadow: 1px 1px 1px #fff;
+        background-color: #ddd;
+        border: 1px solid #aaa;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+      }
+      a.button:hover {
+        color: #444;
+      }
+
       @media screen and (max-width: 640px),
       screen and (max-device-width: 640px) {
         .content {
@@ -259,7 +290,7 @@
 
     </script>
   <body>
-    <a id="introduction"></a>
+    <a id="intro"></a>
     <div class="logobox"></div>
     <h1 class="logo">&nbsp;&nbsp;&nbsp;&nbsp;<span>jspm</span>.io</h1>
     <h2 class="tagline">Frictionless browser package management</h2>
@@ -269,15 +300,54 @@
       </div>
     </div>
 
-    <!-- 
-    <div class="contents">
+    <!-- <div class="contents">
       <a href="#introduction">Introduction</a>
       <a href="#examples">Examples</a>
       <a href="#feedbackroadmap">Feedback &amp; Roadmap</a>
-    </div>
-  -->
+    </div> -->
 
     <markdown style="display: none;">
+
+* jspm is a package manager for the [SystemJS universal module loader](https://github.com/systemjs/systemjs), built on top of the dynamic [ES6 module loader](https://github.com/ModuleLoader/es6-module-loader)
+
+* Load any module format (ES6, AMD, CommonJS and globals) directly from endpoints such as `npm` and `github` with flat versioned dependency management.
+
+* For production, use the jspm CLI tool to download packages locally, lock down versions and build into a bundle.
+
+* In development, load modules directly from CDN for frictionless experimentation, switching into production on the same code with a single configuration change.
+
+&lt;br>
+
+<!-- &lt;a class="button" href="#guides">Guides&lt;/a>
+&lt;a class="button" href="#introduction">Introduction&lt;/a>
+&lt;a class="button" href="#project-overview">Project Overview&lt;/a>
+
+&lt;div style="clear:both;">&lt;/div>
+
+&lt;br>-->
+
+&lt;a name="guides">&lt;/a>
+# Guides
+
+* [jspm Getting Started guide in the Documentation Wiki](https://github.com/jspm/jspm-cli/wiki/Getting-Started)
+* [JavaScript in 2015](http://glenmaddern.com/articles/javascript-in-2015) article and screencast by [Glen Maddern](https://twitter.com/glenmaddern)
+
+  &lt;div style="text-align: center;">
+    &lt;iframe width="560" height="315" src="http://www.youtube.com/embed/iukBMY4apvI" frameborder="0" allowfullscreen>&lt;/iframe>
+  &lt;/div>  
+
+* [JavaScript Modules and Dependencies with jspm](http://javascriptplayground.com/blog/2014/11/js-modules-jspm-systemjs/) tutorial by [Jack Franklin](https://twitter.com/Jack_Franklin)
+
+* [Package Management for ES6 Modules](https://www.youtube.com/watch?v=szJjsduHBQQ) JSConf 2014 presentation introducing jspm by [Guy Bedford](https://twitter.com/guybedford)
+
+  &lt;div style="text-align: center;">
+    &lt;iframe width="560" height="315" src="http://www.youtube.com/embed/szJjsduHBQQ" frameborder="0" allowfullscreen>&lt;/iframe>
+  &lt;/div>
+
+&lt;br>
+
+<!-- &lt;a name="introduction">&lt;/a>
+# Introduction
 
 jspm is a package manager for the [SystemJS universal module loader](https://github.com/systemjs/systemjs), built on top of the dynamic [ES6 module loader](https://github.com/ModuleLoader/es6-module-loader)
 
@@ -287,116 +357,38 @@ For production, use the jspm CLI tool to download packages locally, lock down ve
 
 In development, load modules directly from CDN for frictionless experimentation, switching into production on the same code with a single configuration change.
 
-&lt;br>
+&lt;br> -->
 
-For an overview and demo of jspm, see the JSConf 2014 presentation here, or scroll down to see a written example workflow below.
+&lt;a name="project-overview">&lt;/a>
+# Project Overview
 
-&lt;div style="text-align: center;">
-  &lt;iframe width="560" height="315" src="http://www.youtube.com/embed/szJjsduHBQQ" frameborder="0" allowfullscreen>&lt;/iframe>
-&lt;/div>
-
-&lt;br>
-
-#### Workflow Example
-
-**1. Include the SystemJS loader from jspm in the page:**
-
-jspm-test.html
-```html
-  &lt;script src="https://jspm.io/system@0.11.js">&lt;/script>
-  &lt;script>
-    // import 'app.js' from the current URL
-    System.import('~/app').catch(console.error.bind(console));
-  &lt;/script>
-```
-
-**2. Require modules directly from GitHub, npm or the jspm registry:**
-
-Writing CommonJS for example:
-
-app.js
-```javascript
-  var collections = require('npm:lodash-node/modern/collections');
-  var $ = require('github:components/jquery');
-
-  $(document.body).html(collections.max([1,2,3,4]));
-```
-
-Open `jspm-test.html`, and all the modules are loaded over the CDN, AMD alongside with CommonJS, GitHub working alongside npm.
-
-**3. Install the packages locally locking down versions:**
-
-```
-  jspm install github:components/jquery npm:lodash-node
-```
-
-![jspm install](install.gif)
-
-jspm-test.html
-```html
-  &lt;script src="jspm_packages/system.js">&lt;/script>
-  &lt;script src="config.js">&lt;/script>
-  &lt;script>
-    System.import('~/app').catch(console.error.bind(console));
-  &lt;/script>
-```
-
-The exact same application now works locally with versions locked down.
-
-**4. Build into a bundle for production:**
-
-```
-  jspm bundle app
-```
-
-![jspm install](build.gif)
-
-jspm-test.html
-```html
-  &lt;script src="jspm_packages/system.js">&lt;/script>
-  &lt;script src="config.js">&lt;/script>
-  &lt;script src="build.js">&lt;/script>
-  &lt;script>
-    System.import('~/app').catch(console.error.bind(console));
-  &lt;/script>
-```
-
-Mixed dependency trees of ES6, AMD, CommonJS and globals get bundled into a single file for production.
-
-&lt;br>
-There is also a [10-minute screencast](https://www.youtube.com/watch?v=iukBMY4apvI) from [Glen Maddern](https://twitter.com/glenmaddern) showing how to build a simple gif reader app with JSPM.
-&lt;br>
 &lt;div class="loader-icon">&lt;/div>
 #### SystemJS
 
-jspm package management is designed around the [SystemJS ES6 loader](https://github.com/systemjs/systemjs).
+jspm package management is designed around the [SystemJS dynamic ES6 loader](https://github.com/systemjs/systemjs).
 
 * RequireJS-style module loader with similar configuration and [plugin system](https://github.com/systemjs/systemjs#plugins).
 * Built on top of the [ES6 Module Loader polyfill](https://github.com/ModuleLoader/es6-module-loader), making it standards-compliant and future-friendly.
 
 [Read more at the SystemJS project page on GitHub](https://github.com/systemjs/systemjs)
 
-_Note that SystemJS is built on the latest ES6 draft modules specification and may still be subject to change._
+_Note that SystemJS is built on top of a draft module loader specification that is subject to change._
 
 &lt;br>
 &lt;div class="cli-icon">&lt;/div>
 #### jspm CLI
 
 * Uses flat version management to download into version-suffixed folders (eg `jspm_packages/npm/lodash-node@x.y.z`).
-* Shares versions between dependencies, upgrading or downgrading dependency resolutions within their supported ranges to minimize forks.
+* Shares versions between dependencies, upgrading or downgrading dependency resolutions within their supported ranges to minimize forks during install.
 * Because the CLI understands the loader, modular code works without the need for complex manual configuration.
 
 [Read the CLI documentation on Github](https://github.com/jspm/jspm-cli)
 
-&lt;br>
-&lt;div class="cdn-icon">&lt;/div>
-#### Endpoints &amp; Registry
-
 **Endpoints**
 
-Packages are always provided from endpoints with a syntax `endpoint:package`.
+Packages are universally named to an endpoint with the syntax `endpoint:package`.
 
-When requesting a package directly by name, the main entry point is used from the package.json. For example - `System.import('github:twbs/bootstrap')`. Individual modules or asset files can also be requested from inside the package (`npm:repo/sub/module`).
+_This syntax is only to be used when installing or testing packages on the CDN. For application code, we always use an alias to refer to modules for portability (`require('lodash')` over `require('npm:lodash')`)._
 
 The following endpoints are currently supported:
  
@@ -409,64 +401,67 @@ The following endpoints are currently supported:
   * When a GitHub release for a given tag is provided, the release archive will be used instead of the repo.
   * GitHub packages will benefit from jspm configuration being provided through the package.json or an override.
 
+**Registry**
+
+The [jspm registry](https://github.com/jspm/registry) provides a convenience mapping from shortcut names into full endpoint names.
+
+This allows for easier installation - `jspm install jquery` over `jspm install github:components/jquery`.
+
+**Version Management**
+
+jspm CLI provides a full version constraint solver when installing taking care to reduce forks.
+
+The version solution is created as map configuration within the project configuration file. Each package can refer to dependencies as any custom name, since each package has its own internal naming map.
+
 **Package Configuration**
 
 [jspm extends the package.json spec](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm) with some new properties to understand how to treat packages.
 
 Configuration options include the main entry point, module format, files and ignore rules, minfication, transpilation from ES6 to ES5, map config and dependencies (when combined with a registry property).
 
-To provide configuration for existing libraries on GitHub or NPM without access to the underlying repo, the jspm registry provides a [package.json override service](https://github.com/jspm/registry#packagejson-overrides).
-
-**Registry**
-
-The [jspm registry](https://github.com/jspm/registry) provides a convenience mapping from shortcut names such as `jquery` into full endpoint names `github:components/jquery`.
-
-**Version Management**
-
-Versions can be added to the request, for example - `System.import('npm:jquery@^2.1.0/some/file')` or `System.import('github:twbs/bootstrap@3')`.
-
-The major requirement for version-management in the browser is **flat dependency management**, which is a completely different problem to the hierarchical dependency management used in npm.
-
-A flat folder structure is used with version suffixes on package folders. This way, packages can be individually cached.
-
-The key to making this possible is to use semver-compatibility to share dependencies as much as possible.
-
-1. As packages are loaded, semver-compatible dependency sharing in the dependency tree will happen greedily. Any forks can be inspected by looking at `System.versions`. 
-2. For production, use jspm CLI to do version resolution and injection. Forks are minimized by calculating the allowed version range for a given dependency to satisfy all other dependencies.
-
-By default the latest stable semver version is used, and if none is found, the master branch is used.
-
-_Always write dependencies within files without any version included (`require('jquery')` / `System.import('jquery')`). This way the latest stable version is used in development, and versions can also be automatically locked through injection of configuration by the jspm CLI._
+To provide configuration for existing libraries on GitHub or npm without access to the underlying repo, the jspm registry provides a [package.json override service](https://github.com/jspm/registry#packagejson-overrides).
 
 &lt;br>
-#### Sites Using jspm CDN
+&lt;div class="cdn-icon">&lt;/div>
+#### CDNs
 
-* [Hya.io](http://app.hya.io)
-* [Kickstrap](http://getkickstrap.com)
-* [Guardian Developers Site](http://developers.theguardian.com)
-* [adamkochanowicz.com](http://adamkochanowicz.com)
+The added benefit of using a flat versioned folder structure for dependencies is that packages can be hosted easily on a shared CDN for dynamic loading.
 
-[Add your site with a PR](https://github.com/jspm/jspm.io).
+Since jspm assigns packages universal names, it is possible for endpoint CDNs to be provided that can be used by all users.
 
-&lt;br>
-#### Projects Built for jspm
-* [Karma-jspm](https://github.com/Workiva/karma-jspm) - Karma support for jspm
-* [jspm-git](https://github.com/Orbs/jspm-git) - Generic endpoint for Git repositories
+An experimental CDN serving the jspm registry, GitHub and npm endpoints is enabled on this site. To use it for development include:
 
-[Add your project with a PR](https://github.com/jspm/jspm.io).
+```
+  <script src="https://jspm.io/system@0.11.js"></script>
+```
 
-&lt;br>
-#### Next Steps
+in a page. Since sources are sent minified over HTTP/2, [depCache version locking](https://github.com/jspm/jspm-cli/wiki/Production-Workflows#creating-a-dependency-cache) can even make this approach suitable for production.
 
-[Join the Google Group](http://groups.google.com/group/jspm-io) to stay informed, engage in discussion, provide feedback or ask for support.
+Try opening up the browser console and using `System.import`. Some examples to try are included below - take a look at the network tab when testing them out.
 
-If you are interested in being notified on future jspm announcements, sign up to stay informed here:
+**Loading NodeJS core browserify libraries**
 
-&lt;form class="signup-group">
-  &lt;input type="text" class="signup" value="Notify me of future announcements">&lt;/input>
-  &lt;input type="submit" class="signup-submit" value="Sign up">&lt;/input>
-  &lt;div class="cog">&lt;/div>
-&lt;/form>
+```javascript
+  System.import('buffer').then(function(buffer) {
+    console.log(new buffer.Buffer('base64 encoded').toString('base64'));
+  });
+```
+
+**Loading from npm**
+
+```javascript
+  System.import('npm:lodash').then(function(_) {
+    console.log(_.max([1, 2, 3, 4]));
+  });
+```
+
+**Loading jQuery**
+
+```javascript
+  System.import('jquery').then(function($) {
+    $(document.body).scrollTop(0);
+  });
+```
 
     </markdown>
     <a href="https://github.com/jspm/jspm-cli"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
@@ -482,75 +477,6 @@ If you are interested in being notified on future jspm announcements, sign up to
             .replace(/([^#\d])(\d+)/gm, '$1<span class="number">$2</span>')
             .replace(/([^\.])(for|function|new|throw|return|var|if|else|true|false|this|import|export class|export|from)\b/gm, '$1<span class="keyword">$2</span>');
         });
-
-        var sInput = document.querySelector('input.signup');
-        var sForm = document.querySelector('form.signup-group');
-        var sButton = document.querySelector('input.signup-submit');
-        var sCog = document.querySelector('.cog');
-        var firstFocus = true;
-        sInput.addEventListener('focus', function() {
-          if (firstFocus)
-            sInput.setAttribute('value', '');
-          firstFocus = false;
-        });
-        var submitted = false;
-        sForm.addEventListener('submit', function(e) {
-          if (submitted) {
-            e.preventDefault();
-            return false;
-          }
-          var email = sInput.value;
-          if (!email.match(/[A-Z0-9\._%+-]+@[A-Z0-9\.-]+\.[A-Z]{2,4}/i)) {
-            sInput.style.backgroundColor = '#FFD4D4';
-            e.preventDefault();
-            return false;
-          }
-          else
-            sInput.style.backgroundColor = '#fff';
-
-          submitted = true;
-
-          sButton.setAttribute('value', '');
-          sCog.style.top = '6px';
-          sCog.style.right = '-253px';
-          sCog.style.position = 'relative';
-          sCog.style.marginLeft = '0';
-          sCog.style.marginRight = '0';
-          sCog.style.visibility = 'visible';
-          sInput.style.backgroundColor = 'transparent';
-          sInput.setAttribute('disabled', 'disabled');
-          document.activeElement.blur();
-
-          submitEmail(email, function(msg) {
-            sInput.value = msg;
-            sCog.style.visibility = 'hidden';
-            sInput.style.borderRightStyle = 'none';
-            sButton.style.borderLeftStyle = 'none';
-            sButton.style.background = 'transparent';
-            sButton.style.cursor = 'default';
-          });
-
-          e.preventDefault();
-          return false;
-        });
-
-        var submitEmail = function(email, callback) {
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', 'http://jspm.io/signup');
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {
-              if (xhr.status == 200 && xhr.responseText == 'ok')
-                callback('Thanks, we will be in touch soon.');
-              else
-                callback('ERROR! Ok this is embarrasing...');
-            }
-          };
-          xhr.send(email);
-        }
-      }, function(err) {
-        setTimeout(function() {
-          throw err;
-        }, 1)
       });
     </script>
   </body>
