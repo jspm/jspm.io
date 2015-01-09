@@ -314,7 +314,7 @@
 
 * For development, load modules as separate files with ES6 and plugins compiled in the browser.
 
-* For production, optimize into a bundle, layered bundles or self-executing bundle in a single command.
+* For production, optimize into a bundle, layered bundles or a self-executing bundle with a single command.
 
 &lt;br>
 
@@ -435,9 +435,9 @@ An experimental CDN serving the jspm registry, GitHub and npm endpoints is enabl
   &lt;script src="https://jspm.io/system@0.11.js">&lt;/script>
 ```
 
-in a page. Since sources are sent minified over HTTP/2, [depCache version locking](https://github.com/jspm/jspm-cli/wiki/Production-Workflows#creating-a-dependency-cache) can even make this approach suitable for production.
+in a page. Since sources are sent minified over HTTP/2, [depCache injection](https://github.com/jspm/jspm-cli/wiki/Production-Workflows#creating-a-dependency-cache) can even make this approach suitable for production.
 
-Try opening up the browser console and using `System.import`. Some examples to try are included below - take a look at the network tab when testing them out.
+The CDN can also be tested from this page - try opening up the browser console and using `System.import`. Some examples are included below.
 
 **Loading NodeJS core browserify libraries**
 
