@@ -310,11 +310,11 @@
 
 * jspm is a package manager for the [SystemJS universal module loader](https://github.com/systemjs/systemjs), built on top of the dynamic [ES6 module loader](https://github.com/ModuleLoader/es6-module-loader)
 
-* Load any module format (ES6, AMD, CommonJS and globals) directly from endpoints such as `npm` and `github` with flat versioned dependency management.
+* Load any module format (ES6, AMD, CommonJS and globals) directly from any endpoint such as `npm` and `github` with flat versioned dependency management. Any custom endpoints can be created through the Endpoint API.
 
-* For production, use the jspm CLI tool to download packages locally, lock down versions and build into a bundle.
+* For development, load modules as separate files with ES6 and plugins compiled in the browser.
 
-* In development, load modules directly from CDN for frictionless experimentation, switching into production on the same code with a single configuration change.
+* For production, optimize into a bundle, layered bundles or self-executing bundle in a single command.
 
 &lt;br>
 
