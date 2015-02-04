@@ -314,7 +314,7 @@
 
 * For development, load modules as separate files with ES6 and plugins compiled in the browser.
 
-* For production, optimize into a bundle, layered bundles or a self-executing bundle with a single command.
+* For production (or development too), optimize into a bundle, layered bundles or a self-executing bundle with a single command.
 
 &lt;br>
 
@@ -380,15 +380,17 @@ _Note that SystemJS is built on top of a draft module loader specification that 
 
 * Uses flat version management to download into version-suffixed folders (eg `jspm_packages/npm/lodash-node@x.y.z`).
 * Shares versions between dependencies, upgrading or downgrading dependency resolutions within their supported ranges to minimize forks during install.
-* Because the CLI understands the loader, modular code works without the need for complex manual configuration.
+* Because the installer understands the loader, modular code [including loader plugins](https://github.com/systemjs/systemjs#plugins), works with a single install and a single require.
 
 [Read the CLI documentation on Github](https://github.com/jspm/jspm-cli)
 
 **Endpoints**
 
-Packages are universally named to an endpoint with the syntax `endpoint:package`.
+jspm is designed to support any number of independent registries through endpoints.
 
-_This syntax is only to be used when installing or testing packages on the CDN. For application code, we always use an alias to refer to modules for portability (`require('lodash')` over `require('npm:lodash')`)._
+* All packages are universally named to an endpoint with the syntax `endpoint:package@version`.
+* When importing external modules, we refer to them with an alias like `jquery`, which maps to the universal name in the background.
+* Each package has its own map, allowing `jquery` to refer to different things for different packages and supporting multi-versions.
 
 The following endpoints are currently supported:
  
@@ -405,13 +407,13 @@ The following endpoints are currently supported:
 
 The [jspm registry](https://github.com/jspm/registry) provides a convenience mapping from shortcut names into full endpoint names.
 
-This allows for easier installation - `jspm install jquery` over `jspm install github:components/jquery`.
+This allows for easier installation - `jspm install jquery` over `jspm install github:components/jquery`, and provides the default aliasing.
 
 **Version Management**
 
-jspm CLI provides a full version constraint solver when installing taking care to reduce forks.
+jspm CLI implements shortest-path fork reduction during installs, while ensuring targets are at their latest patch versions to reduce bugs.
 
-The version solution is created as map configuration within the project configuration file. Each package can refer to dependencies as any custom name, since each package has its own internal naming map.
+The version solution is created within the project configuration file, and can be checked-in to version control to lock dependencies.
 
 **Package Configuration**
 
@@ -429,7 +431,7 @@ The added benefit of using a flat versioned folder structure for dependencies is
 
 Since jspm assigns packages universal names, it is possible for endpoint CDNs to be provided that can be used by all users.
 
-An experimental CDN serving the jspm registry, GitHub and npm endpoints is enabled on this site. To use it for development include:
+An experimental CDN serving the jspm registry, GitHub and npm endpoints is provided through jspm.io. To use it for development include:
 
 ```
   &lt;script src="https://jspm.io/system@0.13.js">&lt;/script>
@@ -459,7 +461,7 @@ The CDN can also be tested from this page - try opening up the browser console a
 
 ```javascript
   System.import('jquery').then(function($) {
-    $(document.body).scrollTop(0);
+    $(window).scrollTop(0);
   });
 ```
 
