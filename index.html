@@ -310,7 +310,7 @@
 
 * jspm is a package manager for the [SystemJS universal module loader](https://github.com/systemjs/systemjs), built on top of the dynamic [ES6 module loader](https://github.com/ModuleLoader/es6-module-loader)
 
-* Load any module format (ES6, AMD, CommonJS and globals) directly from any endpoint such as `npm` and `github` with flat versioned dependency management. Any custom endpoints can be created through the Endpoint API.
+* Load any module format (ES6, AMD, CommonJS and globals) directly from any registry such as `npm` and `GitHub` with flat versioned dependency management. Any custom registry endpoints can be created through the Registry API.
 
 * For development, load modules as separate files with ES6 and plugins compiled in the browser.
 
@@ -386,13 +386,13 @@ _Note that SystemJS is built on top of a draft module loader specification that 
 
 **Endpoints**
 
-jspm is designed to support any number of independent registries through endpoints.
+jspm is designed to support any number of independent registries.
 
-* All packages are universally named to an endpoint with the syntax `endpoint:package@version`.
+* All packages are universally named to a registry with the syntax `registry:package@version`.
 * When importing external modules, we refer to them with an alias like `jquery`, which maps to the universal name in the background.
 * Each package has its own map, allowing `jquery` to refer to different things for different packages and supporting multi-versions.
 
-The following endpoints are currently supported:
+The following registries are currently supported:
  
 * **npm:**
   * Most packages on npm will work naturally with full version management, with no further configuration necessary.
@@ -405,7 +405,7 @@ The following endpoints are currently supported:
 
 **Registry**
 
-The [jspm registry](https://github.com/jspm/registry) provides a convenience mapping from shortcut names into full endpoint names.
+The [jspm registry](https://github.com/jspm/registry) provides a convenience mapping from shortcut names into full registry names.
 
 This allows for easier installation - `jspm install jquery` over `jspm install github:components/jquery`, and provides the default aliasing.
 
@@ -429,12 +429,12 @@ To provide configuration for existing libraries on GitHub or npm without access 
 
 The added benefit of using a flat versioned folder structure for dependencies is that packages can be hosted easily on a shared CDN for dynamic loading.
 
-Since jspm assigns packages universal names, it is possible for endpoint CDNs to be provided that can be used by all users.
+Since jspm assigns packages universal names, it is possible for registry CDNs to be provided that can be used by all users.
 
-An experimental CDN serving the jspm registry, GitHub and npm endpoints is provided through jspm.io. To use it for development include:
+An experimental CDN serving the jspm registry, GitHub and npm registries is provided through jspm.io. To use it for development include:
 
 ```
-  &lt;script src="https://jspm.io/system@0.14.js">&lt;/script>
+  &lt;script src="https://jspm.io/system@0.16.js">&lt;/script>
 ```
 
 in a page. Since sources are sent minified over HTTP/2, [depCache injection](https://github.com/jspm/jspm-cli/wiki/Production-Workflows#creating-a-dependency-cache) can even make this approach suitable for production.
