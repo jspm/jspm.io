@@ -482,7 +482,7 @@ The CDN can also be tested from this page - try opening up the browser console a
     <a href="https://github.com/jspm/jspm-cli"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
     <script>
       System['import']('showdown').then(function(showdown) {
-        var converter = new showdown.converter();
+        var converter = new showdown.Converter();
         document.querySelector('.content').innerHTML = converter.makeHtml(document.querySelector('markdown').textContent);
         Array.prototype.forEach.call(document.querySelectorAll('a'), function(a) { if ((a.getAttribute('href') || '#').substr(0, 1) != '#') a.setAttribute('target', '_blank'); });
         Array.prototype.forEach.call(document.querySelectorAll('code.javascript'), function(code) {
