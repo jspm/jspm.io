@@ -484,7 +484,6 @@ The CDN can also be tested from this page - try opening up the browser console a
       System['import']('showdown').then(function(showdown) {
         var converter = new showdown.Converter();
         document.querySelector('.content').innerHTML = converter.makeHtml(document.querySelector('markdown').textContent);
-        Array.prototype.forEach.call(document.querySelectorAll('a'), function(a) { if ((a.getAttribute('href') || '#').substr(0, 1) != '#') a.setAttribute('target', '_blank'); });
         Array.prototype.forEach.call(document.querySelectorAll('code.javascript'), function(code) {
           code.innerHTML = code.innerHTML
             .replace(/\/\/(.*)/gm, '<span class="comment">//$1</span>')
