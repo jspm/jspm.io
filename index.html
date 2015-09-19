@@ -3,7 +3,7 @@
     <title>jspm.io - Frictionless Browser Package Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico">
-    <script src="https://jspm.io/system@0.18.js"></script>
+    <script src="https://jspm.io/system@0.19.js"></script>
     <style type="text/css">
 
       code {
@@ -329,7 +329,7 @@
 &lt;a name="guides">&lt;/a>
 # Guides
 
-* [jspm Getting Started guide in the Documentation Wiki](https://github.com/jspm/jspm-cli/wiki/Getting-Started)
+* [jspm Getting Started guide in the documentation](https://github.com/jspm/jspm-cli/blob/master/docs/getting-started.md)
 
 * [Choose ES6 Modules Today](http://developer.telerik.com/featured/choose-es6-modules-today/) article with screencasts by [Cody Lindley](http://codylindley.com/)
 
@@ -447,10 +447,10 @@ Since jspm assigns packages universal names, it is possible for registry CDNs to
 An experimental CDN serving the jspm registry, GitHub and npm registries is provided through jspm.io. To use it for development include:
 
 ```
-  &lt;script src="https://jspm.io/system@0.18.js">&lt;/script>
+  &lt;script src="https://jspm.io/system@0.19.js">&lt;/script>
 ```
 
-in a page. Since sources are sent minified over HTTP/2, [depCache injection](https://github.com/jspm/jspm-cli/wiki/Production-Workflows#creating-a-dependency-cache) can even make this approach suitable for production.
+in a page. Since sources are sent minified over HTTP/2, [depCache injection](https://github.com/jspm/jspm-cli/blob/master/docs/production-workflows.md#creating-a-dependency-cache) can even make this approach suitable for production.
 
 The CDN can also be tested from this page - try opening up the browser console and using `System.import`. Some examples are included below.
 
