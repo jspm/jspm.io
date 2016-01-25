@@ -1,0 +1,514 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Conditional Interpolation | jspm 0.17 Beta Guide</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.3">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    
+    <link rel="prev" href="./conditional-loading.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="16"
+        data-chapter-title="Conditional Interpolation"
+        data-filepath="conditional-interpolation.md"
+        data-basepath="."
+        data-revision="Mon Jan 25 2016 15:13:21 GMT+0200 (SAST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="creating-a-project.html">
+            
+                
+                    <a href="./creating-a-project.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Creating a Project
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="hot-reloading.html">
+            
+                
+                    <a href="./hot-reloading.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Hot-Reloading
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="package-configuration.html">
+            
+                
+                    <a href="./package-configuration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Package Configuration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="installing-the-jsx-babel-plugin.html">
+            
+                
+                    <a href="./installing-the-jsx-babel-plugin.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Installing the JSX Babel Plugin
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="universal-js-with-server-rendering.html">
+            
+                
+                    <a href="./universal-js-with-server-rendering.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Universal JS with Server Rendering
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="npm-package-support.html">
+            
+                
+                    <a href="./npm-package-support.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        npm Package Support
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="bundling.html">
+            
+                
+                    <a href="./bundling.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Bundling
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="loading-libraries-from-cdn.html">
+            
+                
+                    <a href="./loading-libraries-from-cdn.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        Loading Libraries from CDN
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="custom-package-resolutions.html">
+            
+                
+                    <a href="./custom-package-resolutions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        Custom Package Resolutions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="static-builds-with-rollup-optimization.html">
+            
+                
+                    <a href="./static-builds-with-rollup-optimization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.</b>
+                        
+                        Static Builds with Rollup Optimization
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="publishing.html">
+            
+                
+                    <a href="./publishing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        Publishing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="peer-dependencies.html">
+            
+                
+                    <a href="./peer-dependencies.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.</b>
+                        
+                        Peer Dependencies
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13" data-path="linking.html">
+            
+                
+                    <a href="./linking.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.</b>
+                        
+                        Linking
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14" data-path="overrides.html">
+            
+                
+                    <a href="./overrides.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.</b>
+                        
+                        Overrides
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="conditional-loading.html">
+            
+                
+                    <a href="./conditional-loading.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.</b>
+                        
+                        Conditional Loading
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="16" data-path="conditional-interpolation.html">
+            
+                
+                    <a href="./conditional-interpolation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.</b>
+                        
+                        Conditional Interpolation
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >jspm 0.17 Beta Guide</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="conditional-interpolation">Conditional Interpolation</h2>
+<p>Let&apos;s internationalize our Hello World component example.</p>
+<p>The previous <em>conditional package map</em> doesn&apos;t scale well to dealing with many different possible
+conditional outcomes as with a language set. For this, we can use <em>conditional interpolation</em>.</p>
+<p>First create some language variations:</p>
+<ul>
+<li>src/en/text.js: <code>export default &apos;Hello World&apos;;</code></li>
+<li>src/de/text.js: <code>export default &apos;Hallo Welt&apos;;</code></li>
+<li>src/es/text.js: <code>export default &apos;Hola Mundo&apos;;</code></li>
+<li>src/zh/text.js: <code>export default &apos;&#x4F60;&#x597D;&#xFF0C;&#x4E16;&#x754C;&apos;;</code></li>
+</ul>
+<p>Then in the component, we can load the correct variation using conditional interpolation with:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> text <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./#{lang}/text.js&apos;</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloWorld</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{text}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>;</span>
+  }
+}
+</code></pre>
+<p><em>This conditional syntax <code>#{...}</code> is entirely a SystemJS feature and construct.</em></p>
+<p><code>lang</code> is simply a module reference itself equivalent to <code>import lang from &apos;lang&apos;;</code>. That is,
+it is not provided for us at all, so we need to ensure we create this correct language detection
+module for our environment.</p>
+<p>For this example, let&apos;s just select the language randomly by creating this conditional
+environment module in <code>src/lang.js</code> as:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> [<span class="hljs-string">&apos;en&apos;</span>, <span class="hljs-string">&apos;de&apos;</span>, <span class="hljs-string">&apos;es&apos;</span>, <span class="hljs-string">&apos;zh&apos;</span>][<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">3</span>)];
+</code></pre>
+<p>We can then provide the map alias for <code>lang</code> to this language condition module 
+in the main map config inside <code>jspm.config.js</code>:</p>
+<pre><code class="lang-javascript">SystemJS.config({
+  ...
+
+  map: {
+    ...
+    <span class="hljs-string">&quot;lang&quot;</span>: <span class="hljs-string">&quot;jspm-react-component/lang.js&quot;</span>,
+    ...
+  },
+
+  ...
+});
+</code></pre>
+<p>At risk of spelling out the obvious, this relative map informs the package that any load to <code>lang</code> within 
+the package should use the file <code>./lang.js</code> relative to the package itself. Since the conditional interpolation
+is treated just like a require within the package, it will respect these mappings.</p>
+<p>Loading the <code>test.html</code> page will no display a different language variation on each page load.</p>
+<p>To create language bundles, we can just bundle our app normally:</p>
+<pre><code>jspm bundle test.js - react
+</code></pre><p>SystemJS builder will by default include all interpolation variations within the tree giving the output:</p>
+<pre><code>    Building the bundle tree for test.js - react...
+
+       github:capaj/systemjs-hot-reloader@0.5.3.json
+       jspm-react-component/component.js
+       jspm-react-component/de/text.js
+       jspm-react-component/en/text.js
+       jspm-react-component/es/text.js
+       jspm-react-component/lang.js
+       jspm-react-component/zh/text.js
+       npm:react-dom@0.14.6.json
+       npm:react-dom@0.14.6/index.js
+       npm:systemjs-plugin-babel@0.0.2.json
+       npm:systemjs-plugin-babel@0.0.2/babel-helpers/classCallCheck.js
+       npm:systemjs-plugin-babel@0.0.2/babel-helpers/createClass.js
+       npm:systemjs-plugin-babel@0.0.2/babel-helpers/inherits.js
+       npm:systemjs-plugin-babel@0.0.2/babel-helpers/possibleConstructorReturn.js
+       test.js
+
+ok   Built into build.js with source maps, unminified.
+</code></pre><p>The conditional interpolation variations are detected by globbing the filesystem for possible resolutions.
+Interpolation values are not allowed to cross package or map boundaries or include a <code>/</code> separator so that
+this globbed resolution remains well-defined.</p>
+<p>We can also create a main bundle for our app with separate language bundles that get loaded conditionally.</p>
+<p>First we create the base bundle without any language variations, by passing SystemJS builder <code>conditions</code>
+environment trace object.</p>
+<pre><code>jspm bundle test.js common-bundle.js --conditions &quot;{&apos;src/lang.js&apos;:false}&quot;
+</code></pre><p>We include this <code>common-bundle.js</code> directly in the <code>test.html</code> page:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">!docype</span> <span class="hljs-attribute">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">&quot;utf-8&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm_packages/system.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm.browser.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm.config.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;common-bundle.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;container&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="actionscript">
+    SystemJS.<span class="hljs-keyword">import</span>(<span class="hljs-string">&apos;test.js&apos;</span>);
+  </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p>Next, to build individual language bundles (this process can likely be optimized):</p>
+<pre><code>jspm bundle test.js - common-bundle.js bundle-en.js --conditions &quot;{&apos;src/lang.js&apos;:&apos;en&apos;}&quot;
+jspm bundle test.js - common-bundle.js bundle-de.js --conditions &quot;{&apos;src/lang.js&apos;:&apos;de&apos;}&quot;
+jspm bundle test.js - common-bundle.js bundle-es.js --conditions &quot;{&apos;src/lang.js&apos;:&apos;es&apos;}&quot;
+jspm bundle test.js - common-bundle.js bundle-zh.js --conditions &quot;{&apos;src/lang.js&apos;:&apos;zh&apos;}&quot;
+</code></pre><p>And to load those language bundles conditionally in the environment, we add a <code>bundles</code>
+entry to ths <code>jspm.browser.js</code> config:</p>
+<pre><code>SystemJS.config({
+  baseURL: &quot;.&quot;,
+  production: true,
+  paths: {
+    &quot;github:*&quot;: &quot;jspm_packages/github/*&quot;,
+    &quot;npm:*&quot;: &quot;jspm_packages/npm/*&quot;,
+    &quot;jspm-react-component/&quot;: &quot;src/&quot;
+  },
+  bundles: {
+    &apos;bundle-#{lang}.js&apos;: [&apos;src/*/text.js&apos;]
+  }
+});
+</code></pre><p>Loading the <code>test.html</code> with Chrome devtools closed for performance, the page should then randomly 
+load a fully-built language pack bundle.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./conditional-loading.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Conditional Loading"><i class="fa fa-angle-left"></i></a>
+        
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"ga":{"token":"UA-40327700-1","configuration":"auto"},"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

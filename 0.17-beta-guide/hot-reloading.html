@@ -1,0 +1,459 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Hot-Reloading | jspm 0.17 Beta Guide</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.3">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./package-configuration.html" />
+    
+    
+    <link rel="prev" href="./creating-a-project.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="2"
+        data-chapter-title="Hot-Reloading"
+        data-filepath="hot-reloading.md"
+        data-basepath="."
+        data-revision="Mon Jan 25 2016 15:13:21 GMT+0200 (SAST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="creating-a-project.html">
+            
+                
+                    <a href="./creating-a-project.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Creating a Project
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="2" data-path="hot-reloading.html">
+            
+                
+                    <a href="./hot-reloading.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Hot-Reloading
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="package-configuration.html">
+            
+                
+                    <a href="./package-configuration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Package Configuration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="installing-the-jsx-babel-plugin.html">
+            
+                
+                    <a href="./installing-the-jsx-babel-plugin.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Installing the JSX Babel Plugin
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="universal-js-with-server-rendering.html">
+            
+                
+                    <a href="./universal-js-with-server-rendering.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Universal JS with Server Rendering
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="npm-package-support.html">
+            
+                
+                    <a href="./npm-package-support.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        npm Package Support
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="bundling.html">
+            
+                
+                    <a href="./bundling.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Bundling
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="loading-libraries-from-cdn.html">
+            
+                
+                    <a href="./loading-libraries-from-cdn.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        Loading Libraries from CDN
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="custom-package-resolutions.html">
+            
+                
+                    <a href="./custom-package-resolutions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        Custom Package Resolutions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="static-builds-with-rollup-optimization.html">
+            
+                
+                    <a href="./static-builds-with-rollup-optimization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.</b>
+                        
+                        Static Builds with Rollup Optimization
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="publishing.html">
+            
+                
+                    <a href="./publishing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        Publishing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="peer-dependencies.html">
+            
+                
+                    <a href="./peer-dependencies.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.</b>
+                        
+                        Peer Dependencies
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13" data-path="linking.html">
+            
+                
+                    <a href="./linking.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.</b>
+                        
+                        Linking
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14" data-path="overrides.html">
+            
+                
+                    <a href="./overrides.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.</b>
+                        
+                        Overrides
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="conditional-loading.html">
+            
+                
+                    <a href="./conditional-loading.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.</b>
+                        
+                        Conditional Loading
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16" data-path="conditional-interpolation.html">
+            
+                
+                    <a href="./conditional-interpolation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.</b>
+                        
+                        Conditional Interpolation
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >jspm 0.17 Beta Guide</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="hot-reloading">Hot Reloading</h2>
+<p>The first thing you might notice is that it takes about 3 seconds to render the component in Chrome with devtools open and 2 seconds in Firefox or Chrome with devtools disabled.</p>
+<p><em>For performance, it is advisable to close the Chrome devtools when reloading the page, before opening them again as there is a <a href="https://github.com/systemjs/systemjs/issues/1054" target="_blank">longer page load with devtools open</a>.</em></p>
+<p>While in theory it should be possible for this refresh to be well under a second, the reality is that web browsers are not currently optimized to handle high numbers of interleaved fetch / execution cycles.</p>
+<p>To improve this development experience we use hot-reloading.</p>
+<p>Because hot-reloading requires a module registry in the browser to work, it works naturally on top of SystemJS, 
+as was first demonstrated by <a href="https://twitter.com/glenmaddern" target="_blank">Glen Maddern</a> with the jspm-server project.</p>
+<p>Here we will use Jiri Spac&apos;s <a href="https://github.com/capaj/systemjs-hot-reloader" target="_blank">SystemJS Hot Reloader project</a>:</p>
+<pre><code>jspm install --dev systemjs-hot-reloader
+</code></pre><p>Update the <code>test.js</code> file to initiate hot reloading by importing the hot-reloader listener, and then also providing a <code>__reload</code> hook
+to maintain the internal component state over hot-reload updates:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;systemjs-hot-reloader/default-listener.js&apos;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__reload</span>(<span class="hljs-params">m</span>) </span>{
+  <span class="hljs-keyword">if</span> (m.component.state)
+    component.setState(m.component.state);
+}
+
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react-dom&apos;</span>;
+<span class="hljs-keyword">import</span> {HelloWorld} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;jspm-react-component&apos;</span>;
+
+<span class="hljs-keyword">let</span> container = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&apos;container&apos;</span>);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> component = ReactDOM.render(React.createElement(HelloWorld), container);
+</code></pre>
+<p>Because we are re-rendering the component on hot-reload, the <code>__reload</code> hook allows us to pass the state across
+the reload event, which takes the previous module value as its argument. We have to export the component instance
+via <code>export let component = ReactDOM.render(...)</code> to ensure we provide a reference to this state.</p>
+<p>Next edit the <code>jspm.browser.js</code> file to include <code>trace: true</code>, so that it reads:</p>
+<pre><code class="lang-javascript">SystemJS.config({
+  baseURL: <span class="hljs-string">&quot;/&quot;</span>,
+  trace: <span class="hljs-literal">true</span>,
+  paths: {
+    <span class="hljs-string">&quot;github:*&quot;</span>: <span class="hljs-string">&quot;jspm_packages/github/*&quot;</span>,
+    <span class="hljs-string">&quot;npm:*&quot;</span>: <span class="hljs-string">&quot;jspm_packages/npm/*&quot;</span>,
+    <span class="hljs-string">&quot;jspm-react-component/&quot;</span>: <span class="hljs-string">&quot;src/&quot;</span>
+  }
+});
+</code></pre>
+<p>Finally, to emit the change events to the browser we install and run the local file event 
+emitter designed for systemjs-hot-reloader from the base directory of the project:</p>
+<pre><code>npm install -g chokidar-socket-emitter
+</code></pre><pre><code>chokidar-socket-emitter
+  chokidar listening on 5776
+</code></pre><p>With the <code>test.html</code> page open, any edits to the <code>src/component.js</code> file will now reflect instantly on save with full
+state replication.</p>
+<blockquote>
+<p>Note that the <a href="https://github.com/capaj/systemjs-hot-reloader" target="_blank">SystemJS Hot Reloader project</a> is still new 
+  and somewhat experimental. If you find a bug or use case that isn&apos;t supported contributions will likely be very welcome.</p>
+</blockquote>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./creating-a-project.html" class="navigation navigation-prev " aria-label="Previous page: Creating a Project"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./package-configuration.html" class="navigation navigation-next " aria-label="Next page: Package Configuration"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"ga":{"token":"UA-40327700-1","configuration":"auto"},"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

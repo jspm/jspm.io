@@ -1,0 +1,491 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Overrides | jspm 0.17 Beta Guide</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.3">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./conditional-loading.html" />
+    
+    
+    <link rel="prev" href="./linking.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="14"
+        data-chapter-title="Overrides"
+        data-filepath="overrides.md"
+        data-basepath="."
+        data-revision="Mon Jan 25 2016 15:13:21 GMT+0200 (SAST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="creating-a-project.html">
+            
+                
+                    <a href="./creating-a-project.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Creating a Project
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="hot-reloading.html">
+            
+                
+                    <a href="./hot-reloading.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Hot-Reloading
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="package-configuration.html">
+            
+                
+                    <a href="./package-configuration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Package Configuration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="installing-the-jsx-babel-plugin.html">
+            
+                
+                    <a href="./installing-the-jsx-babel-plugin.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Installing the JSX Babel Plugin
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="universal-js-with-server-rendering.html">
+            
+                
+                    <a href="./universal-js-with-server-rendering.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Universal JS with Server Rendering
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="npm-package-support.html">
+            
+                
+                    <a href="./npm-package-support.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        npm Package Support
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="bundling.html">
+            
+                
+                    <a href="./bundling.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Bundling
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="loading-libraries-from-cdn.html">
+            
+                
+                    <a href="./loading-libraries-from-cdn.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        Loading Libraries from CDN
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="custom-package-resolutions.html">
+            
+                
+                    <a href="./custom-package-resolutions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        Custom Package Resolutions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="static-builds-with-rollup-optimization.html">
+            
+                
+                    <a href="./static-builds-with-rollup-optimization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.</b>
+                        
+                        Static Builds with Rollup Optimization
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="publishing.html">
+            
+                
+                    <a href="./publishing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        Publishing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="peer-dependencies.html">
+            
+                
+                    <a href="./peer-dependencies.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.</b>
+                        
+                        Peer Dependencies
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13" data-path="linking.html">
+            
+                
+                    <a href="./linking.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.</b>
+                        
+                        Linking
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="14" data-path="overrides.html">
+            
+                
+                    <a href="./overrides.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.</b>
+                        
+                        Overrides
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="conditional-loading.html">
+            
+                
+                    <a href="./conditional-loading.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.</b>
+                        
+                        Conditional Loading
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16" data-path="conditional-interpolation.html">
+            
+                
+                    <a href="./conditional-interpolation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.</b>
+                        
+                        Conditional Interpolation
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >jspm 0.17 Beta Guide</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="overrides">Overrides</h2>
+<p>Overrides were one of the biggest pain points in jspm 0.16, and have been completely overhauled for jspm 0.17
+to make configuration workflows easier.</p>
+<blockquote>
+<p>Note this is still a somewhat advanced topic so you may wish to skip this section.</p>
+</blockquote>
+<p>The basic principle of overrides remains though - we have a package installed whose package.json was not
+created by ourselves. In order to provide jspm configuration for the package, we need to tell jspm which
+configuration options to use in place of the package.json options already provided, that is we provide
+a <em>package.json override</em>.</p>
+<p>For the sake of this example, say we want to override our installed <code>npm:jspm-react-component-demo</code> 
+component to have <code>&quot;format&quot;: &quot;cjs&quot;</code> instead of <code>&quot;format&quot;: &quot;amd&quot;</code> as it is in its package.json.</p>
+<p>While this is a small change, it demonstrates how we can override any <a href="https://github.com/systemjs/systemjs/blob/master/docs/config-api.md#packages" target="_blank">SystemJS Package Configuration</a>
+option through the package.json override.</p>
+<p>As in jspm 0.16, we can provide an inline override:</p>
+<pre><code>  jspm install npm:jspm-react-component-demo -o &quot;{format: &apos;cjs&apos;}&quot;
+</code></pre><p>or set the override directly in the local package.json (which the above does anyway):</p>
+<pre><code>{
+  &quot;jspm&quot;: {
+    ...
+    &quot;overrides&quot;: {
+      &quot;npm:jspm-react-component-demo@0.1.1&quot;: {
+        &quot;format&quot;: &quot;cjs&quot;
+      }
+    }
+  }
+}
+</code></pre><p>and running <code>jspm install</code>.</p>
+<p>Overrides will always remain in the package.json, even when overrides are checked into the jspm registry.
+This is to ensure full reproducibility of installs without any build dependence on the jspm registry.</p>
+<p>It&apos;s still somewhat painful to have to edit overrides the above ways and reinstall each time just to test
+them.</p>
+<p>To make this easier, we can actually edit the package configurations of installed packages directly.</p>
+<p>If you look inside of <code>jspm_packages/npm/</code> you&apos;ll see a whole lot of <code>.json</code> files. These are the SystemJS
+package configuration files generated on install for each package.</p>
+<p>For example, the contents of <code>jspm_packages/npm/jspm-react-component-demo.json</code> with our new override can be
+seen as:</p>
+<pre><code class="lang-json">{
+  <span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-string">&quot;jspm-react-component.js&quot;</span>,
+  <span class="hljs-string">&quot;format&quot;</span>: <span class="hljs-string">&quot;amd&quot;</span>
+}
+</code></pre>
+<p>SystemJS loads this configuration file before loading any modules from the package, so that it understands
+how to load the package. It&apos;s just like NodeJS loads the package.json of a package to read its main, but
+with all the SystemJS package configuration options available.</p>
+<p>These configuration files can be edited directly for instant development feedback. For example
+to treat <code>jspm-react-component.js</code> as a global module with React as a shimmed dependency:</p>
+<pre><code class="lang-json">{
+  <span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-string">&quot;jspm-react-component.js&quot;</span>,
+  <span class="hljs-string">&quot;format&quot;</span>: <span class="hljs-string">&quot;global&quot;</span>,
+  <span class="hljs-string">&quot;meta&quot;</span>: {
+    <span class="hljs-string">&quot;jspm-react-component.js&quot;</span>: {
+      <span class="hljs-string">&quot;globals&quot;</span>: {
+        <span class="hljs-string">&quot;React&quot;</span>: <span class="hljs-string">&quot;react&quot;</span>
+      }
+    }
+  }
+}
+</code></pre>
+<p>Hopefully these examples are beginning to demonstrate the flexibility of having SystemJS package
+configuration provided by the package.json.</p>
+<blockquote>
+<p>The <code>shim</code> package override property from jspm 0.16 is still supported for backwards compatibility,
+  but is deprecated for using package configuration directly as above.</p>
+</blockquote>
+<p>Reloading the <code>test.html</code> page should immediately reflect the new interpretation. To verify it is
+actually working, try leaving out the <code>globals</code> property above.</p>
+<p>When we&apos;ve finished testing out our package configuration changes, we can run 
+<code>jspm install npm:jspm-react-component-demo</code>, and you should see the following at the top of the install output:</p>
+<pre><code>ok   The package configuration file
+     jspm_packages/npm/jspm-react-component-demo@0.1.1.json has been edited
+     manually. To avoid overwriting the change, it has been added to the
+     package.json overrides.
+</code></pre><p>If we look inside the application <code>package.json</code>, you should see the configuration changes we made above
+have been persisted directly into the package.json overrides so that our edits will be retained.</p>
+<blockquote>
+<p>The only way to have overrides not included in the package.json is if the configurations are included
+in the original package and published with a new version. The jspm registry will still provide overrides,
+but because overrides in the registry can change over time, inclusion in the package.json is needed to guarantee
+reproducibility. The jspm package configuration can be deemed stable as of jspm 0.17 to be able to send these PRs
+to public packages, and feel free to copy in @guybedford if you need these checked.</p>
+</blockquote>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./linking.html" class="navigation navigation-prev " aria-label="Previous page: Linking"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./conditional-loading.html" class="navigation navigation-next " aria-label="Next page: Conditional Loading"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"ga":{"token":"UA-40327700-1","configuration":"auto"},"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

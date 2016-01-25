@@ -1,0 +1,449 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Package Configuration | jspm 0.17 Beta Guide</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.3">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="./installing-the-jsx-babel-plugin.html" />
+    
+    
+    <link rel="prev" href="./hot-reloading.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="3"
+        data-chapter-title="Package Configuration"
+        data-filepath="package-configuration.md"
+        data-basepath="."
+        data-revision="Mon Jan 25 2016 15:13:21 GMT+0200 (SAST)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="./index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="creating-a-project.html">
+            
+                
+                    <a href="./creating-a-project.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Creating a Project
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="hot-reloading.html">
+            
+                
+                    <a href="./hot-reloading.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Hot-Reloading
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="3" data-path="package-configuration.html">
+            
+                
+                    <a href="./package-configuration.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Package Configuration
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="installing-the-jsx-babel-plugin.html">
+            
+                
+                    <a href="./installing-the-jsx-babel-plugin.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Installing the JSX Babel Plugin
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="universal-js-with-server-rendering.html">
+            
+                
+                    <a href="./universal-js-with-server-rendering.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Universal JS with Server Rendering
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="npm-package-support.html">
+            
+                
+                    <a href="./npm-package-support.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        npm Package Support
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="bundling.html">
+            
+                
+                    <a href="./bundling.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Bundling
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="loading-libraries-from-cdn.html">
+            
+                
+                    <a href="./loading-libraries-from-cdn.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        Loading Libraries from CDN
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="custom-package-resolutions.html">
+            
+                
+                    <a href="./custom-package-resolutions.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>9.</b>
+                        
+                        Custom Package Resolutions
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="static-builds-with-rollup-optimization.html">
+            
+                
+                    <a href="./static-builds-with-rollup-optimization.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>10.</b>
+                        
+                        Static Builds with Rollup Optimization
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="publishing.html">
+            
+                
+                    <a href="./publishing.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>11.</b>
+                        
+                        Publishing
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="peer-dependencies.html">
+            
+                
+                    <a href="./peer-dependencies.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>12.</b>
+                        
+                        Peer Dependencies
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13" data-path="linking.html">
+            
+                
+                    <a href="./linking.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>13.</b>
+                        
+                        Linking
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14" data-path="overrides.html">
+            
+                
+                    <a href="./overrides.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>14.</b>
+                        
+                        Overrides
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="conditional-loading.html">
+            
+                
+                    <a href="./conditional-loading.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>15.</b>
+                        
+                        Conditional Loading
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16" data-path="conditional-interpolation.html">
+            
+                
+                    <a href="./conditional-interpolation.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>16.</b>
+                        
+                        Conditional Interpolation
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="./" >jspm 0.17 Beta Guide</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h2 id="package-configuration">Package Configuration</h2>
+<p>One of the major changes in jspm 0.17 is using the <a href="https://github.com/systemjs/systemjs/blob/0.19.16/docs/config-api.md#packages" target="_blank">SystemJS package configuration</a> system
+as the fundamental configuration mechanic.</p>
+<p>Everything about how to load a package is provided by this single configuration and jspm aligns this 
+all the way down to reading this same exact SystemJS package configuration for installed packages directly
+from their package.json file.</p>
+<p><em>That is, all the <a href="https://github.com/systemjs/systemjs/blob/0.19.16/docs/config-api.md#packages" target="_blank">SystemJS package configuration properties</a>
+are supported as package.json properties in jspm 0.17, that can be set at the base-level or under the <code>jspm</code> prefix. This provides a powerful modular package configuration
+mechanism enabling features including custom plugin loads and branched conditional loading, which is covered at the end of this guide.</em></p>
+<p>Let&apos;s use package configuration to set up some loading rules in our sample application. 
+Open <code>jspm.config.js</code> and under <code>packages</code> there will be an empty object for our local package
+that was created during init (<code>jspm-react-component</code> in this guide):</p>
+<pre><code class="lang-javascript">SystemJS.config({
+  ...
+
+  packages: {
+    <span class="hljs-string">&quot;jspm-react-component&quot;</span>: {},
+
+    ...
+  }
+})
+</code></pre>
+<p>Since every module file in the package will be written as an ES Modules, let&apos;s set the module format and also set a main entry point:</p>
+<pre><code class="lang-javascript">...
+  packages: {
+    <span class="hljs-string">&quot;jspm-react-component&quot;</span>: {
+      <span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-string">&quot;component.js&quot;</span>,
+      <span class="hljs-string">&quot;format&quot;</span>: <span class="hljs-string">&quot;esm&quot;</span>
+    }
+    ...
+</code></pre>
+<p>In <code>test.js</code> we can then replace <code>import {HelloWorld} from &apos;jspm-react-component/component.js&apos;</code> with
+just <code>import {HelloWorld} from &apos;jspm-react-component&apos;</code>, and SystemJS will no longer use format detection
+as it knows what module format to use to interpret modules from this package.</p>
+<blockquote>
+<p>Usually SystemJS does a simple regex-based detection with <code>format: &apos;detect&apos;</code> as the default which is
+  not designed to be highly accurate for performance. For example, this fails on cases where ES module syntax is contained in 
+  comments in non-ES module files, or when ES modules don&apos;t contain any import or export syntax. We avoid these
+  issues by setting the format explicitly for SystemJS.</p>
+</blockquote>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="./hot-reloading.html" class="navigation navigation-prev " aria-label="Previous page: Hot-Reloading"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="./installing-the-jsx-babel-plugin.html" class="navigation navigation-next " aria-label="Next page: Installing the JSX Babel Plugin"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="gitbook/app.js"></script>
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"ga":{"token":"UA-40327700-1","configuration":"auto"},"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
