@@ -364,7 +364,7 @@ as dependencies in the bundle.</p>
 <p>In addition, the hot reloader is by default configured to be excluded when bundling and React has been 
 configured with a jspm override to use conditional loading to exclude its development
 dependencies as well. CommonJS files will have <code>process.env.NODE_ENV</code> inlined to the value of <code>production</code>,
-which is then removed by minification giving as the minimal download footprint for React.</p>
+which is then removed by minification giving us the minimal download footprint for React.</p>
 <p>We then include this bundle file in our HTML after the configuration, but before our <code>SystemJS.import</code> statement:</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">!docype</span> <span class="hljs-attribute">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">&quot;utf-8&quot;</span>&gt;</span>
