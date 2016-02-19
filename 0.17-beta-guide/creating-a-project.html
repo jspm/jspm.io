@@ -434,10 +434,6 @@ ok   Install complete.
 <p><em>If you prefer running test apps in Chrome with the <code>--file-access-from-files</code> flag enabled to save spinning up a local server set the <code>jspm.browser.js</code> <code>baseURL: &apos;.&apos;</code> during init, or directly in the <code>jspm.browser.js</code> file.</em></p>
 <p>We include <code>SystemJS.import</code> at the end of the body to ensure that the body container is already present when <code>test.js</code> runs.</p>
 <p>Open up <code>test.html</code> through a local server or a file URL and that&apos;s it.</p>
-<blockquote>
-<p>Unfortunately due to <a href="https://phabricator.babeljs.io/T6903" target="_blank">Babel issue T6903</a> 
- in-browser source maps are not currently working for ES Modules through Babel.</p>
-</blockquote>
 
                     
                     </section>
