@@ -53,7 +53,7 @@
         data-chapter-title="Development Bundling"
         data-filepath="development-bundling.md"
         data-basepath="."
-        data-revision="Fri Apr 01 2016 09:22:37 GMT+0200 (SAST)"
+        data-revision="Fri Apr 01 2016 09:38:58 GMT+0200 (SAST)"
         data-innerlanguage="">
     
 
@@ -371,10 +371,13 @@
                     <section class="normal" id="section-">
                     
                         <h2 id="development-bundling">Development Bundling</h2>
-<p>The first thing you might notice is that it takes about 3 seconds to render the component in Chrome with devtools open and 2 seconds in Firefox or Chrome with devtools disabled.</p>
-<p><em>For performance, it is advisable to close the Chrome devtools when reloading the page, before opening them again as there is a <a href="https://github.com/systemjs/systemjs/issues/1054" target="_blank">longer page load with devtools open</a>.</em></p>
-<p>While in theory it should be possible for this refresh to be well under a second, the reality is that web browsers are not currently optimized to handle high numbers of interleaved fetch / execution cycles.</p>
-<p>To improve this development experience we can use a development bundling workflow:</p>
+<p>When you&apos;re working on small experiments or demos, a convenient feature of jspm is that you don&apos;t need to run any form of setup task.
+jspm loads and transpiles everything in the browser, removing the reliance on OS-installed tooling.</p>
+<p>The obvious problem you might notice is that it takes about 3 seconds to render the sample component here in Chrome with devtools open and 2 seconds in Firefox or Chrome with devtools disabled.
+While in theory it should be possible for this refresh to be well under a second, the reality is that web browsers are not currently optimized to handle high numbers of interleaved fetch / execution cycles.</p>
+<p>This is due to the large number of requests made by React, which we now optimize for further development by switching to a development bundle workflow with watching
+to generate a single unminified bundle file to be loaded in the browser.</p>
+<p>To add this improvement, we will use the <code>jspm bundle</code> command with the <code>watch</code> flag:</p>
 <pre><code>jspm bundle test.js -wid
 </code></pre><p>where the flags here are:</p>
 <ul>
@@ -405,6 +408,7 @@ Watchman:  Watchman was not found in PATH.  See https://facebook.github.io/watch
      Watching . for changes with Node native watcher...
 </code></pre><p>Now any changes to any of the modules will automatically rebuild the bundle, refreshing the browser
 will then load the changes from that single bundle file for a quick page refresh.</p>
+<p><em>For performance, it is advisable to close the Chrome devtools when reloading the page, before opening them again as there is a <a href="https://github.com/systemjs/systemjs/issues/1054" target="_blank">longer page load with devtools open</a>.</em></p>
 <blockquote>
 <p>For the fastest workflow it is worth <a href="https://facebook.github.io/watchman/docs/install.html" target="_blank">installing Watchman</a> as well.</p>
 </blockquote>
