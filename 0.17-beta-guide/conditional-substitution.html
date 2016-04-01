@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Publishing | jspm 0.17 Beta Guide</title>
+        <title>Conditional Substitution | jspm 0.17 Beta Guide</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.3">
@@ -37,10 +37,8 @@
         
     
     
-    <link rel="next" href="./peer-dependencies.html" />
     
-    
-    <link rel="prev" href="./static-builds-with-rollup-optimization.html" />
+    <link rel="prev" href="./conditional-loading.html" />
     
 
         
@@ -49,9 +47,9 @@
         
         
     <div class="book"
-        data-level="12"
-        data-chapter-title="Publishing"
-        data-filepath="publishing.md"
+        data-level="17"
+        data-chapter-title="Conditional Substitution"
+        data-filepath="conditional-substitution.md"
         data-basepath="."
         data-revision="Fri Apr 01 2016 09:22:37 GMT+0200 (SAST)"
         data-innerlanguage="">
@@ -247,7 +245,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="12" data-path="publishing.html">
+        <li class="chapter " data-level="12" data-path="publishing.html">
             
                 
                     <a href="./publishing.html">
@@ -322,7 +320,7 @@
             
         </li>
     
-        <li class="chapter " data-level="17" data-path="conditional-substitution.html">
+        <li class="chapter active" data-level="17" data-path="conditional-substitution.html">
             
                 
                     <a href="./conditional-substitution.html">
@@ -370,57 +368,115 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="publishing">Publishing</h2>
-<p>With the static build of the component created, we can now publish this component.</p>
-<p>While we can publish directly from the base-level, to keep things simple and avoid creating a <code>.npmignore</code>,
-we can just create a new package.json file inside our <code>dist</code> folder, <code>dist/package.json</code>:</p>
-<pre><code class="lang-json">{
-  <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;jspm-react-component-demo&quot;</span>,
-  <span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.1.1&quot;</span>,
-  <span class="hljs-string">&quot;registry&quot;</span>: <span class="hljs-string">&quot;npm&quot;</span>,
-  <span class="hljs-string">&quot;peerDependencies&quot;</span>: {
-    <span class="hljs-string">&quot;react&quot;</span>: <span class="hljs-string">&quot;^0.14.6&quot;</span>
-  },
-  <span class="hljs-string">&quot;jspmPackage&quot;</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-string">&quot;jspm-react-component.js&quot;</span>,
-  <span class="hljs-string">&quot;format&quot;</span>: <span class="hljs-string">&quot;amd&quot;</span>
+                        <h2 id="conditional-substitution">Conditional Substitution</h2>
+<p>Let&apos;s internationalize our Hello World component example.</p>
+<p>The previous <em>conditional package map</em> doesn&apos;t scale well to dealing with many different possible
+conditional outcomes as with a language set. For this, we can use <em>conditional substitution</em>.</p>
+<p>First create some language variations:</p>
+<ul>
+<li>src/en/text.js: <code>export default &apos;Hello World&apos;;</code></li>
+<li>src/de/text.js: <code>export default &apos;Hallo Welt&apos;;</code></li>
+<li>src/es/text.js: <code>export default &apos;Hola Mundo&apos;;</code></li>
+<li>src/zh/text.js: <code>export default &apos;&#x4F60;&#x597D;&#xFF0C;&#x4E16;&#x754C;&apos;;</code></li>
+</ul>
+<p>Then in the component, we can load the correct variation using conditional substitution with:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+<span class="hljs-keyword">import</span> text <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./#{lang}/text.js&apos;</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloWorld</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{text}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>;</span>
+  }
 }
 </code></pre>
-<p>We can then publish the package to npm with:</p>
-<pre><code>cd dist
-npm publish .
-</code></pre><p>To explain the properties we&apos;ve set:</p>
-<ul>
-<li><code>name</code>, <code>version</code>: These are required for publishing to npm.</li>
-<li><code>registry</code>: This property is a jspm-specific property which tells jspm how to interpret the dependencies
-of the package. It&apos;s not strictly needed here, but is advisable to always set and we&apos;ll need it for the
-linking workflow shortly.</li>
-<li><code>peerDependencies</code>: We set the react dependency in our component as a peerDependency, as React doesn&apos;t support
-multi-versions. This way it must always be resolved to a single version in the target environment.</li>
-<li><code>jspmPackage</code>: This tells jspm to skip the Node package conversion process when installing the package.
- In jspm 0.16 this was called <code>jspmNodeConversion: false</code>.</li>
-<li><code>main</code>, <code>format</code>: While <code>main</code> is supported by npm and NodeJS, <code>format</code> is a jspm-specific property which means
-effectively that our umd build will be loaded as CommonJS in npm and AMD in jspm (this is mainly illustrative, there&apos;s no great reason why we&apos;ve chosen to do this here).
-<em>These properties are both <a href="https://github.com/systemjs/systemjs/blob/master/docs/config-api.md#packages" target="_blank">SystemJS package configuration options</a> - jspm allows any of these package configuration options to be set directly in the package.json file.</em></li>
-</ul>
-<blockquote>
-<p>The way we have written the package.json above is fully compatible with npm, while also
-providing jspm-specific properties for added functionality in jspm. This approach of publishing based
-on compatibility while enabling extra options for jspm is the recommended way to handle publishing to
-the widest audience. If only publishing a package for jspm consumption, then this of course not a concern.</p>
-</blockquote>
-<p>We can then install this component into the demo app under a new name to avoid conflicts with:</p>
-<pre><code>jspm install npm:jspm-react-component-demo
-</code></pre><p>If we edit the original <code>test.js</code> file and replace the line:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> {HelloWorld} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;jspm-react-component&apos;</span>;
-<span class="hljs-string">`
-</span></code></pre>
-<p>with:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> {HelloWorld} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;jspm-react-component-demo&apos;</span>;
+<p><em>This conditional syntax <code>#{...}</code> is entirely a SystemJS feature and construct.</em></p>
+<p><code>lang</code> is simply a module reference itself equivalent to <code>import lang from &apos;lang&apos;;</code>. That is,
+it is not provided for us at all, so we need to ensure we create this correct language detection
+module for our environment.</p>
+<p>For this example, let&apos;s just select the language randomly by creating this conditional
+environment module in <code>src/lang.js</code> as:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> [<span class="hljs-string">&apos;en&apos;</span>, <span class="hljs-string">&apos;de&apos;</span>, <span class="hljs-string">&apos;es&apos;</span>, <span class="hljs-string">&apos;zh&apos;</span>][<span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">3</span>)];
 </code></pre>
-<p>This completes the loop of building a component for production to install back into a new app,
-and since we&apos;ve been careful with our package.json configuration, this component will also support 
-use in standard Node and npm install workflows as well.</p>
+<p>We can then provide the map alias for <code>lang</code> to this language condition module 
+in the main map config inside <code>jspm.config.js</code>:</p>
+<pre><code class="lang-javascript">SystemJS.config({
+  ...
+
+  map: {
+    ...
+    <span class="hljs-string">&quot;lang&quot;</span>: <span class="hljs-string">&quot;jspm-react-component/lang.js&quot;</span>,
+    ...
+  },
+
+  ...
+});
+</code></pre>
+<p>At risk of spelling out the obvious, this relative map informs the package that any load to <code>lang</code> within 
+the package should use the file <code>./lang.js</code> relative to the package itself. Since the conditional substitution
+is treated just like a require within the package, it will respect these mappings.</p>
+<p>Loading the <code>test.html</code> page will no display a different language variation on each page load.</p>
+<p>To create language bundles, we can just bundle our app normally:</p>
+<pre><code>jspm bundle test.js - react
+</code></pre><p>SystemJS builder will by default include all substitution variations within the tree giving the output:</p>
+<pre><code>    Building the bundle tree for test.js - react...
+
+       github:capaj/systemjs-hot-reloader@0.5.3.json
+       jspm-react-component/component.js
+       jspm-react-component/de/text.js
+       jspm-react-component/en/text.js
+       jspm-react-component/es/text.js
+       jspm-react-component/lang.js
+       jspm-react-component/zh/text.js
+       npm:react-dom@0.14.6.json
+       npm:react-dom@0.14.6/index.js
+       npm:systemjs-plugin-babel@0.0.2.json
+       npm:systemjs-plugin-babel@0.0.2/babel-helpers/classCallCheck.js
+       npm:systemjs-plugin-babel@0.0.2/babel-helpers/createClass.js
+       npm:systemjs-plugin-babel@0.0.2/babel-helpers/inherits.js
+       npm:systemjs-plugin-babel@0.0.2/babel-helpers/possibleConstructorReturn.js
+       test.js
+
+ok   Built into build.js with source maps, unminified.
+</code></pre><p>The conditional substitution variations are detected by globbing the filesystem for possible resolutions.
+Substitution values are not allowed to cross package or map boundaries or include a <code>/</code> separator so that
+this globbed resolution remains well-defined.</p>
+<p>We can also create a main bundle for our app with separate language bundles that get loaded conditionally.</p>
+<p>First we create the base bundle without any language variations, by passing SystemJS builder <code>conditions</code>
+environment trace object.</p>
+<pre><code>jspm bundle test.js common-bundle.js --conditions &quot;{&apos;src/lang.js&apos;:false}&quot;
+</code></pre><p>We include this <code>common-bundle.js</code> directly in the <code>test.html</code> page:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">!docype</span> <span class="hljs-attribute">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">&quot;utf-8&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm_packages/system.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm.browser.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm.config.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;common-bundle.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;container&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="actionscript">
+    SystemJS.<span class="hljs-keyword">import</span>(<span class="hljs-string">&apos;test.js&apos;</span>);
+  </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</code></pre>
+<p>Next, to build individual language bundles (this process can likely be optimized):</p>
+<pre><code>jspm bundle test.js - common-bundle.js bundle-en.js --conditions &quot;{&apos;src/lang.js&apos;:&apos;en&apos;}&quot;
+jspm bundle test.js - common-bundle.js bundle-de.js --conditions &quot;{&apos;src/lang.js&apos;:&apos;de&apos;}&quot;
+jspm bundle test.js - common-bundle.js bundle-es.js --conditions &quot;{&apos;src/lang.js&apos;:&apos;es&apos;}&quot;
+jspm bundle test.js - common-bundle.js bundle-zh.js --conditions &quot;{&apos;src/lang.js&apos;:&apos;zh&apos;}&quot;
+</code></pre><p>And to load those language bundles conditionally in the environment, we add a <code>bundles</code>
+entry to ths <code>jspm.browser.js</code> config:</p>
+<pre><code>SystemJS.config({
+  baseURL: &quot;.&quot;,
+  production: true,
+  paths: {
+    &quot;github:*&quot;: &quot;jspm_packages/github/*&quot;,
+    &quot;npm:*&quot;: &quot;jspm_packages/npm/*&quot;,
+    &quot;jspm-react-component/&quot;: &quot;src/&quot;
+  },
+  bundles: {
+    &apos;bundle-#{lang}.js&apos;: [&apos;src/*/text.js&apos;]
+  }
+});
+</code></pre><p>Loading the <code>test.html</code> with Chrome devtools closed for performance, the page should then randomly 
+load a fully-built language pack bundle.</p>
 
                     
                     </section>
@@ -431,10 +487,8 @@ use in standard Node and npm install workflows as well.</p>
         </div>
 
         
-        <a href="./static-builds-with-rollup-optimization.html" class="navigation navigation-prev " aria-label="Previous page: Static Builds with Rollup Optimization"><i class="fa fa-angle-left"></i></a>
+        <a href="./conditional-loading.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Conditional Loading"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="./peer-dependencies.html" class="navigation navigation-next " aria-label="Next page: Peer Dependencies"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

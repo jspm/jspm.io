@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Publishing | jspm 0.17 Beta Guide</title>
+        <title>Development Bundling | jspm 0.17 Beta Guide</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.3">
@@ -37,10 +37,10 @@
         
     
     
-    <link rel="next" href="./peer-dependencies.html" />
+    <link rel="next" href="./hot-reloading.html" />
     
     
-    <link rel="prev" href="./static-builds-with-rollup-optimization.html" />
+    <link rel="prev" href="./creating-a-project.html" />
     
 
         
@@ -49,9 +49,9 @@
         
         
     <div class="book"
-        data-level="12"
-        data-chapter-title="Publishing"
-        data-filepath="publishing.md"
+        data-level="2"
+        data-chapter-title="Development Bundling"
+        data-filepath="development-bundling.md"
         data-basepath="."
         data-revision="Fri Apr 01 2016 09:22:37 GMT+0200 (SAST)"
         data-innerlanguage="">
@@ -97,7 +97,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2" data-path="development-bundling.html">
+        <li class="chapter active" data-level="2" data-path="development-bundling.html">
             
                 
                     <a href="./development-bundling.html">
@@ -247,7 +247,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="12" data-path="publishing.html">
+        <li class="chapter " data-level="12" data-path="publishing.html">
             
                 
                     <a href="./publishing.html">
@@ -370,57 +370,44 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h2 id="publishing">Publishing</h2>
-<p>With the static build of the component created, we can now publish this component.</p>
-<p>While we can publish directly from the base-level, to keep things simple and avoid creating a <code>.npmignore</code>,
-we can just create a new package.json file inside our <code>dist</code> folder, <code>dist/package.json</code>:</p>
-<pre><code class="lang-json">{
-  <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;jspm-react-component-demo&quot;</span>,
-  <span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.1.1&quot;</span>,
-  <span class="hljs-string">&quot;registry&quot;</span>: <span class="hljs-string">&quot;npm&quot;</span>,
-  <span class="hljs-string">&quot;peerDependencies&quot;</span>: {
-    <span class="hljs-string">&quot;react&quot;</span>: <span class="hljs-string">&quot;^0.14.6&quot;</span>
-  },
-  <span class="hljs-string">&quot;jspmPackage&quot;</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-string">&quot;jspm-react-component.js&quot;</span>,
-  <span class="hljs-string">&quot;format&quot;</span>: <span class="hljs-string">&quot;amd&quot;</span>
-}
-</code></pre>
-<p>We can then publish the package to npm with:</p>
-<pre><code>cd dist
-npm publish .
-</code></pre><p>To explain the properties we&apos;ve set:</p>
+                        <h2 id="development-bundling">Development Bundling</h2>
+<p>The first thing you might notice is that it takes about 3 seconds to render the component in Chrome with devtools open and 2 seconds in Firefox or Chrome with devtools disabled.</p>
+<p><em>For performance, it is advisable to close the Chrome devtools when reloading the page, before opening them again as there is a <a href="https://github.com/systemjs/systemjs/issues/1054" target="_blank">longer page load with devtools open</a>.</em></p>
+<p>While in theory it should be possible for this refresh to be well under a second, the reality is that web browsers are not currently optimized to handle high numbers of interleaved fetch / execution cycles.</p>
+<p>To improve this development experience we can use a development bundling workflow:</p>
+<pre><code>jspm bundle test.js -wid
+</code></pre><p>where the flags here are:</p>
 <ul>
-<li><code>name</code>, <code>version</code>: These are required for publishing to npm.</li>
-<li><code>registry</code>: This property is a jspm-specific property which tells jspm how to interpret the dependencies
-of the package. It&apos;s not strictly needed here, but is advisable to always set and we&apos;ll need it for the
-linking workflow shortly.</li>
-<li><code>peerDependencies</code>: We set the react dependency in our component as a peerDependency, as React doesn&apos;t support
-multi-versions. This way it must always be resolved to a single version in the target environment.</li>
-<li><code>jspmPackage</code>: This tells jspm to skip the Node package conversion process when installing the package.
- In jspm 0.16 this was called <code>jspmNodeConversion: false</code>.</li>
-<li><code>main</code>, <code>format</code>: While <code>main</code> is supported by npm and NodeJS, <code>format</code> is a jspm-specific property which means
-effectively that our umd build will be loaded as CommonJS in npm and AMD in jspm (this is mainly illustrative, there&apos;s no great reason why we&apos;ve chosen to do this here).
-<em>These properties are both <a href="https://github.com/systemjs/systemjs/blob/master/docs/config-api.md#packages" target="_blank">SystemJS package configuration options</a> - jspm allows any of these package configuration options to be set directly in the package.json file.</em></li>
+<li><code>--watch</code>: Watch the module tree for file changes to then do a quick cached rebuild.</li>
+<li><code>--inject</code>: Ensure that the bundle is automatically loaded without any further changes necessary.</li>
+<li><code>--development</code>: Create a development bundle, without any production flags or optimizations, which
+are otherwise the default when creating a bundle.</li>
 </ul>
+<p>This will then display:</p>
+<pre><code>     Building the bundle tree for test.js...
+
+       github:jspm/nodelibs-process@0.2.0-alpha.json
+       github:jspm/nodelibs-process@0.2.0-alpha/process.js
+       jspm-react-component/component.js
+       npm:fbjs@0.6.1.json
+...
+       npm:systemjs-plugin-babel@0.0.5.json
+       npm:systemjs-plugin-babel@0.0.5/babel-helpers/classCallCheck.js
+       npm:systemjs-plugin-babel@0.0.5/babel-helpers/createClass.js
+       npm:systemjs-plugin-babel@0.0.5/babel-helpers/inherits.js
+
+     npm:systemjs-plugin-babel@0.0.5/babel-helpers/possibleConstructorReturn.js
+       test.js
+
+ok   build.js added to config bundles.
+ok   Built into build.js with source maps, unminified.
+Watchman:  Watchman was not found in PATH.  See https://facebook.github.io/watchman/docs/install.html for installation instructions
+     Watching . for changes with Node native watcher...
+</code></pre><p>Now any changes to any of the modules will automatically rebuild the bundle, refreshing the browser
+will then load the changes from that single bundle file for a quick page refresh.</p>
 <blockquote>
-<p>The way we have written the package.json above is fully compatible with npm, while also
-providing jspm-specific properties for added functionality in jspm. This approach of publishing based
-on compatibility while enabling extra options for jspm is the recommended way to handle publishing to
-the widest audience. If only publishing a package for jspm consumption, then this of course not a concern.</p>
+<p>For the fastest workflow it is worth <a href="https://facebook.github.io/watchman/docs/install.html" target="_blank">installing Watchman</a> as well.</p>
 </blockquote>
-<p>We can then install this component into the demo app under a new name to avoid conflicts with:</p>
-<pre><code>jspm install npm:jspm-react-component-demo
-</code></pre><p>If we edit the original <code>test.js</code> file and replace the line:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> {HelloWorld} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;jspm-react-component&apos;</span>;
-<span class="hljs-string">`
-</span></code></pre>
-<p>with:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> {HelloWorld} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;jspm-react-component-demo&apos;</span>;
-</code></pre>
-<p>This completes the loop of building a component for production to install back into a new app,
-and since we&apos;ve been careful with our package.json configuration, this component will also support 
-use in standard Node and npm install workflows as well.</p>
 
                     
                     </section>
@@ -431,10 +418,10 @@ use in standard Node and npm install workflows as well.</p>
         </div>
 
         
-        <a href="./static-builds-with-rollup-optimization.html" class="navigation navigation-prev " aria-label="Previous page: Static Builds with Rollup Optimization"><i class="fa fa-angle-left"></i></a>
+        <a href="./creating-a-project.html" class="navigation navigation-prev " aria-label="Previous page: Creating a Project"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="./peer-dependencies.html" class="navigation navigation-next " aria-label="Next page: Peer Dependencies"><i class="fa fa-angle-right"></i></a>
+        <a href="./hot-reloading.html" class="navigation navigation-next " aria-label="Next page: Hot-Reloading"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
