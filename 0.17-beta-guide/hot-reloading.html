@@ -53,7 +53,7 @@
         data-chapter-title="Hot-Reloading"
         data-filepath="hot-reloading.md"
         data-basepath="."
-        data-revision="Fri Apr 01 2016 09:38:58 GMT+0200 (SAST)"
+        data-revision="Mon Feb 27 2017 09:57:14 GMT+0200 (SAST)"
         data-innerlanguage="">
     
 
@@ -376,51 +376,60 @@
 </blockquote>
 <p>To further improve development performance over the development bundling workflow, we can use hot reloading to just replace the changed modules in the module registry in the browser,
 without having to refresh the whole page.</p>
-<p>Because hot-reloading requires a module registry in the browser to work, it works naturally on top of SystemJS, 
+<p>Because hot-reloading requires a module registry in the browser to work, it works naturally on top of SystemJS,
 as was first demonstrated by <a href="https://twitter.com/glenmaddern" target="_blank">Glen Maddern</a> with the jspm-server project.</p>
-<p>Here we will use Jiri Spac&apos;s <a href="https://github.com/capaj/systemjs-hot-reloader" target="_blank">SystemJS Hot Reloader project</a>:</p>
+<p>Here we will use <a href="https://github.com/alexisvincent" target="_blank">Alexis Vincent&apos;s</a>&apos;s <a href="https://github.com/alexisvincent/systemjs-hot-reloader" target="_blank">systemjs-hot-reloader</a> project.</p>
 <pre><code>jspm install --dev systemjs-hot-reloader
-</code></pre><p>Update the <code>test.js</code> file to initiate hot reloading by importing the hot-reloader listener, and then also providing a <code>__reload</code> hook
-to maintain the internal component state over hot-reload updates:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> <span class="hljs-string">&apos;systemjs-hot-reloader/default-listener.js&apos;</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__reload</span>(<span class="hljs-params">m</span>) </span>{
-  <span class="hljs-keyword">if</span> (m.component.state)
-    component.setState(m.component.state);
+</code></pre><p>Add <code>&quot;@hot&quot;: &quot;@empty&quot;</code> to your <code>jspm.config.js</code> map section</p>
+<pre><code class="lang-js">{
+  ...
+  <span class="hljs-string">&quot;map&quot;</span>: {
+    ...
+    <span class="hljs-string">&quot;@hot&quot;</span>: <span class="hljs-string">&quot;@empty&quot;</span>
+  }
 }
-
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
+</code></pre>
+<p>Update <code>test.html</code> so that you first import the hot reloader</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!doctype html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">&quot;utf-8&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm_packages/system.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm.config.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;container&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="actionscript">
+    SystemJS.<span class="hljs-keyword">import</span>(<span class="hljs-string">&apos;systemjs-hot-reloader&apos;</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(connect)</span> </span>{
+      connect()
+      SystemJS.<span class="hljs-keyword">import</span>(<span class="hljs-string">&apos;test.js&apos;</span>);
+    })
+  </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p>The next step is optional and seeks to give an example of how to maintain state across reloads.</p>
+</blockquote>
+<p>And then update the <code>test.js</code> file to maintain the internal component state over hot-reload updates. We import <code>module</code>
+from <code>@hot</code> which will give us our previous module instance,
+or <code>false</code> on first load. Then if <code>module</code> is truthy (this is a
+reload), we set the current component state to the old component state. Note that to get a hold of the old component state we need to export it from the module.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>;
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react-dom&apos;</span>;
 <span class="hljs-keyword">import</span> {HelloWorld} <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;jspm-react-component/component.js&apos;</span>;
 
-<span class="hljs-keyword">let</span> container = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&apos;container&apos;</span>);
+<span class="hljs-keyword">import</span> { module } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;@hot&apos;</span>
+
+let container = document.getElementById(<span class="hljs-string">&apos;container&apos;</span>);
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> component = ReactDOM.render(React.createElement(HelloWorld), container);
+
+<span class="hljs-keyword">if</span> (<span class="hljs-built_in">module</span>)
+  component.setState(<span class="hljs-built_in">module</span>.component.state);
 </code></pre>
-<p>Because we are re-rendering the component on hot-reload, the <code>__reload</code> hook allows us to pass the state across
-the reload event, which takes the previous module value as its argument. We have to export the component instance
-via <code>export let component = ReactDOM.render(...)</code> to ensure we provide a reference to this state.</p>
-<p>Next edit the <code>jspm.browser.js</code> file to include <code>trace: true</code>, so that it reads:</p>
-<pre><code class="lang-javascript">SystemJS.config({
-  baseURL: <span class="hljs-string">&quot;/&quot;</span>,
-  trace: <span class="hljs-literal">true</span>,
-  paths: {
-    <span class="hljs-string">&quot;github:*&quot;</span>: <span class="hljs-string">&quot;jspm_packages/github/*&quot;</span>,
-    <span class="hljs-string">&quot;npm:*&quot;</span>: <span class="hljs-string">&quot;jspm_packages/npm/*&quot;</span>,
-    <span class="hljs-string">&quot;jspm-react-component/&quot;</span>: <span class="hljs-string">&quot;src/&quot;</span>
-  }
-});
-</code></pre>
-<p>Finally, to emit the change events to the browser we install and run the local file event 
-emitter designed for systemjs-hot-reloader from the base directory of the project:</p>
+<p>Finally, to emit the change events to the browser we install and run the local file event
+emitter designed for <code>systemjs-hot-reloader</code> from the base directory of the project:</p>
 <pre><code>npm install -g chokidar-socket-emitter
-</code></pre><pre><code>chokidar-socket-emitter
-  chokidar listening on 5776
+
+chokidar-socket-emitter
 </code></pre><p>With the <code>test.html</code> page open, any edits to the <code>src/component.js</code> file will now reflect instantly on save with full
 state replication.</p>
-<blockquote>
-<p>Note that the <a href="https://github.com/capaj/systemjs-hot-reloader" target="_blank">SystemJS Hot Reloader project</a> is still new 
-  and somewhat experimental. If you find a bug or use case that isn&apos;t supported contributions will likely be very welcome.</p>
-</blockquote>
 
                     
                     </section>

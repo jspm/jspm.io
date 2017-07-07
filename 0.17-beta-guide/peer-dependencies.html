@@ -53,7 +53,7 @@
         data-chapter-title="Peer Dependencies"
         data-filepath="peer-dependencies.md"
         data-basepath="."
-        data-revision="Fri Apr 01 2016 09:38:58 GMT+0200 (SAST)"
+        data-revision="Mon Feb 27 2017 09:57:14 GMT+0200 (SAST)"
         data-innerlanguage="">
     
 
@@ -389,18 +389,18 @@ Think of it just like traditional package management without encapsulated multi-
 <p>First uninstall our published component which will provide the conflict:</p>
 <pre><code>jspm uninstall jspm-react-component-demo
 </code></pre><p>Then install React to an invalid peer range:</p>
-<pre><code>jspm install npm:react@~0.13.2 --peer
-</code></pre><p>Now if we install the published component that has a peer dependency on <code>npm:react@0.14.0</code>:</p>
+<pre><code>jspm install npm:react@~0.14 --peer
+</code></pre><p>Now if we install the published component that has a peer dependency on <code>npm:react@0.15.0</code>:</p>
 <pre><code>jspm install npm:jspm-react-component-demo
 </code></pre><p>the peer dependency conflict resolution prompt is displayed:</p>
 <pre><code>     Updating registry cache...
 
      Peer dependency conflict for react:
-       Currently installed as npm:react@0.13.3.
-       Package npm:jspm-react-component-demo@0.1.1 requires npm:react@^0.14.6.
+       Currently installed as npm:react@15.1.0.
+       Package npm:jspm-react-component-demo@0.1.1 requires npm:react@^15.1.0.
 
 Would you like to install react to the new install range? [Yes]:
-</code></pre><p>If we select the default <code>Yes</code> option, we upgrade to React 0.14.6 and the remaining install runs smoothly.</p>
+</code></pre><p>If we select the default <code>Yes</code> option, we upgrade to React 15.1.0 and the remaining install runs smoothly.</p>
 <p>Alternatively, if we enter <code>No</code>, we get the following prompt:</p>
 <pre><code>Would you like to retain the current resolution? [Yes]:
 </code></pre><p>If we select <code>No</code> again we then get:</p>

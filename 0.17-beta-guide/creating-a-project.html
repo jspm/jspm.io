@@ -53,7 +53,7 @@
         data-chapter-title="Creating a Project"
         data-filepath="creating-a-project.md"
         data-basepath="."
-        data-revision="Fri Apr 01 2016 09:38:58 GMT+0200 (SAST)"
+        data-revision="Mon Feb 27 2017 09:57:14 GMT+0200 (SAST)"
         data-innerlanguage="">
     
 
@@ -371,39 +371,54 @@
                     <section class="normal" id="section-">
                     
                         <h2 id="creating-a-project">Creating a Project</h2>
+<p>First, make sure you&apos;ve installed jspm. You can install jspm like so:</p>
+<pre><code>npm install -g jspm@beta
+</code></pre><p>And also it&apos;s best practice to install it locally to your project:</p>
+<pre><code>npm install --save-dev jspm@beta
+</code></pre><p><em>Once jspm 0.17 is stable and released you&apos;ll be able to just run <code>npm install jspm</code>, but for the beta version you must specify the version.</em></p>
+<p>Once you&apos;ve got jspm installed, it&apos;s time to initialize a project:</p>
 <pre><code>  jspm init .
 
      Select an init mode for jspm project configuration.
 
 Init Mode (Quick, Standard, Custom) [Quick]:
-</code></pre><p>Choose the following options (all defaults except the package name):</p>
+</code></pre><p>Choose the following options (all defaults except the package name, jspm-react-component):</p>
 <ul>
-<li>Init Mode: <em>Quick</em></li>
-<li>Local package name: <em>jspm-react-component</em></li>
-<li>package.json directories.lib: <em>src</em></li>
-<li>System.config browser baseURL: <em>/</em></li>
-<li>System.config transpiler: <em>babel</em></li>
+<li>Init mode (Quick, Standard, Custom) [Quick]: Quick</li>
+<li>Local package name (recommended, optional): jspm-react-component</li>
+<li>package.json directories.baseURL: .</li>
+<li>package.json configFiles folder [./]: ./</li>
+<li>Use package.json configFiles.jspm:dev? [No]: No</li>
+<li>SystemJS.config browser baseURL (optional): /</li>
+<li>SystemJS.config Node local project path [src/]: src/</li>
+<li>SystemJS.config local package main [app.js]: app.js</li>
+<li>SystemJS.config transpiler (Babel, Traceur, TypeScript, None) [babel]: babel</li>
 </ul>
 <p>After which you should see:</p>
 <pre><code>     Updating registry cache...
-ok   Installed dev dependency plugin-babel to npm:systemjs-plugin-babel@^0.0.2 (0.0.2)
+ok   Installed dev dependency plugin-babel to npm:systemjs-plugin-babel@^0.0.12
+     (0.0.12)
      Install tree has no forks.
 
-ok   Verified package.json at package.json
-     Verified config files at jspm.config.js and jspm.browser.js
+ok   jspm init completed. For the standard project layout see
+     http://jspm.io/0.17-beta-guide/creating-a-project.html.
+     To rerun these init prompts at any time use jspm init.
+
+ok   package.json at package.json
+     Config at jspm.config.js
      Looking up loader files...
-       system-polyfills.js
        system.js
+       system-polyfills.src.js
        system.js.map
+       system-polyfills.js
        system.src.js
        system-polyfills.js.map
-       system-polyfills.src.js
 
      Using loader versions:
-       systemjs@0.19.17
+       systemjs@0.19.31
 ok   Loader files downloaded successfully
-</code></pre><p>We&apos;re going to use a React hello world example here by first installing ReactDOM:</p>
-<pre><code>  jspm install react-dom
+</code></pre><p>We&apos;re going to use a React hello world example here by first installing ReactDOM and also React.</p>
+<pre><code>  jspm install react react-dom
 </code></pre><pre><code>     Updating registry cache...
      Downloading npm:react-dom@0.14.6
      Downloading npm:react@0.14.6
@@ -434,10 +449,9 @@ ok   Install complete.
 <span class="hljs-keyword">let</span> component = ReactDOM.render(React.createElement(HelloWorld), container);
 </code></pre>
 <p>Create a new file, <code>test.html</code>:</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">!docype</span> <span class="hljs-attribute">html</span>&gt;</span>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!doctype html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">&quot;utf-8&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm_packages/system.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm.browser.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm.config.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">&quot;container&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -445,10 +459,9 @@ ok   Install complete.
     SystemJS.<span class="hljs-keyword">import</span>(<span class="hljs-string">&apos;test.js&apos;</span>);
   </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 </code></pre>
-<p><em>Note that <code>jspm.browser.js</code> <strong>must</strong> be included before <code>jspm.config.js</code> as it sets the browser-specific paths that must be preset for <code>jspm.config.js</code> to work.</em></p>
-<p><em>If you prefer running test apps in Chrome with the <code>--file-access-from-files</code> flag enabled to save spinning up a local server set the <code>jspm.browser.js</code> <code>baseURL: &apos;.&apos;</code> during init, or directly in the <code>jspm.browser.js</code> file.</em></p>
+<p><em>If you prefer running test apps in Chrome with the <code>--file-access-from-files</code> flag enabled to save spinning up a local server set the <code>jspm.config.js</code> <code>browserConfig.baseURL: &apos;.&apos;</code> during init, or directly in the <code>jspm.config.js</code> file.</em></p>
 <p>We include <code>SystemJS.import</code> at the end of the body to ensure that the body container is already present when <code>test.js</code> runs.</p>
-<p>Open up <code>test.html</code> through a local server or a file URL and that&apos;s it.</p>
+<p>Open up <code>test.html</code> through a local server or a file URL and you&apos;ll see &apos;Hello World&apos; on the screen.</p>
 
                     
                     </section>

@@ -53,7 +53,7 @@
         data-chapter-title="Bundling"
         data-filepath="bundling.md"
         data-basepath="."
-        data-revision="Fri Apr 01 2016 09:38:58 GMT+0200 (SAST)"
+        data-revision="Mon Feb 27 2017 09:57:14 GMT+0200 (SAST)"
         data-innerlanguage="">
     
 
@@ -381,10 +381,9 @@ configured with a jspm override to use conditional loading to exclude its develo
 dependencies as well. CommonJS files will have <code>process.env.NODE_ENV</code> inlined to the value of <code>production</code>,
 which is then removed by minification giving us the minimal download footprint for React.</p>
 <p>We then include this bundle file in our HTML after the configuration, but before our <code>SystemJS.import</code> statement:</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">!docype</span> <span class="hljs-attribute">html</span>&gt;</span>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!doctype html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">&quot;utf-8&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm_packages/system.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm.browser.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;jspm.config.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">&quot;app-bundle.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>

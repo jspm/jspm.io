@@ -53,7 +53,7 @@
         data-chapter-title="Static Builds with Rollup Optimization"
         data-filepath="static-builds-with-rollup-optimization.md"
         data-basepath="."
-        data-revision="Fri Apr 01 2016 09:38:58 GMT+0200 (SAST)"
+        data-revision="Mon Feb 27 2017 09:57:14 GMT+0200 (SAST)"
         data-innerlanguage="">
     
 
@@ -383,15 +383,14 @@ best possible code optimization.</p>
 <p>In case it is not already obvious, <a href="http://rollupjs.org" target="_blank">Rollup</a> is amazing.</p>
 </blockquote>
 <p>Let&apos;s create a <code>dist</code> folder then output a built component into this folder:</p>
-<pre><code>jspm build jspm-react-component - react dist/jspm-react-component.js \
+<pre><code>jspm build jspm-react-component/component.js dist/jspm-react-component.js \
+  --externals react
   --format umd --global-name jspmReactComponent --global-deps &quot;{&apos;react&apos;:&apos;React&apos;}&quot; --skip-source-maps
 </code></pre><p>To break down the options we&apos;ve provided:</p>
 <ul>
-<li>On the first line, we indicate we want to build the <em>expression</em> <code>jspm-react-component - react</code>
+<li>On the first line, we indicate we want to build the module <code>jspm-react-component/component.js</code>
 into the output build file <code>dist/jspm-react-component.js</code>.</li>
-<li>This build <em>expression</em> uses tree arithmetic. The use of the space-separated <code>-</code> 
-operator indicates we build <code>jspm-react-component</code> and all its dependencies except for <code>react</code>
-and all its dependencies.</li>
+<li><code>--externals react</code> indicates that React should be excluded from the build as a dependency.</li>
 <li><code>--format umd</code> outputs a built file that will work as AMD, CommonJS or a global.</li>
 <li><code>--global-name jspmReactComponent</code> means that when running as a global, it will create <code>global.jspmReactComponent</code>
 as the value of <code>jspm-react-component</code></li>
@@ -401,17 +400,17 @@ when running as a global.</li>
 </ul>
 <p><em>Neither <code>--global-name</code> nor <code>--global-deps</code> would have been necessary if running a CJS, AMD or ESM format build.</em></p>
 <p>We should then see the following output in the console:</p>
-<pre><code>     Creating the single-file build for jspm-react-component - react...
+<pre><code>     Creating the single-file build for jspm-react-component/component.js...
 
        &#x250C;&#x2500; jspm-react-component/component.js
-       &#x251C;&#x2500; npm:systemjs-plugin-babel@0.0.2/babel-helpers/classCallCheck.js
-       &#x251C;&#x2500; npm:systemjs-plugin-babel@0.0.2/babel-helpers/createClass.js
-       &#x251C;&#x2500; npm:systemjs-plugin-babel@0.0.2/babel-helpers/possibleConstructorReturn.js
-       &#x2514;&#x2500; npm:systemjs-plugin-babel@0.0.2/babel-helpers/inherits.js
+       &#x251C;&#x2500; npm:systemjs-plugin-babel@0.0.12/babel-helpers/classCallCheck.js
+       &#x251C;&#x2500; npm:systemjs-plugin-babel@0.0.12/babel-helpers/possibleConstructorReturn.js
+       &#x251C;&#x2500; npm:systemjs-plugin-babel@0.0.12/babel-helpers/createClass.js
+       &#x2514;&#x2500; npm:systemjs-plugin-babel@0.0.12/babel-helpers/inherits.js
 
 ok   Fully-optimized - entire tree built via Rollup static optimization.
 
-ok   Built into dist/jspm-react-component.js with source maps, unminified as umd.
+ok   Built into dist/jspm-react-component.js, unminified as umd.
 </code></pre><p><em>Fully-optimized</em> indicates that the entire tree has been built with Rollup, including
 inlining the Babel transform helpers.</p>
 <p>The full output of this file can be seen at <a href="https://github.com/guybedford/jspm-react-component-demo/blob/master/dist/jspm-react-component.js" target="_blank">https://github.com/guybedford/jspm-react-component-demo/blob/master/dist/jspm-react-component.js</a>.</p>

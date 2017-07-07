@@ -53,7 +53,7 @@
         data-chapter-title="Development Bundling"
         data-filepath="development-bundling.md"
         data-basepath="."
-        data-revision="Fri Apr 01 2016 09:38:58 GMT+0200 (SAST)"
+        data-revision="Mon Feb 27 2017 09:57:14 GMT+0200 (SAST)"
         data-innerlanguage="">
     
 
@@ -392,14 +392,13 @@ are otherwise the default when creating a bundle.</li>
        github:jspm/nodelibs-process@0.2.0-alpha.json
        github:jspm/nodelibs-process@0.2.0-alpha/process.js
        jspm-react-component/component.js
-       npm:fbjs@0.6.1.json
+       npm:fbjs@0.8.3.json
 ...
-       npm:systemjs-plugin-babel@0.0.5.json
-       npm:systemjs-plugin-babel@0.0.5/babel-helpers/classCallCheck.js
-       npm:systemjs-plugin-babel@0.0.5/babel-helpers/createClass.js
-       npm:systemjs-plugin-babel@0.0.5/babel-helpers/inherits.js
-
-     npm:systemjs-plugin-babel@0.0.5/babel-helpers/possibleConstructorReturn.js
+       npm:systemjs-plugin-babel@0.0.12.json
+       npm:systemjs-plugin-babel@0.0.12/babel-helpers/classCallCheck.js
+       npm:systemjs-plugin-babel@0.0.12/babel-helpers/createClass.js
+       npm:systemjs-plugin-babel@0.0.12/babel-helpers/inherits.js
+       npm:systemjs-plugin-babel@0.0.12/babel-helpers/possibleConstructorReturn.js
        test.js
 
 ok   build.js added to config bundles.
@@ -410,7 +409,7 @@ Watchman:  Watchman was not found in PATH.  See https://facebook.github.io/watch
 will then load the changes from that single bundle file for a quick page refresh.</p>
 <p><em>For performance, it is advisable to close the Chrome devtools when reloading the page, before opening them again as there is a <a href="https://github.com/systemjs/systemjs/issues/1054" target="_blank">longer page load with devtools open</a>.</em></p>
 <blockquote>
-<p>For the fastest workflow it is worth <a href="https://facebook.github.io/watchman/docs/install.html" target="_blank">installing Watchman</a> as well.</p>
+<p>For the fastest workflow it is worth <a href="https://facebook.github.io/watchman/docs/install.html" target="_blank">installing Watchman</a> as well. This lets jspm watch for file changes more efficiently.</p>
 </blockquote>
 
                     

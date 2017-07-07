@@ -53,7 +53,7 @@
         data-chapter-title="Custom Package Resolutions"
         data-filepath="custom-package-resolutions.md"
         data-basepath="."
-        data-revision="Fri Apr 01 2016 09:38:58 GMT+0200 (SAST)"
+        data-revision="Mon Feb 27 2017 09:57:14 GMT+0200 (SAST)"
         data-innerlanguage="">
     
 
@@ -394,12 +394,9 @@ we can indicate we are using custom react resolutions in <code>jspm.config.js</c
 manually resolved and locked.</p>
 <p>Running <code>jspm clean</code> will then remove any package install traces of react and react-dom:</p>
 <pre><code>jspm clean
-     Clearing configuration for npm:react@0.14.6
-     Removing unused package.json override npm:fbjs@0.6.1
-     Removing unused package.json override npm:react@0.14.6
-     Removing package files for npm:fbjs@0.6.1
-     Removing package files for npm:react-dom@0.14.6
-     Removing package files for npm:react@0.14.6
+     Clearing configuration for npm:react@15.1.0
+     Clearing configuration for npm:fbjs@0.8.3
+     ...
 
 ok   Project cleaned successfully.
 </code></pre><p>We then need to update the <code>jspm.browser.js</code> CDN paths to reference <code>react</code> and <code>react-dom</code>:</p>
@@ -407,8 +404,8 @@ ok   Project cleaned successfully.
   ...
   paths: {
     ...
-    <span class="hljs-string">&quot;react-cdn&quot;</span>: <span class="hljs-string">&quot;https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.min.js&quot;</span>,
-    <span class="hljs-string">&quot;react-dom-cdn&quot;</span>: <span class="hljs-string">&quot;https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.min.js&quot;</span>
+    <span class="hljs-string">&quot;react-cdn&quot;</span>: <span class="hljs-string">&quot;https://fb.me/react-15.1.0.min.js&quot;</span>,
+    <span class="hljs-string">&quot;react-dom-cdn&quot;</span>: <span class="hljs-string">&quot;https://fb.me/react-dom-15.1.0.min.js&quot;</span>
   }
 });
 </code></pre>
