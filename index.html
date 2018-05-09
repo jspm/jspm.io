@@ -1,6 +1,7 @@
 <!doctype html>
   <html>
     <title>jspm.io - Frictionless Browser Package Management</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico">
     <script src="https://jspm.io/system@0.19.js"></script>
@@ -24,13 +25,7 @@
         color: #767;
       }
 
-      @font-face {
-        font-family: 'Advent Pro';
-        src: url('fonts/advent-Lt1.eot');
-        src: local('☺'), url('fonts/advent-Lt1.woff') format('woff'), url('fonts/advent-Lt1.ttf') format('truetype'), url('fonts/advent-Lt1.svg') format('svg');
-        font-weight: normal;
-        font-style: normal;
-      }
+      @import url('https://fonts.googleapis.com/css?family=Advent+Pro');
       body {
         margin: 20px;
         margin-top: 100px;
@@ -338,21 +333,21 @@
 * [ES6 Modules &amp; React with SystemJS](https://www.youtube.com/watch?v=NpMnRifyGyw) live coding presentation by [Jack Franklin](https://twitter.com/Jack_Franklin)
 
   &lt;div style="text-align: center;">
-    &lt;iframe width="560" height="315" src="http://www.youtube.com/embed/NpMnRifyGyw" frameborder="0" allowfullscreen>&lt;/iframe>
+    &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/NpMnRifyGyw" frameborder="0" allowfullscreen>&lt;/iframe>
   &lt;/div>
 
 * [JavaScript in 2015](http://glenmaddern.com/articles/javascript-in-2015) article and screencast by [Glen Maddern](https://twitter.com/glenmaddern)
 
   &lt;div style="text-align: center;">
-    &lt;iframe width="560" height="315" src="http://www.youtube.com/embed/iukBMY4apvI" frameborder="0" allowfullscreen>&lt;/iframe>
-  &lt;/div>  
+    &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/iukBMY4apvI" frameborder="0" allowfullscreen>&lt;/iframe>
+  &lt;/div>
 
 * [JavaScript Modules and Dependencies with jspm](http://javascriptplayground.com/blog/2014/11/js-modules-jspm-systemjs/) tutorial by [Jack Franklin](https://twitter.com/Jack_Franklin)
 
 * [Package Management for ES6 Modules](https://www.youtube.com/watch?v=szJjsduHBQQ) JSConf 2014 presentation introducing jspm by [Guy Bedford](https://twitter.com/guybedford)
 
   &lt;div style="text-align: center;">
-    &lt;iframe width="560" height="315" src="http://www.youtube.com/embed/szJjsduHBQQ" frameborder="0" allowfullscreen>&lt;/iframe>
+    &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/szJjsduHBQQ" frameborder="0" allowfullscreen>&lt;/iframe>
   &lt;/div>
 
 &lt;br>
@@ -404,7 +399,7 @@ jspm is designed to support any number of independent registries.
 * Each package has its own map, allowing `jquery` to refer to different things for different packages and supporting multi-versions.
 
 The following registries are currently supported:
- 
+
 * **npm:**
   * Most packages on npm will work naturally with full version management, with no further configuration necessary.
   * The NodeJS builtins are provided by the same libraries used in Browserify.
