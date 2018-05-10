@@ -305,7 +305,7 @@ import('https://dev.jspm.io/react').then(({ default: React }) => console.log(Rea
   <a name="how-it-works"></a>
   <h1 id="status">How it Works</h1>
   <ul>
-  <li><p>CommonJS modules are converted into ES modules by using a special code transform called a <a target=_blank href="https://github.com/jspm/babel-plugin-transform-cjs-dew">Deferred Execution Wrapper</a> (dew transform).</p>
+  <li><p>CommonJS modules are converted into ES modules by using a code transform called a <a target=_blank href="https://github.com/jspm/babel-plugin-transform-cjs-dew">Deferred Execution Wrapper</a> (dew transform).</p>
   <li><p>This transform ensures the CommonJS execution semantics, while also providing a best-effort strict mode conversion where necessary.</p>
   <li><p>Package dependency resolutions are inlined during this transform process to their version alias URLs.</p>
   <li><p>In order to avoid the latency waterfall of module loading, deep dependencies are inlined as imports within alias modules.</p>
