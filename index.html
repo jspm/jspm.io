@@ -213,6 +213,9 @@
     font-weight: bold;
     color: #767;
   }
+  code .number {
+    color: rgb(0, 116, 255);
+  }
 
   @media screen and (max-width: 750px),
   screen and (max-device-width: 750px) {
@@ -291,6 +294,19 @@ import('https://dev.jspm.io/react').then(({ default: React }) => console.log(Rea
 
   <p><br></p>
 
+  <a name="examples"></a>
+  <h1 id="examples">Common Framework Examples</h1>
+  <p>The following are simple HTML examples of commmon frameworks on Plnkr using a single HTML page with a <code>&lt;script type=module></code> tag:
+  <ul>
+    <li><a target=_blank href="https://plnkr.co/edit/I31PrTP3seDwbfTfAZID?p=preview">Babel</a>
+    <li><a target=_blank href="https://plnkr.co/edit/vBESncXMXRb1x3OIzdz0?p=preview">BablylonJS</a>
+    <li><a target=_blank href="https://plnkr.co/edit/IiXSNG4Ng46H5EyLDAX0?p=preview">React Material-UI</a>
+    <li><a target=_blank href="https://plnkr.co/edit/Es5zeTPFwMak8n7VCj0r?p=preview">Tensorflow.js</a>
+      <li><a target=_blank href="https://plnkr.co/edit/mVGxlk18xlxNd2JTcBHY?p=preview">Vue</a>
+  </ul>
+
+  <p>If you'd like to share or update an example, please <a target=_blank href="https://github.com/jspm/jspm.io">post a website issue</a>.</p>
+
   <a name="urls"></a>
   <h1 id="urls">URL Formats</h1>
   <p>The following URL formats are supported:</p>
@@ -333,8 +349,8 @@ import('https://dev.jspm.io/react').then(({ default: React }) => console.log(Rea
     code.innerHTML = code.innerHTML
       .replace(/^(\s*\/\/.*)/gm, '<span class="comment">$1</span>')
       .replace(/('[^']*')/gm, '<span class="string">$1</span>')
-      .replace(/([^#\d])(\d+)/gm, '$1<span class="number">$2</span>')
-      .replace(/([^\.])(for|function|new|await|throw|return|var|if|else|true|false|this|import|export class|export|from)\b/gm, '$1<span class="keyword">$2</span>');
+      .replace(/([^#\d\-a-z\:])(-?\d+)/gm, '$1<span class="number">$2</span>')
+      .replace(/([^\.])(for|function|new|await|throw|return|var|let|const|if|else|true|false|this|import|export class|export|from)\b/gm, '$1<span class="keyword">$2</span>');
   });
 </script>
 </html>
