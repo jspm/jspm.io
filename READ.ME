@@ -1,0 +1,14 @@
+# Easy Web Prototyping and Development
+As of 9 May 2018, all modern browsers now support loading ES modules via the <script type="module"> tag. jspm.io enables development workflows to utilize this module loader to load existing npm packages as ES modules.
+
+Being able to skip bundler and tooling setup to easily work with the npm package ecosystem provides a simple prototyping workflow for the web.
+
+There is no need to lookup CDN URLs or work out how to get CDN scripts to work together as all modules share the same native registry in the browser while following the npm package ecosystem semantics you'd get with a bundler.
+# Features
+Modules are all served as separate files over HTTP/2 with CDN edge caching.
+
+Far-future expires are provided for exact package versions for fast reloads.
+
+ES modules are supported as .mjs or when using import and export statements.
+
+Packages are processed as they are requested - the first load of a new package may take a few moments, but after that it will be cached at the edge of the network.
