@@ -275,10 +275,10 @@ import('https://dev.jspm.io/react').then(({ default: React }) => console.log(Rea
   <h1 id="use-cases">Easy Web Prototyping and Development</h1>
   <p>As of 9 May 2018, <a target=_blank href="https://caniuse.com/#feat=es6-module">all modern browsers now support</a> loading ES modules via the <code>&lt;script type="module"></code> tag.
     jspm.io enables development workflows to utilize this module loader to load existing npm packages as ES modules.</p>
-  <p>Being able to skip bundler and tooling setup to easily work with the npm package ecosystem provides a simple prototyping workflow for the web.</p>
+  <p>Being able to skip bundler and tooling setup to easily work with the npm package, ecosystem provides a simple prototyping workflow for the web.</p>
   <p>There is no need to lookup CDN URLs or work out how to get CDN scripts to work together as all modules share the same native registry in the browser while following the npm package ecosystem semantics you'd get with a bundler.</p>
   <h2>Not for Production</h2>
-  <p>These workflows are intended for development only as serving 100's or even 1000's of modules is not suitable for production.</p>
+  <p>These workflows are intended for development only as serving 100's or even 1000's of modules is not suitable for the production.</p>
   <p>The server at <code>https://dev.jspm.io</code> serves modules unminified and with <code>process.env.NODE_ENV=dev</code>.</p>
   <p>To load packages with <code>process.env.NODE_ENV=production</code>, you can use <code>https://unsafe-production.jspm.io</code>.</p>
   <p>For future production workflows, the jspm package manager aims to provide workflows for bridging the gap between CDN delivery and offline package management through package import map generation while retaining the same semantics.</p>
