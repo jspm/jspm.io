@@ -1,4 +1,5 @@
 import style from './landing.css' with { type: 'css' };
+import DOMPurify from 'dompurify';
 
 if (!document.adoptedStyleSheets.includes(style))
   document.adoptedStyleSheets.push(style);
@@ -13,12 +14,51 @@ export function render() {
         <div class="gradient-blob gradient-blob-3"></div>
       </div>
       <div class="landing">
-        <div class="logo-container">
-          <div class="glow"></div>
-          <img class="logo fade-in" src="/jspm.png" alt="JSPM Logo">
+        <div class="logo-title-container">
+          <div class="logo-container">
+            <div class="glow"></div>
+            <a href="https://jspm.org" target="_blank" rel="noopener noreferrer">
+              <img class="logo fade-in" src="./jspm.png" alt="JSPM.IO Logo">
+            </a>
+          </div>
+          <h1 class="gradient-text fade-in">JSPM.IO</h1>
         </div>
-        <h1 class="gradient-text fade-in">JSPM</h1>
-        <p class="tagline fade-in">Standards-based import map package management</p>
+        <p class="tagline fade-in">CDN Package Provider for the JSPM Project</p>
+        
+        <div class="buttons-container fade-in">
+          <a href="#" class="button button-primary">Getting Started</a>
+          <a href="#" class="button button-secondary">4.0 Release</a>
+        </div>
+      </div>
+      
+      <div class="sponsor-section fade-in">
+        <div class="sponsor-text">Infrastructure Sponsor</div>
+        <div class="sponsor-logo">
+          <a href="https://www.cachefly.com" target="_blank" rel="noopener noreferrer">
+            <img src="./cachefly.png" alt="CacheFly" width="160">
+          </a>
+        </div>
+      </div>
+      
+      <div class="used-by-section fade-in">
+        <h2 class="used-by-title">Used By</h2>
+        <div class="used-by-logos">
+          <div class="used-by-logo">
+            <a href="https://www.framer.com" target="_blank" rel="noopener noreferrer">
+              <img src="./framer-logo.png" alt="Framer">
+            </a>
+          </div>
+          <div class="used-by-logo">
+            <a href="https://www.framer.com" target="_blank" rel="noopener noreferrer">
+              <img src="./framer-logo.png" alt="Framer">
+            </a>
+          </div>
+          <div class="used-by-logo">
+            <a href="https://www.framer.com" target="_blank" rel="noopener noreferrer">
+              <img src="./framer-logo.png" alt="Framer">
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   `;
@@ -33,33 +73,62 @@ export function attach(container) {
   // Trigger fade-ins and move animations with delay
   fadeElements.forEach((el, i) => {
     const targetOpacity = el.classList.contains('logo') ? '0.8' : '1';
+    const baseDelay = 500; // Slower base delay
+    let delay;
+    
+    // Synchronize logo and title to fade in together first
+    if (el.classList.contains('logo') || el.classList.contains('gradient-text')) {
+      delay = baseDelay;
+    } else if (el.classList.contains('tagline')) {
+      delay = baseDelay + 400;
+    } else if (el.classList.contains('buttons-container')) {
+      delay = baseDelay + 800;
+    } else if (el.classList.contains('sponsor-section')) {
+      delay = baseDelay + 1200;
+    } else if (el.classList.contains('used-by-section')) {
+      delay = baseDelay + 1600;
+    } else {
+      delay = baseDelay + (i * 300);
+    }
+    
     setTimeout(() => {
       el.style.opacity = targetOpacity;
       
-      // Add classes for animations
-      if (el.classList.contains('gradient-text')) {
+      // Only add move-up animations to elements below the title
+      if (el.classList.contains('tagline')) {
         el.classList.add('move-up');
-      } else if (el.classList.contains('tagline')) {
+      } else if (el.classList.contains('buttons-container')) {
         el.classList.add('move-up');
+      } else if (el.classList.contains('sponsor-section')) {
+        el.classList.add('fade-up');
+      } else if (el.classList.contains('used-by-section')) {
+        el.classList.add('fade-up');
       }
-    }, 300 + i * 500);
+    }, delay);
   });
   
   // Add glow pulse animation
   glow.classList.add('glow-animate');
   
-  // Add confetti on logo click
-  logo.addEventListener('click', async () => {
-    const confetti = (await import('canvas-confetti')).default;
-    const rect = logo.getBoundingClientRect();
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { 
-        x: (rect.left + rect.width / 2) / window.innerWidth,
-        y: (rect.top + rect.height / 2) / window.innerHeight
-      },
-      colors: ['#78a7d8', '#FFD966', '#d0d0d0']
+  // No confetti effect on logo click
+  
+  // Add hover effects to buttons
+  const buttons = container.querySelectorAll('.button');
+  buttons.forEach(button => {
+    button.addEventListener('mouseenter', () => {
+      button.classList.add('button-hover');
+    });
+    button.addEventListener('mouseleave', () => {
+      button.classList.remove('button-hover');
+    });
+    // Add a slight delay to make the hover effect more noticeable when clicking
+    button.addEventListener('mousedown', () => {
+      button.style.transition = 'all 0.1s ease';
+      button.style.transform = 'scale(0.98)';
+    });
+    button.addEventListener('mouseup', () => {
+      button.style.transition = 'all 0.3s ease, background-position 1.5s ease';
+      button.style.transform = 'scale(1)';
     });
   });
 }

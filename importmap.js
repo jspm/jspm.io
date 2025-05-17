@@ -19,7 +19,7 @@
   },
   "scopes": {
     "./": {
-      "canvas-confetti": "https://ga.jspm.io/npm:canvas-confetti@1.9.3/dist/confetti.module.mjs"
+      "dompurify": "https://ga.jspm.io/npm:dompurify@3.2.5/dist/purify.es.mjs"
     },
     "https://ga.jspm.io/npm:@babel/core@7.26.10/": {
       "#lib/config/files/index.js": "https://ga.jspm.io/npm:@babel/core@7.26.10/lib/config/files/index-browser.js",

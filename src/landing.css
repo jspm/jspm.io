@@ -1,6 +1,12 @@
 :root {
   --primary-color: #4dabf7;
   --secondary-color: #72cc82;
+  --button-primary-gradient: linear-gradient(90deg, #151825, #1c2035);
+  --button-secondary-gradient: linear-gradient(90deg, #1a1a1a, #232323);
+  --button-primary-border-gradient: linear-gradient(90deg, #3a64b5, #b35c8f);
+  --button-primary-border-hover: linear-gradient(90deg, #b35c8f, #3a64b5);
+  --button-secondary-border-gradient: linear-gradient(90deg, #c29a32, #6a6a6a);
+  --button-secondary-border-hover: linear-gradient(90deg, #6a6a6a, #c29a32);
   --background-color: #121212;
   --surface-color: #1e1e1e;
   --text-color: #e0e0e0;
@@ -16,6 +22,12 @@ html, body {
   overflow: hidden;
   background-color: var(--background-color);
   color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  html, body {
+    overflow-y: auto;
+  }
 }
 
 .container {
@@ -37,14 +49,29 @@ html, body {
   z-index: 1;
 }
 
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.1rem;
+  gap: 0.3rem;
+  position: relative;
+  transform: translateX(-2%) translateY(-4%);
+}
+
 .logo-container {
   position: relative;
-  width: 280px;
-  height: 280px;
+  width: 200px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2rem;
+}
+
+.logo-container a {
+  display: block;
+  width: 200%;
+  height: 200%;
 }
 
 .logo {
@@ -58,7 +85,7 @@ html, body {
 }
 
 .logo.fade-in {
-  transition: opacity 1s ease, transform 0.3s ease-out;
+  transition: opacity 1.5s ease, transform 0.3s ease-out;
 }
 
 .logo:hover {
@@ -87,11 +114,14 @@ html, body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-weight: bold;
-  font-size: 5rem;
-  margin: 0 0 0.5rem 0;
-  letter-spacing: 2px;
+  font-weight: 400; /* Using lighter font-weight */
+  font-size: 4.5rem;
+  margin: 0;
+  letter-spacing: 2.5px;
   animation: gradient-shift 10s linear infinite;
+  display: inline-block;
+  position: relative;
+  top: -5px;
 }
 
 .gradient-text.move-up {
@@ -102,7 +132,8 @@ html, body {
   color: var(--text-color);
   font-size: 1.6rem;
   font-weight: 300;
-  margin: 0;
+  margin: 0.25rem 0 1rem 0;
+  clear: both;
 }
 
 .gradient-background {
@@ -166,7 +197,7 @@ html, body {
 }
 
 @keyframes move-up {
-  0% { transform: translateY(20px); }
+  0% { transform: translateY(15px); }
   100% { transform: translateY(0); }
 }
 
@@ -185,15 +216,293 @@ html, body {
 
 .fade-in {
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 1.5s ease;
 }
 
 .move-up {
-  animation: move-up 1s ease-out forwards;
+  animation: move-up 1.2s ease-out forwards;
+}
+
+/* Buttons */
+.buttons-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  color: rgba(225, 225, 230, 0.9);
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  border: solid 1px transparent;
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.button-primary {
+  background-image: var(--button-primary-gradient), var(--button-primary-border-gradient);
+  background-color: var(--button-primary-gradient);
+  background-size: 100% 100%, 200% 100%;
+  background-position: 0 0, 0% 0;
+  background-repeat: no-repeat;
+  opacity: 0.95;
+  transition: all 0.3s ease, background-position 1.5s ease;
+}
+
+.button-secondary {
+  background-image: var(--button-secondary-gradient), var(--button-secondary-border-gradient);
+  background-color: var(--button-secondary-gradient);
+  background-size: 100% 100%, 200% 100%;
+  background-position: 0 0, 0% 0;
+  background-repeat: no-repeat;
+  opacity: 0.95;
+  transition: all 0.3s ease, background-position 1.5s ease;
+}
+
+.button-hover {
+  opacity: 1;
+  background-position: 0 0, 100% 0;
+  color: rgba(235, 235, 245, 1);
+}
+
+.button-primary.button-hover {
+  background-image: var(--button-primary-gradient), var(--button-primary-border-hover);
+}
+
+.button-secondary.button-hover {
+  background-image: var(--button-secondary-gradient), var(--button-secondary-border-hover);
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
+}
+
+/* Sponsor Section */
+/* Mobile adjustments are in the media query below */
+
+.sponsor-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 8rem;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+
+.sponsor-text {
+  font-size: 0.8rem;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.sponsor-logo {
+  transition: transform 0.3s ease;
+  opacity: 0.8;
+  text-align: center;
+  filter: saturate(0.7);
+}
+
+.sponsor-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Used By Section */
+.used-by-section {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 0;
+  z-index: 2;
+}
+
+.used-by-title {
+  font-size: 0.75rem;
+  color: var(--accent-color);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+}
+
+.used-by-logos {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.used-by-logo {
+  width: 100px;
+  opacity: 0.85;
+  filter: grayscale(100%) brightness(1.5);
+  transition: all 0.3s ease;
+}
+
+.used-by-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.used-by-logo:hover {
+  opacity: 0.7;
+  filter: grayscale(80%);
+}
+
+@keyframes fade-up {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fade-up 1.2s ease-out forwards;
 }
 
 @media (max-width: 768px) {
-  .logo-container { width: 220px; height: 220px; }
-  .gradient-text { font-size: 3.5rem; }
-  .tagline { font-size: 1.2rem; }
+  html, body {
+    overflow-y: auto;
+  }
+  
+  .container {
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding-bottom: 2rem;
+  }
+  
+  .landing {
+    margin-bottom: 2rem;
+  }
+  
+  .logo-title-container { 
+    flex-direction: column; 
+    gap: 1rem;
+    transform: none;
+    margin: 0 auto;
+  }
+  
+  .logo-container { 
+    width: 180px; 
+    height: 180px; 
+  }
+  
+  .gradient-text { 
+    font-size: 3.5rem;
+  }
+  
+  .tagline { 
+    font-size: 1.2rem;
+  }
+  
+  .buttons-container { 
+    flex-direction: column; 
+    gap: 1rem;
+    width: 90%;
+    max-width: 300px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .sponsor-section {
+    position: static;
+    bottom: auto;
+    margin: 1rem 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .used-by-section {
+    position: static;
+    bottom: auto;
+    margin-top: 0.5rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .used-by-logos { 
+    gap: 1.5rem; 
+  }
+  
+  .used-by-logo { 
+    width: 80px; 
+  }
+}
+
+/* Small height desktop screens - prevent sponsor overlap */
+@media (min-width: 769px) and (max-height: 800px) {
+  html, body {
+    overflow-y: auto;
+  }
+  
+  .container {
+    height: auto;
+    min-height: 800px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .landing {
+    flex: 0 0 auto;
+  }
+  
+  .sponsor-section {
+    position: static;
+    bottom: auto;
+    margin-top: 2rem;
+    width: 100%;
+    text-align: center;
+    left: 0;
+  }
+  
+  .used-by-section {
+    position: static;
+    bottom: auto;
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+    left: 0;
+  }
+  
+  .sponsor-logo, .used-by-logos {
+    justify-content: center;
+    display: flex;
+  }
+}
+
+/* Very small height screens */
+@media (max-height: 550px) {
+  .container {
+    display: block;
+    overflow-y: auto;
+    min-height: 550px;
+  }
+  
+  .logo-container { 
+    width: 120px; 
+    height: 120px; 
+  }
+  
+  .gradient-text { 
+    font-size: 3rem;
+  }
 }

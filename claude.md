@@ -62,6 +62,10 @@ JavaScript code may obtain URLs to assets using the `new URL('./asset', import.m
 
 While stylesheets may be co-located with modules in the `src` folder, it is advisable to write assets into a separate `assets` folder.
 
+### HTML
+
+HTML files may exist at any nesting level. For this reason absolute paths should always be avoided, and instead stylesheets should always use relative paths to assets and HTML files should use HTML-relative paths to assets.
+
 ### Hot Reloading
 
 Hot reloading is supported including supoprt for `import.meta.hot?.accept?()` to accept changes both to the module itself and its direct dependencies. Without `import.meta.hot.accept` changed dependencies and all their parent importers will be reloaded, which results in double executions. Where possible idempotency should be maintained to allow hot reloading workflows.
