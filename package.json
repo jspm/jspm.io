@@ -1,0 +1,9 @@
+{
+  "name": "jspm-io",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
