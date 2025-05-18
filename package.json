@@ -1,6 +1,6 @@
 {
   "name": "jspm-io",
-  "version": "0.1.0",
+  "version": "dev",
   "description": "",
   "type": "module",
   "exports": "./src/index.js",

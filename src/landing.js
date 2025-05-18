@@ -26,8 +26,8 @@ export function render() {
         <p class="tagline fade-in">CDN Package Provider for the JSPM Project</p>
         
         <div class="buttons-container fade-in">
-          <a href="#" class="button button-primary">Getting Started</a>
-          <a href="#" class="button button-secondary">4.0 Release</a>
+          <a href="https://jspm.org/getting-started" class="button button-primary">Getting Started</a>
+          <a href="https://jspm.org/jspm-4.0-release" class="button button-secondary">4.0 Release</a>
         </div>
       </div>
       
