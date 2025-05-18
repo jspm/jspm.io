@@ -15,7 +15,7 @@
 })
 ({
   "imports": {
-    "jspm-io": "./src/index.ts"
+    "jspm-io": "./src/index.js"
   },
   "scopes": {
     "./": {

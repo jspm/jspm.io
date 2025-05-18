@@ -40,7 +40,7 @@ export function render() {
         </div>
       </div>
       
-      <div class="used-by-section fade-in">
+      <div class="used-by-section fade-in" style="display: none">
         <h2 class="used-by-title">Used By</h2>
         <div class="used-by-logos">
           <div class="used-by-logo">

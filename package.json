@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "type": "module",
-  "exports": {
-    ".": "./src/index.ts"
-  },
+  "exports": "./src/index.js",
   "dependencies": {
     "canvas-confetti": "^1.6.0",
     "dompurify": "^3.0.5"
