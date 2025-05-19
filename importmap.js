@@ -20,14 +20,6 @@
   "scopes": {
     "./": {
       "dompurify": "https://ga.jspm.io/npm:dompurify@3.2.5/dist/purify.es.mjs"
-    },
-    "https://ga.jspm.io/npm:@babel/core@7.26.10/": {
-      "#lib/config/files/index.js": "https://ga.jspm.io/npm:@babel/core@7.26.10/lib/config/files/index-browser.js",
-      "#lib/config/resolve-targets.js": "https://ga.jspm.io/npm:@babel/core@7.26.10/lib/config/resolve-targets-browser.js",
-      "#lib/transform-file.js": "https://ga.jspm.io/npm:@babel/core@7.26.10/lib/transform-file-browser.js"
-    },
-    "https://ga.jspm.io/npm:browserslist@4.24.5/": {
-      "#node.js": "https://ga.jspm.io/npm:browserslist@4.24.5/browser.js"
     }
   }
 });

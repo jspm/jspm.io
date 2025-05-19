@@ -35,7 +35,7 @@ export function render() {
         <div class="sponsor-text">Infrastructure Sponsor</div>
         <div class="sponsor-logo">
           <a href="https://www.cachefly.com" target="_blank" rel="noopener noreferrer">
-            <img src="./cachefly.png" alt="CacheFly" width="160">
+            <img src="${new URL('../cachefly.png', import.meta.url)}" alt="CacheFly" width="160">
           </a>
         </div>
       </div>
